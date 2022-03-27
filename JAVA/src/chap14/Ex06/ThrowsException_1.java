@@ -7,7 +7,7 @@ package chap14.Ex06;
  * 			throw : 강제로 예외를 발생시킨다. 
  */
 
-class A{
+class Ab{
 	void abc() { //메소드 내부에서 예외처리를 직접 구현
 		bcd();
 	}
@@ -24,7 +24,7 @@ class A{
 	}
 }
 
-class B {
+class Bb {
 	void abc() {
 		try {	//bcd()메소드의 예외를 처리할 의미를 가진다.
 			bcd(); //
