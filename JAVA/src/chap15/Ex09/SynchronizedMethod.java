@@ -36,7 +36,6 @@ class PlusThread extends Thread{ //1T씩 증가하면서 두개의 쓰레드
 }
 
 
-
 public class SynchronizedMethod {
 
 	public static void main(String[] args) {

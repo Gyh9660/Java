@@ -7,14 +7,22 @@ package chap15.Ex10;
 //블락동기화 : 주의 : 메소드내부의 일부분만 동기화
 //		- 구문 형식 : synchronized (임의의 객체) {}
 //								this : 자신의 객체, new 임의의 객체
+class A{}
+class B{}
+class C{}
+
 class MyData{ //쓰레드들이 공유하는 객체 필드
 
 	int data = 3; //데이터 가져오기
 	
 	public void pulsData() { 
 		//동기화 처리 메소드 : 하나의 쓰레드가 작업이 완료되면 다음 쓰레드가 작업 할 수 있다. 
-		synchronized (this) { //블락 동기화 : 메소드의 일부분만 동기화 , this : 자신의 객체
+		synchronized (new Object()) { 
+			//블락 동기화 : 메소드의 일부분만 동기화 , this : 자신의 객체
 						//new 임의의객체() 를 넣을수있음
+			//this : 자신의 객체를 뜻하고, 동기화 블록에 접근하는 키이다.
+			//모든 쓰레드는 Key를 가져야 동기화 블럭을 접근 할 수 있따.
+			//Key는 임의의 객체를 키로 사용할 수 있다.
 			int mydata = data;
 			try {Thread.sleep(2000);} catch (InterruptedException e) {}
 			data = mydata + 1;
