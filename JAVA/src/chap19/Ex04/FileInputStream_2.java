@@ -13,11 +13,11 @@ public class FileInputStream_2 {
 		
 	//1. 입력 파일 생성
 		File inFile = new File ("src\\chap19\\Ex04\\FileInputStream_2.txt");
+	//2. 1. byte 단위 읽기(한 바이트씩 읽어서 처리) //처리 속도가 느리다.
 		InputStream is1= null; //객체 선언, Finally 블락에서 close
-	//2. 1. byte 단위 읽기(한 바이트씩 읽어서 처리)
 		try {
-			is1 = new FileInputStream(inFile);
-			int data ;
+			is1 = new FileInputStream(inFile); //객체생성
+			int data ; //byte로 선언 x int로 선언
 			while ((data=is1.read())!=-1) {//영문만 있으므로 read()메소드만 사용, 한글일 경우 read(byte배열)
 				System.out.print((char)data);
 				
@@ -42,7 +42,7 @@ public class FileInputStream_2 {
 				File inFile2 = new File ("src\\chap19\\Ex04\\FileInputStream_2.txt");
 				
 			//try (With resource : ()에 객체생성 <== close()가 자동으로 된다, FileInputStream 은 Closeable 인터페이스를 구현
-				try(InputStream is2 = new FileInputStream(inFile2);){					int data ;
+				try(InputStream is2 = new FileInputStream(inFile2)){					int data ;
 					while ((data=is2.read())!=-1) {//영문만 있으므로 read()메소드만 사용, 한글일 경우 read(byte배열)
 						System.out.print((char)data);
 						
@@ -60,7 +60,7 @@ public class FileInputStream_2 {
 			System.out.println();
 			System.out.println("==========================");
 			InputStream is3 = new FileInputStream(inFile2); //throws로 처리,
-			byte[] byteArray1 = new byte[9]; //배열방 9개, 0~8까지
+			byte[] byteArray1 = new byte[9]; //배열방 9개, 0~8까지// 배열은 바이트배열
 			
 			int count1;
 			while((count1 = is3.read(byteArray1))!= -1) { //-1은 파일의 마지막까지 
@@ -107,7 +107,7 @@ public class FileInputStream_2 {
 			int offset = 3;
 			int length = 6;
 			int count3 = is5.read(byteArray3, offset, length); //length 만큼 앞에서 읽어와서 byteArray3에 offset 위치에 저장해라
-		//length 6 => FileIn 까지 읽어와서 [6byte] byteArray3에 저장하는데 [0~8번방] offset 3 => 3번방부터 FileIn을 한방에 하나씩 저장해라. 그앞에 0 1 2 번방은 공백?띄어쓰기?비워두고 offset + length <= byte[]방크기// offset + length 값은 배열방크기보다 작거나(작을경우는 뒤에공간이 남으면 거기도 비워둔다) 같아도 되지만 크면 안됨.
+		//length 6 => [랭스를 먼저 읽고]FileIn 까지 읽어와서 [6byte] byteArray3에 저장하는데 [0~8번방] offset 3 => 3번방부터 FileIn을 한방에 하나씩 저장해라. 그앞에 0 1 2 번방은 공백?띄어쓰기?비워두고 offset + length <= byte[]방크기// offset + length 값은 배열방크기보다 작거나(작을경우는 뒤에공간이 남으면 거기도 비워둔다) 같아도 되지만 크면 안됨.
 				
 				for(int i =0; i< offset + count3;i++) {
 					System.out.print((char)byteArray3[i]);
