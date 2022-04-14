@@ -18,8 +18,17 @@ public class OutputStreamWriter_1 {
 	public static void main(String[] args) {
 
 		//1. FileWriter를 통해서 데이터 쓰기(default : MS949)
-		File osw1 = new File("src\\chap19\\Ex08\\osw1.txt"); //MS949
-		File osw2 = new File("src\\chap19\\Ex08\\osw2.txt"); //UTF-8
+		//File osw1 = new File("src\\chap19\\Ex08\\osw1.txt"); //MS949
+		//File osw2 = new File("src\\chap19\\Ex08\\osw2.txt"); //UTF-8
+		//상대경로로 넣으면 상위의 폴더에 타입에따라 인코딩타입이 자동 상속되어 적용되지만
+		//절대경로로 아예 다른곳으로 하면 정해놓은 타입으로 인코딩됨
+		
+		//이클립스ㅗ이부에 저장하면 잘 적용됨.
+		
+		File osw1 = new File ("c:\\Temp\\a\\osw3.txt");//MS949
+		File osw2 = new File ("c:\\Temp\\osw2.txt");//UTF-8
+		
+		
 		
 		try (Writer writer = new FileWriter(osw1);){
 			
