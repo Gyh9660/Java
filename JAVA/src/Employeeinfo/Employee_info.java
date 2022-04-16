@@ -77,8 +77,12 @@ class Employee{ 		//사원의 정보를 담은 클래스
 		}
 	
 }
-
-
+//TreeSet : 중복된 데이터를 저장 할 수 없다. Wrapper 클래스는 재정의 되어있다. equals(), hashCode()
+	//정렬되어서 저장 Comparable compareTo() ,Comparator compare()
+		//일반객체를 Set자료형에 저장할때는 객체의 특정 필드가 중복 저장되지 않도록  equals(), hashCode() 재정의해줘야함
+		//
+	//Wrapper : 기본자료형을 객체화 기본자료형에는 없는 메소드가 추가. (Boolean,Byte,Character,Integer,Double.....)
+		//Comparable compareTo() :상속해서 구현, 객체수정, Comparator compare() : 수정없이 바로 사용가능 가 재정의 되어 있다.
 public class Employee_info {
 
 	private static TreeSet<Employee> tSet = new TreeSet<Employee>(new Comparator<Employee>() {
@@ -205,7 +209,8 @@ public class Employee_info {
 			System.out.println("결과 : 해당 사원이 존재하지 않습니다.");
 			return; 
 		}
-		removeEmp(empNo);
+		//removeEmp(empNo);
+		tSet.remove(employee); //이렇게 하면 removeEmp재정의해서 할필요가없다..
 		System.out.println(employee.getEmpName()+"사원이 삭제 되었습니다.");
 		
 		
