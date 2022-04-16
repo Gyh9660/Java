@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
+
 /*	객체간의 협업
  * 				학생의 용돈 100,000원
  * 		학생		: 			버스를 탈대(-1000원)	지하철을 탈때 (-1500원)
@@ -15,6 +16,8 @@ import java.util.Scanner;
 class Student {
 	String studentName;	//학생명
 	int money;			//학생이 가진돈, 초기값 : 100000
+	Bus bus;
+	Subway subway;
 	
 	public Student() {
 		
@@ -37,17 +40,21 @@ class Student {
 	}
 	public void takeBus(Bus bus) { //학생이 버스를 탔을때 버스에 돈을 지불해야 한다.
 		bus.take(1000);
+		this.bus = bus;
 		this.money-=1000;
 	}
 	public void takeOutBus (Bus bus) { //버스에서 내림
 		bus.takeOut();
+		this.bus = null;
 	}
 	public void takeSubway(Subway subway) { //지하철 탑승
 		subway.take(1500);
+		this.subway = subway;
 		this.money-=1500;
 	}
 	public void takeOutSubway(Subway subway) { //지하철 내릴때
 		subway.takeOut();
+		this.subway = null;
 	}
 	@Override
 	public String toString() {
@@ -84,6 +91,7 @@ class Bus{
 	}
 	public void takeOut() { //승객수만 감소
 		this.passngerCount--;
+		
 	}
 	Bus(){
 		setBusName(100);
@@ -136,9 +144,15 @@ class Subway{
 }
 public class CooperationBetweenObject {
 	private static ArrayList<Student> studentList = new ArrayList<Student>();
+	private static ArrayList<Bus>	busList = new ArrayList<>();
+	private static ArrayList<Subway> subwayList = new ArrayList<>();
 	private static Scanner sc = new Scanner(System.in);
 	
 	private static void createStudent() {
+		Bus bus = new Bus();
+		Subway sub = new Subway();
+		busList.add(bus);
+		subwayList.add(sub);
 		System.out.println("학생이름 : ");
 		String name = sc.next();
 		System.out.println("돈 입력 : ");
@@ -161,7 +175,6 @@ public class CooperationBetweenObject {
 		System.out.println(studentName+"학생이 선택되었습니다.");
 		Bus bus = new Bus();
 		Subway sub = new Subway();
-		
 		while(true) {
 			System.out.println("================================================================================");
 			System.out.println("4. 버스를 탐 | 5. 버스를 내림 | 6. 지하철을 탐 | 7. 지하철을 내림 | 8. 뒤로" );
@@ -171,6 +184,7 @@ public class CooperationBetweenObject {
 				System.out.println("선택 >> 4");
 				System.out.println(student.getStudentName()+"님 "+bus.busName+"번 버스를 탔습니다. 즐거운 하루되세요.");
 				student.takeBus(bus);
+				busList.add(bus);
 				System.out.println(student);
 				System.out.println(bus);
 			}else if(num == 5) {
@@ -238,7 +252,7 @@ public class CooperationBetweenObject {
 		boolean run = true;		
 		 
 		while(run) {
-			System.out.println("================================================================================");
+			System.out.println("====================================================================");
 			System.out.println("1. 학생객체 생성 | 2. 학생정보 출력 및 선택 | 3. 종료 ");
 			System.out.println("================================================================================");
 				
