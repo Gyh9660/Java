@@ -75,14 +75,6 @@ class Employee{ 		//사원의 정보를 담은 클래스
 		public int hashCode() {
 			return Objects.hash(empNo);
 		}
-	public static Iterator<Employee> iterator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public static void remove(Employee employee) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 }
 
