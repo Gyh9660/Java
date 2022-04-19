@@ -3,7 +3,8 @@
 -- desc
 desc department;
 
-select * from department;
+select * 
+from department;
 
 /*
 SQL : 구조화된 질의 언어
@@ -388,3 +389,158 @@ where job in('CLERK','SALESMAN') and not salary in(1600,950,1300);
 select ename 사원이름, salary 급여, commission 커미션
 from employee
 where commission >=500;
+
+
+-- 다양한 함수 사용하기
+/*
+    1. 문자를 처리하는 함수
+        - UPPER : 대문자로 변환
+        - LOWER : 소문자로 변환
+        - INITCAP : 첫자는 대문자로 나머지는 소문자로 변환
+    
+        dual 테이블 : 하나의 결과를 출력 하도록 하는 테이블
+        select '안녕하세요' 가상테이블?
+        from dual; 안녕하세요를 그대로  내용으로 출력하게 해주는 테이블
+*/
+
+select '안녕하세요' 안녕
+from dual;
+
+
+select 'Oracle mania' , UPPER('Oracle mania'), LOWER('Oracle mania'),initcap('Oracle mania')
+from dual;
+
+select *
+from employee;
+
+select ename, lower(ename), initcap (ename), upper(ename)
+from employee;
+
+select *
+from employee
+where ename = 'allen'; --검색이 안됨.
+
+
+select *
+from employee
+where lower(ename) = 'allen';
+
+
+select *
+from employee
+where ename = 'Allen'; --값이 안나옴
+
+select ename, initcap (ename)
+from employee
+where initcap(ename) = 'Allen';
+
+--문자의 길이를 출력 하는 함수
+    -- length : 문자의 길이를 반환 , 영문이나 한글 관계없이 글자수를 리턴
+    
+    -- lengthb : 문자의 길이를 반환,영문은 : 1byte, 한글 3byte로 반환
+    
+select length ('Oracle mania'), length ('오라클 매니아')
+from dual;
+
+select lengthb ('Oracle mania'), lengthb ('오라클 매니아')
+from dual;
+
+select *
+from employee;
+
+select ename, length(ename)  , job, length(job) from employee;
+
+-- 문자 조작 함수
+    -- cnocat : 문자와 문자를 연결해서 출력
+    -- substr : 문자를 특정 위치에서 잘라오는 함수 (영문 한글 모두 1byte로 처리)
+    -- substrb : 문자를 특정 위치에서 잘라오는 함수 (영문은 1byte, 한글은 3byte로 처리)
+    -- instr : 문자의 특정위치의 인덱스 값을 반환
+    -- instrb : 문자의 특정위치의 인덱스 값을 반환 (영문은 1byte, 한글은 3byte로 처리)
+    -- lpad , rpad : 입력받은 문자열에서 특수문자를 적용.
+    -- trm : 잘라내고 남은 문자를 반환,
+    
+select 'Oracle', 'mania', concat ('Oracle','Mania')
+from dual;
+   
+select *
+from employee;
+
+select concat (ename,'  '||job)
+from employee;
+-- || <= 연결할때씀
+select '이름은 : '|| ename || ' 이고, 직책은 : ' || job || '입니다' 컬럼연결
+from employee;
+
+select '이름은 : ' || ename || ' 이고, 직속상관사번은 : ' || manager || '입니다' 직송상관출력
+from employee;
+    
+    
+    
+    
+    
+-- substr (대상, 시작위치, 추출갯수) : 특정위치에서 문자를 잘라온다.
+select 'Oracle mania', substr('Oracle mania' , -4,3 ), substr ('오라클 매니아', -6,4)
+from dual;
+
+select ename, substr (ename,2,3), substr (ename,-5,2) 
+from employee;
+
+select substrb ('Oracle mania', 3, 3), substrb('오라클 매니아',4,6)
+from dual;
+
+--이름이 N으로 끝나는 사원들 출력하기 (substr 함수를 사용해서 사용)
+
+select ename
+from employee
+where substr(ename,-1,1) = 'N';
+
+select ename
+from employee
+where ename like '%N';
+--87년도 입사한 사원들 출력하기 (substr 함수를 사용해서 사용)
+
+select *
+from employee
+where substr(hiredate,1,2) = '87'; 
+
+select ename, hiredate
+from employee
+where hiredate like '87%';
+
+-- instr (대상, 찾을글자, 시작위치, 몇번째 발견) :대상에서 찾을 글자의 인덱스값을 출력
+
+select 'Oracle mania' , instr ('Oracle mania', 'a')
+from dual;
+
+select 'Oracle mania' , instr ('Oracle mania', 'a', 5, 2)
+from dual;
+
+select 'Oracle mania' , instr ('Oracle mania', 'a',-5,1)
+from dual;
+
+select distinct instr(job, 'A' , 1 , 1 )
+from employee
+where lower(job) = 'manager';
+
+-- lpad, rpad : 특정 길이만큼 문자열을 지정해서 왼쪽, 오른쪽에 공백을 특정문자로 처리
+    --lpad (대상, 늘려줄 문자열크기 , 특수문자) ->특수문자가 왼쪽으로 들어감 (비어있는공간)
+    --rpad (대상, 늘려줄 문자열크기 , 특수문자) ->특수문자가 오른쪽으로들어감 (비어있는공간)
+select lpad (1234, 10 , '#')
+from dual;
+
+select rpad (1234, 10 , '#')
+from dual;
+
+select lpad (salary, 10, '*')
+from employee;
+
+select rpad (salary, 10 , '*')
+from employee;
+
+--TRIM : 공백제거, 특정 문자도 제거
+    -- LTRIM : 왼쪽의 공백을 제거
+    -- RTRIM : 오른쪽의 공백을 제거
+    -- TRIM : 왼쪽 오른쪽 공백 제거
+    
+select ltrim ('   Oracle mania   ')a, rtrim ('   Oracle mania   ')b, trim ('   Oracle mania   ')c
+from dual;
