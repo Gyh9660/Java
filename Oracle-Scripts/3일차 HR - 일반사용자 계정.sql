@@ -1,0 +1,283 @@
+--1.
+desc employee;
+
+select *
+from employee;
+
+select eno as 사원번호, ename 사원명, job 직책, manager "직속상관 ID", hiredate 입사날짜,
+salary 월급, commission 보너스, dno 부서번호
+from employee;
+
+select ename, salary, salary + 300
+from employee;
+
+--2.
+select ename, salary, commission,salary*12, salary*12 + NVL(commission,0) +100 as 총연봉
+from employee;
+
+--3.
+select ename, salary    --컬럼명
+from employee           --테이블 ,뷰
+where salary >= 2000    --조건
+order by salary desc;   --정렬
+
+--4.
+select ename, dno, eno
+from employee
+where eno = 7788;
+
+--5.
+select ename, salary
+from employee
+where not salary between 2000 and 3000;
+
+--6.
+select ename, job, hiredate
+from employee
+where hiredate between '81/2/20' and '81/05/01';
+
+--7.
+select ename, dno
+from employee
+where dno = 20 or dno = 30
+order by ename desc;
+
+select ename, dno
+from employee
+where dno in (20,30)
+order by ename desc;
+
+8.
+select ename, salary , dno
+from employee
+where (salary between 2000 and 3000) and (dno = 20 or dno =30)
+order by ename ;
+
+select ename, salary , dno
+from employee
+where (salary between 2000 and 3000) and (dno in (20,30))
+order by ename ;
+
+--9. 
+select ename, hiredate
+from employee
+where hiredate like '81%';
+
+--10.
+select ename , job, manager
+from employee
+where manager is null;
+
+--11.
+select ename , salary , commission
+from employee
+where commission is not null
+order by salary desc ,commission desc;
+
+--12
+select ename
+from employee
+where ename like '__R%';
+
+
+--13
+select ename
+from employee
+where ename like '%A%' and ename like '%E%';
+
+--14
+
+select ename, job, salary
+from employee
+where job in ('CLERK', 'SALESMAN') and not salary in (1600,950,1300);
+
+select ename, job, salary
+from employee
+where (job = 'CLERK' or job = 'SALESMAN') and salary not in (1600,950,1300);
+
+--15
+select ename , salary, commission
+from employee
+where commission >= 500;
+
+
+
+-- 숫자함수
+/*
+    ROUND : 특정 자릿수에서 반올림하는 함수
+    TRUNC : 특정 자릿수에서 잘라낸다. (버린다)
+    MOD : 입력받은 수를 나눈 나머지 값만 출력
+    
+*/
+-- round ( 대상 ) : 소숫점 뒷자리에서 반올림
+-- round ( 대상, 소숫점자릿수 ) :
+    -- 소숫점 자릿수 : 양수일때 소수점 오른쪽으로 자릿수만큼 이동 그자릿수 뒤에서 반올림
+        --<==주의 
+    -- 소숫점 자릿수 : 음수일때 소숫점 왼쪽으로 자릿수만큼 이동하고 그자릿수에서 반올림
+        --정수를 반올림
+        --소숫점 자리는 모두 버림
+select 98.7654 , ROUND (98.7654) ,ROUND (98.7654, 2), round (98.7654, -1),
+round (98.7654, -2), round (98.7654, -3), round (98.7654, 3)
+from dual;
+
+select 12345.6789, round (12345.6789) , round (12345.6789, -3) ,round (123678.123456, -3)
+from dual;
+
+
+
+--
+select 98.7654, TRUNC (98.7654), TRUNC (98.7654, 2) , TRUNC (98.7654, -1)
+from dual;
+
+--mod (대상 , 나누는 수) => 대상을 나누어서 나머지값만 출력
+select mod (31,2) , mod (31,5) , mod (31,8)
+from dual;
+
+select *
+from employee;
+
+select salary, mod(salary,300)
+from employee;
+
+-- employee table 에서 사원번호가 짝수인 사원들만 출력
+select eno, mod(eno,2)
+from employee
+where mod(eno,2) =0;
+
+/*  날짜함수
+    sysdate : 시스템에 저장된 현재 날짜를 출력.
+    months_between : 두 날짜 사이의 몇 개월인지를 반환
+    add_months : 특정 날짜에 개월수를 더한다.
+    next_day : 특정 날짜에서 최초로 도래하는 인자로 받은요일의 날짜를 반환.
+    last_day : 달의 마지막 날짜를 반환
+    round : 인자로 받은 날짜를 특정 기준으로 반올림.
+    trunc : 인자로 받은 날짜를 특정 기준으로 버림.
+
+*/
+
+select sysdate
+from dual;
+
+select sysdate -1 어제날짜, sysdate 오늘날짜, sysdate +1 내일날짜
+from dual;
+
+select *
+from employee
+order by hiredate asc ;
+
+select hiredate , hiredate -1 , hiredate + 10
+from employee;
+
+desc employee;
+
+-- 입사일에서 부터 현재까지의 근무일수를 출력
+select round ((sysdate - hiredate),2) "총 근무 일수"
+from employee;
+
+select trunc (sysdate - hiredate) "총 근무 일수"
+from employee;
+
+--특정 날짜에서 월 (Month)을 기준으로 버림한 날짜 구하기
+
+select hiredate, trunc (hiredate, 'MONTH') 
+from employee;
+--특정 날짜에서 월 (Month)을 기준으로 반올림한 날짜 구하기 : 16일 이상일 경우 반올림
+select hiredate, round (hiredate, 'MONTH') 
+from employee;
+
+-- months_between (Date1, date2 ) : date1과 date2 사이의 개월수를 출력
+
+-- 입사일에서 현재까지 각 사원들의 근무한 개월수 구하기
+select ename, sysdate, hiredate , months_between (sysdate,hiredate) "근무 개월수"
+from employee;
+
+select ename, sysdate, hiredate , trunc(months_between (sysdate,hiredate)) "근무 개월수"
+from employee;
+
+
+--add_months (date1, 개월수) : date1 날짜에 개월수를 더한 날짜를 출력.
+-- 입사한후 6개월이 지난 시점을 출력.
+select hiredate, add_months (hiredate, 6)
+from employee;
+
+
+-- 입사한후 100일이 지난 시점을 출력.
+select hiredate, hiredate + 100 "입사후 100일"
+from employee;
+
+--next_day (date , '요일' ) : date의 도래하는 요일에 대한 날짜를 출력하는 함수
+select sysdate, next_day (sysdate,'토요일') "이번주 토요일"
+from dual;
+
+--last_day (date ) : date 에 들어간 달의 마지막 날짜
+
+select hiredate, last_day (hiredate)
+from employee;
+
+--형 변환 함수 <== 중요
+/*
+    TO_CHAR  : 날짜형 또는 숫자형을 문자형으로 변환하는 함수
+    TO_DATE : 문자형을 날짜형으로 변환하는 함수
+    TO_NUMBER : 문자형을 숫자형으로 변환하는 함수.
+
+*/
+ -- 날짜 함수 사용하기
+ --TO_CHAR (date, 'YYYYMMDD')
+ select ename, hiredate, to_char (hiredate,'YYYYMMDD'), to_char (hiredate, 'YYMM'),
+ to_char (hiredate, 'YYYYMMDD DAY'), to_char (hiredate, 'YYYYMMDD DY')
+ from employee;
+ 
+ --현재 시스템의 오늘 날짜를 출력하고 시간 초까지 출력.
+ 
+ select sysdate , to_char(sysdate , 'YYYY-MM-DD DAY HH:MI:SS')
+ from dual;
+ 
+ desc employee;
+ 
+select hiredate,to_char(hiredate, 'YYYY-MM-DD HH:MI:SS DY')
+from employee;
+
+-- to_char 에서 숫자와 관련된 형식
+/*
+    0 : 자릿수를 나타내며 자리수가 맞지 않을 경우 0으로 채웁니다.
+    9 : 자릿수를 나타내며 자리수가 맞지 않을 경우 채우지 않습니다.
+    L : 각 지역별 통화 기호를 출력
+    . : 소숫점으로 표현
+    , : 천단위의 구분자
+*/
+desc employee;
+
+
+
+select ename, salary, to_char(salary, 'L999,999'), to_char (salary, 'L0,000,000')
+from employee;
+
+-- to_date ('char', 'format') : 날짜형식으로 변환.
+
+--오류 발생 : date - char 을 빼서 오류발생
+select sysdate, sysdate -'20000101'
+from dual;
+
+--2000년 1월 1일에서 오늘까지의 일수
+select sysdate, trunc (sysdate - to_date('20000101','YYYYMMDD')) 
+from dual;
+
+select sysdate, to_date ('02/10/10', 'YY/MM/DD')변환 ,trunc(sysdate - to_date('021010','YYMMDD')) 날짜의차
+from dual;
+
+select ename,hiredate
+from employee
+where hiredate = '81/02/22';
+
+select ename,hiredate
+from employee
+where hiredate = to_date(19810222,'YYYYMMDD');
+
+
+select ename,hiredate
+from employee
+where hiredate = to_date('1981-02-22','YYYY--MM-DD') ;
+
+--2000년 12월 25일부터 오늘까지 총 몇달이 지났는지 출력
+select sysdate , trunc( months_between(sysdate, '20001225'))
+from dual;
