@@ -281,3 +281,104 @@ where hiredate = to_date('1981-02-22','YYYY--MM-DD') ;
 --2000년 12월 25일부터 오늘까지 총 몇달이 지났는지 출력
 select sysdate , trunc( months_between(sysdate, '20001225'))
 from dual;
+
+select sysdate , trunc( months_between(sysdate, to_date(20001225,'YYYYMMDD')))
+from dual;
+
+-- to_number : number 데이터 타입으로 변환,
+select 100000 - 50000
+from dual;
+
+--오류 발생 : 문자열 -문자열
+select '100,000' - '50,000'
+from dual;
+
+select to_number('100,000','999,999') - to_number('50,000','999,999')
+from dual;
+
+--NVL함수 : null을 다른 값으로 치환 해주는 함수
+    --nvl (expr1, expr2 ) : expr1에서 null이 나오면 expr2로 치환하라
+select commission
+from employee;
+
+select commission, NVL (commission , 0)
+from employee;
+
+select manager
+from employee;
+
+select manager, NVL(manager, 1111)
+from employee;
+
+-- NVL2 함수
+    --nvl2 (expr1, expr2, expr3 ) : expr1이 null이 아니면 expr2 를 출력,
+                                --  expr1이 null이면 expr3를 출력
+                                
+select salary, commission
+from employee;
+
+--NVL 함수로 연봉 계산하기
+select salary,salary*12,commission,NVL(commission,0),
+salary*12 + NVL(commission,0) 연봉
+from employee;
+
+--NVL2 함수를 사용해서 연봉 계산하기
+select salary,commission, NVL2( commission , salary*12+commission, salary*12) 연봉
+from employee;
+
+--nullif : 두 표현식을 비교해서 동일한 경우 Null 을 반환하고 동일하지 않는 경우 첫번째 표현식을 반환
+
+select nullif ('A', 'A') , nullif ('A', 'B')
+from dual;
+
+--coalesce 함수
+--coalesce (expr1, expr2, expr3.....expr-n):
+    --expr1 이 null이 아니면 expr1을 반환하고,
+    --expr1 이 null이고 expr2이 null이 아니면 expr2를 반환
+    --expr1 이 null이고 expr2이 null이고 expr3이 null이 아니면 expr3를 반환
+
+select coalesce ('abc','bcd','def','efg','fgi')
+from dual;
+
+select coalesce (null,'bcd','def','efg','fgi')
+from dual;
+
+select coalesce (null,null,'def','efg','fgi')
+from dual;
+
+select coalesce (null,null,null,'efg','fgi')
+from dual;
+
+select coalesce (null,null,null,null,'fgi')
+from dual;
+
+select ename, salary,commission, coalesce (commission,salary,0)
+from employee;
+
+--decode 함수 : switch case 문과 동일한 구문
+/*
+    DECODE ( 표현식 , 조건1, 결과1,
+                     조건2, 결과2,
+                     조건3, 결과3,
+                     기본결과n
+            )    
+*/
+select ename, dno, decode (dno, 10, 'ACCOUNTING',
+                                20, 'RESEARCH',
+                                30, 'SALES',
+                                40, 'OPERATION',
+                                'DEFAULF') as DNAME
+from employee;
+
+-- dno컬럼이 10번 부서일 경우 월급에서+ 300을 처리하고 , 20번 부서일 경우 월급에 +500을 
+-- 부서번호가 30일 경우 월급에 +700 을 해서 이름,월급,부서별월급플러스한 결과를 출력
+
+select *
+from employee;
+
+select ename, dno,salary,decode ( dno, 10, salary+300,
+                                    20, salary+500,
+                                    30, salary+700,
+                                    salary) 부서별월급플러스
+from employee;
+
