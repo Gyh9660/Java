@@ -489,10 +489,17 @@ on e.dno = d.dno;
 
 --3. INNER JOIN과 USING 연산자를 사용하여 10번 부서에 속하는 
 --   모든 담당 업무의 고유한 목록(한번씩만 표시)을 부서의 지역명을 포함하여 출력 하시오. 
+--on
 select e.dno 부서번호, loc 지역명 , job 업무
 from employee e join department d
 on e.dno = d.dno
 where e.dno = 10;
+
+--using
+select dno 부서번호, loc 지역명, job 업무
+from employee e join department d
+using (dno)
+where dno =10;
 
 --4. NATUAL JOIN을 사용하여 커밋션을 받는 모든 사원의 
 --이름, 부서이름, 지역명을 출력 하시오. 
@@ -514,15 +521,6 @@ and ename like '%A%';
 select ename 사원이름, job 업무, dno 부서번호, dname 부서이름
 from employee e natural join department d
 where loc = 'NEW YORK';
-
-
-
-
-
-
-
-
-
 
 
 
