@@ -314,4 +314,215 @@ round(avg(salary))"Salary"
 from employee
 group by dno;
 
+--where와 having 절이 같이 사용되는 경우
+    --where : 실제 테이블의 조건으로 검색
+    --having : group by 결과에 대해서 조건을 처리
+    
+select *
+from employee;
+
+--월급이 1500이하는 제외하고 각 부서별로 월급의 평균을 구하되
+--월급의 평균이 2000이상 인것만 출력
+select dno 부서번호,count(*), round(avg(salary),2)
+from employee
+where salary>1500
+group by dno
+having avg(salary)>2500;
+
+--ROLLUP
+--CUBE
+    --Group by 절에서 사용하는 특수한 함수
+    --여러 컬럼을 나열 할 수 있다.
+    --group by 절의 자세한 정보를 출력...
+    
+--1. Rollup , cube를 사용하지 않는 경우
+
+select dno, count(*),sum(salary), round(avg(salary))
+from employee
+group by dno
+order by dno;
+
+--2. Rollup :부서별 합계와 평균을 출력하고 마지막 라인에 전체 합계,평균
+select dno, count(*),sum(salary), round(avg(salary))
+from employee
+group by rollup(dno)
+order by dno ;
+
+--cube : 부서별 합계와 평균을 출력 후, 마지막 라인에 전체 합계,평균
+select dno, count(*),sum(salary), round(avg(salary))
+from employee
+group by cube(dno)
+order by dno;
+
+-- Rollup : 두 컬럼이상
+select dno, job, count(*), MAX(salary),sum(salary),round(avg(salary))
+from employee
+group by rollup(dno,job); -- 두개의 컬럼이적용됨, 두컬럼에 겹쳐서 동이할때 그룹핑
+
+select dno, job, count(*), MAX(salary),sum(salary),round(avg(salary))
+from employee
+group by dno,job
+order by dno;
+
+--cube
+select dno, job, count(*), MAX(salary),sum(salary),round(avg(salary))
+from employee
+group by cube(dno,job)
+order by dno, job;
+
+--join : 여러 테이블을 합쳐서 각 테이블의 컬럼을 가져온다.
+    /*  department와 employee는 원래는 하나의 테이블이 었으나
+        모델링(중복제거, 성능향상)을 통해서 두 테이블을 분리
+        두 테이블의 공통키 컬럼 (dno), employee 테이블의 dno컬럼은
+        department 테이블의 dno컬럼을 참조하고 있다.
+        두개 이상의 테이블의 컬럼을 join구문을 사용해서 출력.
+    */
+select *
+from department; -- 부서정보를 저장하는 테이블
+select *
+from employee;   -- 사원정보를 저장하는 테이블
+
+-- equi join : 오라클에서 제일 많이쓰는 join ,Oracle에서만 사용가능
+    --from 절 : join할 테이블을 ,로 처리한다
+    --where 절 : 두 테이블의 공통의 키 컬럼을 = 로 처리
+        --and 절 : 조건을 처리.
+
+--where절 : 공통 키컬럼을 처리
+select *
+from employee,department
+where department.dno = employee.dno --공통키 적용
+and job = 'MANAGER';                --조건 처리
+
+-- ANSI 호환 SQL       
+    -- on 절 : 두 테이블의 공통의 키 컬럼을 " = " 로 처리
+        --where 절 : 조건을 처리
+         --from 절에 join할 테이블을 join으로 처리한다
+--ANSI 호환 : INNER JOIN (INNER 생략가능) <== 모든SQL에서 사용 가능한 조인방법
+
+--on절 : 공통 키컬럼을 처리
+select *
+from employee e INNER join department d -- on절쓰면 join으로 처리
+on e.dno = d.dno                  -- 공통키 적용
+where job = 'MANAGER';            -- 조건처리
+
+-- join시 테이블 알리어스 (테이블 이름을 별칭으로 두고 많이 사용)
+select *
+from employee e, department d
+where e.dno = d.dno
+and salary >1500;
+
+-- select 절에서 공통의 키 컬럼을 출력시에 어느테이블의 키인지 명시 :dno
+select eno, job, d.dno , dname
+from employee e, department d
+where e.dno = d.dno;
+
+-- 두 테이블을 join해서 부서별[부서명]로 월급의 최대값을 부서명으로 출력해 보세요.
+select dname 부서명,count(*), max(salary) 최대값 
+from employee e, department d
+where e.dno = d.dno
+group by dname;
+
+-- NATURAL JOIN : Oracle 9i 지원
+/*  EQUI JOIN 의 Where 절을 없앰
+    => 두 테이블의 공통의 키 컬럼을 정의 " = "
+    공통의 키 컬럼을 Oracle 내부적으로 자동으로 감지해서 처리.
+    공통 키컬럼을 별칭이름을 사용하면 오류가 발생
+    반드시 공통 키 컬럼은 데이터 타입이 같아야 한다.
+    from 절에 natural join 키워드를 사용.
+    
+*/
+select eno, ename, dname, dno
+from employee e natural join department d;
+
+--주의 : select 절의 공통키 컬럼을 출력시 테이블명을 명시하면 오류발생
+
+-- equi join vs natural join 의 공통 키 컬럼 처리
+/* EQUI JOIN : SELECT 에서 반드시 공통 키컬럼을 출력할때 테이블명을
+                반드시 명시.(어느테이블의 키인지ex)(d.dno)
+    NATURAL JOIN : SELECT 에서 반드시 공통 키컬럼을 출력할때 테이블명을
+                    반드시 명시하지 않아야된다.ex) (dno)
+*/
+--EQUI
+select ename, salary, dname , d.dno --EQUI JOIN에서는 명시
+from employee e , department d      -- e.dno
+where e.dno = d.dno
+and salary>2000;
+
+
+--NATURAL
+select ename, salary, dname, dno    --natural join 에서는 명시 x
+from employee e natural join department d -- dno
+where salary>2000;
+
+--ANSI 호환 INNER JOIN
+select ename, salary, dname, d.dno --inner join에서도 어느테이블인지 명시
+from employee e inner join department d --d.dno
+on e.dno = d.dno
+where salary>2000;
+
+--NON EQUI JOIN : EQUI JOIN 에서 Where 절의 "="를 사용하지 않는 join
+select *
+from salgrade; -- 월급의 등급을 표시 하는 테이블
+
+select ename, salary, grade
+from employee, salgrade
+where salary between losal and hisal;
+
+-- 테이블 3개 조인
+select ename, dname, salary, grade
+from employee e,department d, salgrade s
+where e.dno = d.dno
+and salary between losal and hisal;
+
+
+--1. EQUI 조인을 사용하여 SCOTT 사원의 부서 번호와 부서 이름을 출력 하시오. 
+select ename 사원이름 ,e.dno 부서번호 , dname 부서이름
+from employee e, department d
+where e.dno = d.dno
+and ename = 'SCOTT';
+--2. INNER JOIN과 ON 연산자를 사용하여 사원이름과 
+--함께 그 사원이 소속된 부서이름과 지역명을 출력하시오. 
+
+select ename 사원이름 , dname 부서이름 , loc 지역명
+from employee e join department d
+on e.dno = d.dno;
+
+--3. INNER JOIN과 USING 연산자를 사용하여 10번 부서에 속하는 
+--   모든 담당 업무의 고유한 목록(한번씩만 표시)을 부서의 지역명을 포함하여 출력 하시오. 
+select e.dno 부서번호, loc 지역명 , job 업무
+from employee e join department d
+on e.dno = d.dno
+where e.dno = 10;
+
+--4. NATUAL JOIN을 사용하여 커밋션을 받는 모든 사원의 
+--이름, 부서이름, 지역명을 출력 하시오. 
+select ename 사원이름, dname 부서이름, loc 지역명
+from employee e natural join department d
+where commission is not null;
+
+--5. EQUI 조인과 WildCard를 사용하여 이름에 A 가 포함된 
+--모든 사원의 이름과 부서명을 출력 하시오. 
+
+select ename 사원이름, dname 부서이름
+from employee e , department d
+where e.dno = d.dno
+and ename like '%A%';
+
+
+--6. NATURAL JOIN을 사용하여 NEW YORK에 근무하는 모든 사원의 
+--이름, 업무, 부서번호 및 부서명을 출력하시오. 
+select ename 사원이름, job 업무, dno 부서번호, dname 부서이름
+from employee e natural join department d
+where loc = 'NEW YORK';
+
+
+
+
+
+
+
+
+
+
+
 
