@@ -58,7 +58,7 @@ where salary in (select min(salary) from employee group by job );
 select job 직급 , min(salary) 급여
 from employee 
 group by job
-having min(salary)<all(select round(avg(salary)) from employee group by job);
+having min(salary) <all(select round(avg(salary)) from employee group by job);
 
 --5. 각 부서의 초소 급여를 받는 사원의 이름, 급여, 부서번호를 표시하시오.
 select ename 사원이름, dno 부서번호 ,salary 급여
