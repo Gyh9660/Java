@@ -66,3 +66,4 @@ count(*) "Number of People",
 round(avg(salary))"Salary"
 from employee
 group by dno;
+
