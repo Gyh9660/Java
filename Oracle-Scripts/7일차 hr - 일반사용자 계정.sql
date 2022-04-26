@@ -528,16 +528,38 @@ create table tb_zipcode(    --우편번호 정보를 관리
     dong varchar2(30),                                                         --동
     bungi varchar2(30)                                                         --번지
     );
+    delete tb_zipcode;
+    delete member;
+    delete orders;
+    rollback;
     select * from tb_zipcode;
     
-    insert into tb_zipcode
-    values('333-444','SEOUL','GEUMCHEON','GASAN','111');
+    Alter table tb_zipcode
+    rename column  gogum to GOGUN;
+    
+    Alter table tb_zipcode
+    add (ZIP_SEQ varchar2(6));
+    
+    Alter table tb_zipcode
+    rename column  bungi to BUNJI;
+    
+    Alter table tb_zipcode
+    modify dong varchar(100);
+    
+    Alter table tb_zipcode
+    drop constraint PK_tb_zipcode_zipcode;
+  
+    Alter table member
+    drop constraint FK_member_zipcode;
     
     insert into tb_zipcode
-    values('444-555','SEOUL','GEUMCHEON','DOKSAN','112');
+    values('333-444','SEOUL','GEUMCHEON','GASAN','111',null);
     
     insert into tb_zipcode
-    values('555-666','SEOUL','GEUMCHEON','GASAN','153');
+    values('444-555','SEOUL','GEUMCHEON','DOKSAN','112','113');
+    
+    insert into tb_zipcode
+    values('555-666','SEOUL','GEUMCHEON','GASAN','153','114');
     
     commit;
     
