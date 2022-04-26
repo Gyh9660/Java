@@ -374,24 +374,222 @@ select * from dba_tables; --관리자 계정에서만 실행 가능
 desc parentTbl;    
 select * from user_constraints
 where table_name = 'PARENTTBL';
+select * from ParentTbl;
 
+insert into ParentTbl
+values ('홍길동', 30,'M',1);
+
+insert into ParentTbl
+values ('김똘똘',300,'K',1); --오류 발생 : 300 (check 위배), K (check위배) ,1 (primary key 위배)
+
+insert into ParentTbl
+values ('김똘똘',50,'M',2);
 
 --자식 테이블
 Create table ChildTbl (
+    id varchar2(40) constraint PK_ChildTbl_id Primary key,
+    pw varchar2(40),
+    infono number,
+    constraint FK_ChildTbl_infono foreign key (infono) references ParentTbl(infono)
+    );
+
+insert into ChildTbl
+values ('aaa','1234',1);
+
+insert into ChildTbl
+values ('bbb','1234',2);
+
+commit;
+
+select * from ChildTbl;
+
+--부모테이블
+create table ParentTbl2 (
+    dno number(2) not null Primary key ,
+    dname varchar2 (50),
+    ioc varchar2 (50)
+    );
+
+insert into ParentTbl2
+values(10,'SALES','SEOUL');
+
+--자식 테이블
+create table ChildTbl2(
+    no number not null,
+    ename varchar(50),
+    dno number(2) not null,
+    foreign key (dno) references ParentTbl2(dno)
+    );
+
+insert into ChildTbl2
+values(1,'Park','10');
+
+select * from ChildTbl2;
+
+--default 제약 조건 : 값을 할당 하지 않으면 default 값이 할당.
+Create Table emp_sample01(
+    eno number(4) not null primary key,
+    ename varchar(50),
+    salary number(7,2) default 1000
+    );
     
+    select * from emp_sample01;
+  
+    insert into emp_sample01
+    values (111,'홍길동', 1500);
 
+--default 컬럼에 값을 할당하지 않는 경우. default 에 할당된 값이 적용
+    insert into emp_sample01(eno, ename)
+    values (2222,'홍길순');
 
+    insert into emp_sample01
+    values (3333,'김유신',default);
 
+Create Table emp_sample02(
+    eno number(4) not null primary key,
+    ename varchar(50) default '홍홍홍',
+    salary number(7,2) default 1000
+    );
+insert into emp_sample02 (eno)
+values (10);
 
+select * from emp_sample02;
 
+insert into emp_sample02
+values (20, default,default);
 
+/*
+    Primary Key, Foreign Key, Unique, Check, Default, Not Null
+*/
 
+create table member10 (
+    no number not null constraint PK_member10_no Primary key,
+    name varchar(50) constraint NN_member10_name Not Null,
+    birthday date default sysdate,
+    age number(3) check (age > 0 and age <150),
+    gender char(1) check (gender in ('M', 'W')),
+    dno number(2) Unique
+    );
 
+insert into member10
+values(1, '홍길동', default, 30,'M',10);
 
+insert into member10
+values(2, '김유신', default, 30,'M',20); -- 300 / K = check constraint 체크 위배 , 10 -unique위배
 
+select * from member10;
 
+create table orders10 (
+    no number not null primary key,
+    p_no varchar2(100) not null,
+    p_name varchar2(100) not null,
+    price number check (price >10),
+    phone varchar2(100) default '010-0000-0000',
+    dno number(2) not null,
+    foreign key (dno) references member10(dno)
+    );
+    
+insert into orders10
+values (1, '11111', '유관순' , 5000, default,10);
 
+select * from orders10;
 
+drop table member;
+drop table orders;
 
-
-
+create table member(    --가입한 회원정보를 관리
+    id varchar2(20) not null constraint PK_member_id primary key, --고객 아이디
+    pwd varchar2(20),                                  --고객 암호
+    name varchar2(50),                                 --고객 이름
+    zipcode varchar2(7),                               --우편 번호
+    address varchar2(20),                              --주소
+    tel varchar2(13),                                  --연락처
+    indate date default sysdate,                       --가입일
+    constraint FK_member_zipcode foreign key (zipcode) references tb_zipcode(zipcode)
+    );
+    
+    select * from member;
+    
+    insert into member
+    values ('aaaa','1111','홍길동','333-444','GASAN','010-0000-0000',default);
+    
+    insert into member
+    values ('bbbb','1111','홍길은','444-555','DOKSAN','010-1111-1111',default);
+    
+    insert into member
+    values ('cccc','1111','홍길금','555-666','GASAN','010-2222-2222',default);
+    
+    commit;
+    
+create table tb_zipcode(    --우편번호 정보를 관리
+    zipcode varchar2(7) not null constraint PK_tb_zipcode_zipcode primary key, --우편번호
+    sido varchar2(30),                                                         --시도
+    gugum varchar2(30),                                                        --구군
+    dong varchar2(30),                                                         --동
+    bungi varchar2(30)                                                         --번지
+    );
+    select * from tb_zipcode;
+    
+    insert into tb_zipcode
+    values('333-444','SEOUL','GEUMCHEON','GASAN','111');
+    
+    insert into tb_zipcode
+    values('444-555','SEOUL','GEUMCHEON','DOKSAN','112');
+    
+    insert into tb_zipcode
+    values('555-666','SEOUL','GEUMCHEON','GASAN','153');
+    
+    commit;
+    
+create table products(  --상품 정보를 관리
+    product_code varchar2(20) not null constraint PK_products_product_code primary key, --상품 코드
+    product_name varchar2(100),                                                         --상품명
+    product_kind char(1),                                                               --등록 상품 구분
+    product_price1 varchar2(10),                                                        --상품원가
+    product_price2 varchar2(10),                                                        --상품판매가
+    product_content varchar2(1000),                                                     --상품내용
+    product_image varchar2(50),                                                         --상품이미지명
+    sizeSt varchar2(5),                                                                 --사이즈 시작
+    sizeEt varchar2(5),                                                                 --사이즈 끝
+    product_quantity varchar2(5),                                                       --수량
+    useyn char(1),                                                              --상품 사용 유무(삭제대신)
+    indate date                                                                 --등록일
+    );
+    
+    select * from products;
+    
+    insert into products
+    values ('0001','사과','1','1000','3000','RED APPLE','APPLE','1','5','10','1',sysdate);
+    
+    insert into products
+    values ('0002','오렌지','1','1000','5000','ORANGE','ORANGE','1','6','15','1',sysdate);
+    
+    insert into products
+    values ('0003','바나나','1','1200','11000','BANANA','BANANA','1','10','15','1',sysdate);
+    
+    commit;
+    
+create table orders ( --주문정보를 관리
+    o_seq number(10) not null constraint PK_order_o_seq primary key,    --주문 일련 번호
+    product_code varchar2(20),                                          --주문 상품 코드
+    id varchar2(16),                                                    --주문자 아이디
+    product_size varchar2(5),                                           --주문 상품 사이즈
+    quantity varchar2(5),                                               --주문 수량
+    result char(1),                                                     --주문 처리 여부
+    indate date,                                                        --주문일
+    constraint FK_orders_product_code foreign key (product_code) references products(product_code),
+    constraint FK_orders_id foreign key (id) references member(id)
+    );
+    
+    select * from orders;
+    
+    insert into orders
+    values('1234','0001','aaaa','5','10','1',sysdate);
+    
+    insert into orders
+    values('1235','0002','bbbb','5','12','1',sysdate);
+    
+    insert into orders
+    values('1236','0003','cccc','5','14','1',sysdate);
+    
+    commit;
