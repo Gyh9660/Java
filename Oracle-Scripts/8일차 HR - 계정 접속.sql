@@ -259,3 +259,391 @@ select * from emp_copy50;
 alter table emp_copy50
 add constraint CK_emp_copy50_salary check (salary >0 and salary <10000);
 
+--default 제약 조건 추가 <제약조건이 아님: 제약조건 이름을 할당할 수 없다.
+    --값을 넣지 않을 경우 default 값이 들어감 
+alter table emp_copy50
+modify salary default 1000;
+
+desc emp_copy50;
+
+insert into emp_copy50 (eno, ename, commission)
+values (9999,'JULI',100);
+
+insert into emp_copy50
+values (8888,'JULIA',null,null,default,default,1500,null);
+
+select * from emp_copy50;
+
+alter table emp_copy50
+modify hiredate default sysdate;
+
+/*제약 조건 제거 : Alter Table 테이블명 drop*/
+
+--Primary key 제거
+alter table emp_copy50 --오류 없이 제거됨.
+drop primary key; 
+
+alter table dept_copy50 --오류 발생 : foreign key가 참조하기 떄문에 삭제 안됨.
+drop primary key;
+
+alter table dept_copy50 --foreign key를 먼저 제거하고 primary key 제거
+drop primary key cascade;
+
+select * from user_constraints
+where table_name in ( 'EMP_COPY50','DEPT_COPY50');
+
+-- not null 컬럼 제거 하기 :<< 제약 조건 이름으로 삭제
+alter table emp_copy50
+drop constraint NN_EMP_COPY50_ENAME;
+
+--Unique, check  제약조건 제거 << 제약 조건 이름으로 제거
+alter table emp_copy50
+drop constraint UK_EMP_COPY50_ENAME;
+
+alter table emp_copy50
+drop constraint CK_EMP_COPY50_SALARY;
+
+alter table emp_copy50
+drop constraint NN_EMP_COPY50_COMMISSION;
+
+--default 는 null 허용 컬럼은 default nul로 셋팅: default 제약 조건을 제거 하는 것
+alter table emp_copy50
+modify hiredate default null;
+
+select * from emp_copy50;
+/*  제약 조건 disable/enable
+    <= 제약조건을 잠시 중지 킵.
+    대량(Bulk Insert)으로 값을 테이블에 추가할때 부하가 많이 걸린다. disable==> enable
+    index를 생성할때 부하가 많이 걸린다. disable  ==> enable
+
+*/
+
+alter table dept_copy50
+add constraint PK_dept_copy50_dno primary key(dno);
+
+alter table emp_copy50
+add constraint PK_emp_copy50_eno primary key(eno);
+
+
+alter table emp_copy50
+add constraint FK_emp_copy50_dno foreign key(dno) references dept_copy50(dno);
+
+select * from user_constraints
+where table_name in ('EMP_COPY50','DEPT_COPY50');
+
+select * from emp_copy50;
+select * from dept_copy50;
+
+alter table emp_copy50
+disable constraint FK_emp_copy50_dno;
+
+insert into emp_copy50 (eno, ename, dno)
+values (8989,'AAAA',50);
+
+insert into dept_copy50
+values (50, 'HR','SEOUL');
+
+alter table emp_copy50
+enable constraint FK_emp_copy50_dno;
+
+------------------8일차 - 뷰, 스퀀스, 인덱스
+/*
+    뷰(view) :가상의 테이블을 뷰(view)라 한다.
+        --테이블을 데이터 값을 가지고 있다.
+        --뷰는 데이터 값을 가지지 않는다. 실행 코드만 들어가 있다.
+        --뷰를 사용하는 목적 :
+            1. 보안을 위해서 : 실제테이블의 특정 컬럼을 가져와서
+                실제 테이블의 중요 컬럼을 숨길 수 있다.
+            2. 복잡한 쿼리를 뷰를 생성해서 편리하게 사용 가능
+                (복잡한 JOIN 쿼리)
+        --뷰는 일반적으로 select 구문이 온다. (실행)
+        --뷰는 insert, update, delete 구문이 올 수 없다.
+        --뷰에 값을 insert하면 실제 테이블에 저장이 된다.
+            실제 테이블의 제약조건을 잘 만족해야 된다.
+        --뷰에 값을 insert할 경우 실제 테이블의 제약조건에
+            따라서 inset될 수도 있고 그렇지 않을수도 있다.
+        --그룹함수를 적용한 view에는 insert할 수 없다.
+        
+        
+*/
+
+create table dept_copy60
+as
+select * from department;
+
+create table emp_copy60
+as
+select * from employee;
+
+-- 뷰 생성
+create view V_emp_job
+as
+select eno, ename, dno, job
+from emp_copy60
+where job like 'SALESMAN';
+
+--뷰 생성 확인
+select * from user_views;
+
+--뷰의 실행 (select * from 뷰이름)
+select * from v_emp_job;
+
+--복잡한 join 쿼리를 뷰에 생성하기
+
+create view v_join
+as
+select e.dno, ename, job,dname, loc
+from employee e, department d
+where e.dno = d.dno
+and job = 'SALESMAN';
+
+select * from v_join;
+
+--뷰를 사용해서 실제 테이블의 중요한 정보 숨기기.(보안)
+
+select * from emp_copy60;
+
+create view simple_emp
+as
+select ename, job,dno
+from emp_copy60;
+
+select * from simple_emp; --view, 사용자들은 뭔지 모름 (테이블인줄암)
+--view를 사용해서 실제 테이블의 중요 컬럼을 숨긴다.
+
+select * from user_views;
+
+-- 뷰를 생성할때 반드시 별칭이름을 사용해야 경우, group by절 할때
+
+create view v_groupping
+as
+select dno, count(*) groupCount , avg(salary) AVG, sum(salary) SUM
+from emp_copy60
+group by dno;
+
+select * from v_groupping;
+
+--뷰를 생성할때 as 하위에 select문이 와야한다. 
+--insert,update,delete 문은 올수없다.
+create view v_error
+as
+insert into dno --dept_copy60(dno,dname,loc)
+values (60,'HR','BUSAN');
+
+-- view에 값을 insert할수 있을까? 컬럼에 제약조건을 만족하면
+-- view에도 값을 넣을수 있다.
+    --실제 테이블에 값이 insert 된다.
+    
+create view v_dept
+as
+select dno, dname
+from dept_copy60;
+
+select * from v_dept;
+
+insert into v_dept  --view 에 값을 insert, 제약조건이 일치할때 잘 insert된다.
+values (70,'HR');   --dept_copy60에 저장된다.
+
+select * from dept_copy60; 
+
+create or replace view v_dept  -- v_dept가 존재하지 않을 경우 :create
+as                             -- 존재할 경우 : replace(수정)
+select dname, loc
+from dept_copy60;
+
+select * from v_dept;
+
+insert into v_dept
+values('SYS','BUSAN');
+
+select * from dept_copy60;
+
+update dept_copy60
+set dno = 80
+where dno is null;
+
+commit;
+
+alter table dept_copy60
+add constraint PK_dept_copy60_dno primary key (dno);
+
+select * from user_constraints
+where table_name in ('DEPT_COPY60');
+
+select * from v_dept;
+
+insert into v_dept
+values ('HR3','BUSAN2');
+
+select * from user_views;
+
+select * from v_groupping; -- 그룹핑된 view에는 insert할수 없다.
+
+create or replace view v_groupping
+as
+select dno, count(*) groupCount , round(avg(salary),2) AVG, sum(salary) SUM
+from emp_copy60
+group by dno;
+
+select * from v_groupping;
+
+drop view v_groupping;
+
+-- insert, update, delete 가 가능한 뷰
+    --insert,update,delete가 오면 안되는건 create 시에 as밑에는 올수없고 select만 와야함
+create view v_dept10
+as
+select dno, dname, loc --select 자리에는 select만 와야함
+from dept_copy60;
+
+insert into v_dept10
+values (90 ,'HR4','BUSAN4');
+
+update v_dept10
+set dname = 'HR5', loc = 'BUSAN5'
+where dno = 90;
+
+delete v_dept10
+where dno = 90;
+
+commit;
+
+select * from v_dept10;
+
+--읽기만 가능한 뷰를 생성. (insert, update, delete 못하도록 설정)
+-- 나머진 다 비슷하지만 제일 마지막에 with read only;
+create view v_read_only
+as
+select dno, dname, loc
+from dept_copy60 with read only ;
+
+select * from v_read_only; --read only view이기때문에 
+
+insert into v_read_only     --insert,update,delete 불가
+values(88,'HR7','BUSAN7');
+
+update v_read_only
+set dname = 'HR77', loc = 'BUSAN77'
+where dno = 88;
+
+delete v_read_only
+where dno =88;
+
+--10 : 테이터 무결성과 제약 조건, 11 뷰
+
+--1. employee 테이블의 구조를 복사하여 emp_sample 란 이름의 테이블을 만드시오. 
+--사원 테이블의 사원번호 컬럼에 테이블 레벨로 primary key 제약조건을 지정하되 
+--제약조건 이름은 my_emp_pk로 지정하시오. 
+create table emp_sample
+as
+select * from employee;
+
+alter table emp_sample
+add constraint my_emp_pk primary key(eno);
+
+--2. department 테이블의 구조를 복사하여 dept_sample 란 이름의 테이블을 만드시오. 
+--부서 테이블의 부서번호 컬럼에 레벨로 primary key 제약 조건을 지정하되 
+--제약 조건이름은 my_dept_pk로 지정하시오. 
+create table dept_sample
+as
+select * from department;
+
+alter table dept_sample
+add constraint my_dept_pk primary key(dno);
+
+select * from user_constraints
+where table_name in('EMP_SAMPLE','DEPT_SAMPLE');
+--3. 사원 테이블의 부서번호 컬럼에 존재하지 않는 부서의 사원이 배정되지 않도록 
+--외래키 제약조건을 지정하되 제약 조건이름은 my_emp_dept_fk 로 지정하시오. 
+--[주의 : 위 복사한 테이블을 사용하시오]
+alter table emp_sample
+add constraint my_emp_dept_fk foreign key(dno) references dept_sample(dno);
+
+--4. 사원테이블의 커밋션 컬럼에 0보다 큰 값만을 입력할 수 있도록 제약 조건을 지정하시오. 
+--[주의 : 위 복사한 테이블을 사용하시오]
+update emp_sample
+set commission = 100
+where commission is null or commission = 0;
+
+alter table emp_sample
+add constraint my_emp_ck check (commission >0);
+
+select * from emp_sample;
+--5. 사원테이블의 웝급 컬럼에 기본 값으로 1000 을 입력할 수 있도록 제약 조건을 지정하시오. 
+--[주의 : 위 복사한 테이블을 사용하시오]
+
+alter table emp_sample
+modify salary default 1000;
+
+--6. 사원테이블의 이름 컬럼에 중복되지 않도록  제약 조건을 지정하시오. 
+--[주의 : 위 복사한 테이블을 사용하시오]
+alter table emp_sample
+add constraint my_emp_uk unique(ename);
+
+
+--7. 사원테이블의 커밋션 컬럼에 null 을 입력할 수 없도록 제약 조건을 지정하시오. 
+--[주의 : 위 복사한 테이블을 사용하시오]
+alter table emp_sample
+modify commission constraint my_emp_nn not null;
+
+--8. 위의 생성된 모든 제약 조건을 제거 하시오. 
+alter table emp_sample
+drop primary key;
+
+alter table dept_sample
+drop primary key cascade;
+
+alter table emp_sample
+drop constraint my_emp_ck;
+
+alter table emp_sample
+drop constraint my_emp_uk;
+
+alter table emp_sample
+drop constraint my_emp_nn;
+
+select * from user_constraints
+where table_name in('EMP_SAMPLE','DEPT_SAMPLE');
+
+--뷰 문제 
+
+--1. 20번 부서에 소속된 사원의 사원번호과 이름과 부서번호를 출력하는 select 문을 하나의 view 로 정의 하시오.
+	--뷰의 이름 : v_em_dno  
+create view v_em_dno
+as
+select eno, ename, dno
+from emp_sample
+where dno = 20;
+
+select * from v_em_dno;
+--2. 이미 생성된 뷰( v_em_dno ) 에 대해서 급여 역시 출력 할 수 있도록 수정하시오. 
+create or replace view v_em_dno
+as
+select eno, ename, dno, salary
+from  emp_sample
+where dno=20;
+
+--3. 생성된  뷰를 제거 하시오. 
+drop view v_em_dno;
+
+--4. 각 부서의 급여의  최소값, 최대값, 평균, 총합을 구하는 뷰를 생성 하시오. 
+	--뷰이름 : v_sal_emp
+create view v_sal_emp
+as
+select dno, min(salary) MIN, max(salary) MAX, round(avg(salary)) AVG, sum(salary) SUM
+from emp_sample
+group by dno;
+
+select * from v_sal_emp;
+
+--5. 이미 생성된 뷰( v_em_dno ) 에 대해서 <<읽기 전용 뷰로>> 수정하시오. 
+create or replace view v_em_dno
+as
+select eno, ename, dno, salary
+from  emp_sample 
+where dno=20 with read only;
+
+select * from v_em_dno;
+
+
+
