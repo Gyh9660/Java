@@ -191,6 +191,7 @@ values ('0003','wine03','ma03',to_date(20110124,'YYYYMMDD'),60);
 
 select * from stock_management;
 
+commit;
 ----------------»Æ¿Œ----------------------------
 
 select * from user_constraints
