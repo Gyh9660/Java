@@ -10,4 +10,6 @@
     임시 테이블 스페이스 : B_HDD / WINE_LOG      / 100m / ++100m 1GB
     
     테이블 10개 생성후 각 테이블에 값(레코드) 3개씩 추가
+    
 */
+grant create any directory to HR;
