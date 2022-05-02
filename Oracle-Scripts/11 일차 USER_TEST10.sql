@@ -41,4 +41,5 @@ select * from user_role_privs;
 
 select * from hr.dept_copy57;
 
+select * from hr.employee;
 
