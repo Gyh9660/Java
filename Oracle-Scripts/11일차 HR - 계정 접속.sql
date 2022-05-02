@@ -369,3 +369,25 @@ begin
     close c1;
 end;
 /
+
+--2 %rowtype
+set serveroutput on
+declare
+    v_employee employee%rowtype;
+    v_department department%rowtype;
+    
+    cursor c1
+    is
+    select ename,dname,loc,salary
+    from employee e, department d
+    where e.dno = d.dno;
+begin
+    open c1;
+    loop
+        fetch c1 into v_employee.ename,v_department.dname,v_department.loc,v_employee.salary;
+        exit when c1%notfound;
+        dbms_output.put_line(v_employee.ename||'   '||v_department.dname||'   '||v_department.loc||'   '||v_employee.salary);
+    end loop;
+    close c1;
+end;
+/

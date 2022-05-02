@@ -5,7 +5,7 @@ select *
 from employee;
 select ename 사원이름, salary 월급
 from employee
-where salary between 1000 and 1500;
+where salary between 1000 and 1500; --not 뺴먹음
 1981년도에 입사한 사원이름과 입사일을 출력 하시오.
 단, LIKE  연산자와 와일드 카드 ( _ , %) 를 사용해서 출력 하시오.
 별칭이름을 각각 "사원이름", "입사일" 로 출력하시오
