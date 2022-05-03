@@ -64,3 +64,34 @@ begin
     dbms_output.put_line('출력결과 : '||v_ename||'   '||v_salary||'   '||v_job||'   '||v_dname||'   '||v_loc);
 end;
 /
+--11-1. 부서번호를 받아서 사원명, 급여, 직책을 OUT 파라미터에 넘겨주는 프로시저를 PL / SQL에서 호출
+--모르겟다 이건 
+create or replace procedure out23(
+    v_dno in number,
+    c1 out sys_refcursor
+)
+is
+begin
+    open c1 for
+    select ename, salary,job
+    from employee
+    where dno = v_dno;
+
+end;
+/
+declare
+    v_ename employee.ename%type;
+    v_salary employee.salary%type;
+    v_job employee.job%type;
+    v_dno employee.dno%type;
+    c1 sys_refcursor;
+begin
+    out23(10,c1);
+    loop
+        fetch c1 into v_ename,v_salary,v_job;
+        exit when c1%notfound;
+        dbms_output.put_line(v_ename||' '||v_salary||' '||v_job);
+    end loop; -- dbms~_line 쓸때 연결 ||' '||로해야함 ,로하면 오류발생
+    close c1;
+end;
+/

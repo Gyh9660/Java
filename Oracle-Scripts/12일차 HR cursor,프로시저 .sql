@@ -593,3 +593,12 @@ where name = 'FN_SALAY_ENAME';
 variable var_salary number;
 exec :var_salary := fn_salary_ename('SCOTT');
 print var_salary;
+
+--2. 함수 사용 (SQL 구문 내에서 함수 사용)
+select ename , fn_salary_ename('SCOTT') 월급 --<==이름만 가져온것 select 구문과 관계없음
+from employee
+where ename = 'SCOTT';
+
+
+--함수 삭제
+drop FUNCTION fn_salary_ename;
