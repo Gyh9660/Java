@@ -120,13 +120,11 @@ is
 begin
     INSERT INTO dept_c10 
     VALUES(v_dno,v_dname,v_loc);
-    
 end;
 /
 exec sp_dept1(50,'HR','SEOUL');
 exec sp_dept1(60,'HR2','PUSAN');
 select * from dept_c10;
-
 --6. emp_c10 테이블에서 모든 컬럼의 값을 인풋 받아 인풋 받은 값을 insert하는 저장프로시져를 생성하시요. 
 --	입력 값 : 8000  'SONG'    'PROGRAMMER'  7788  sysdate  4500  1000  50 
 create or replace procedure sp_emp1(
@@ -148,6 +146,7 @@ end;
 /
 exec sp_emp1(8000,'SONG','PROGRAMER',7788,sysdate,4500,1000,50);
 select * from emp_c10;
+
 --6번문제 job 컬럼 크기가 9이라 programmer 안들어가서 m뺏음
 
 --7. dept_c10 테이블에서 4번문항의 부서번호 50의 HR 을 'PROGRAM' 으로 수정하는 저장프로시져를 생성하세요. 
@@ -183,6 +182,7 @@ end;
 exec sp_emp2(8000,6000);
 select * from emp_c10;
 
+commit;
 --9. 위의 두 테이블명을 인풋 받아 두 테이블을 삭제하는 저장프로시져를 생성 하시오. 
 create or replace procedure sp_drop_table(
     v_empname varchar2,
@@ -207,3 +207,4 @@ end;
 exec sp_drop_table('emp_c10','dept_c10');
 select * from dept_c10;
 select * from emp_c10;
+

@@ -369,6 +369,7 @@ end;
 /
 exec sp_emp2(8000,6000);
 select * from emp_c10;
+commit;
 
 --9. 위의 두 테이블명을 인풋 받아 두 테이블을 삭제하는 저장프로시져를 생성 하시오. 
 create or replace procedure sp_drop_table(
@@ -394,10 +395,79 @@ end;
 exec sp_drop_table('emp_c10','dept_c10');
 select * from dept_c10;
 select * from emp_c10;
+
+--------<< 출력 매개변수 사용>>-----------------
+/* 저장 프로시저 : 출력 매개변수가 지원 (여러개의 ),
+함수 : 출력 매개변수를 하나만 갖는다. 
+        -- OUT 키워드를 사용.
+        -- 저장프로시저를 호출시에 먼저 출력매개변수 변수선언후 호출이가능
+        -- 호출시 출력매개변수 이름 앞에 ':변수명(출력매개변수명)'
+        -- 출력 매개변수를 출력하기 위해서 PRINT 명령문이나 PL/SQL을 사용해서 출력 할수있다.
+        
+
+*/
+create or replace procedure sp_salary_ename2 (
+    v_ename in employee.ename%type,     --입력매개변수
+    v_salary out employee.salary%type   --출력매개변수
+)
+is
+begin
+    select salary into v_salary
+    from employee
+    where ename = v_ename;
+    
+end;
+/
+select * from user_source where name = 'SP_SALARY_ENAME2';
+--데이터 사전에서 확인.
+select * from user_source where name = 'OUT1';
+
+variable var_salary varchar2(50);
+--호출부에서 아웃풋 매개변수를 선언
+exec sp_salary_ename2('SCOTT',:var_salary);
+-- :var_salary <=: 주의
+print var_salary;
+
+--OUT 파라미터를 여러개 가지는 저장프리시저 생성 및 출려 (PL/SQL)
+--사원번호를 인풋받아서 사원이름,급여,직책 을 out파라미터에 넘겨주는
+--프로시저를 PL/SQL을 사용해서 출력
+create or replace procedure sel_empno( --in ,out: 자료형은 참조자료형
+    v_eno in number,                --%type, 기본자료형(바이트수생략)을 쓸수잇다
+    v_ename out varchar2,
+    v_salary out number,
+    v_job out varchar2
+)
+is
+begin
+    select ename, salary, job into v_ename, v_salary, v_job
+    from employee
+    where eno = v_eno;
+end;
+/
+-- PL/SQL을 사용해서 저장 프로시져 호출
+declare
+    v_ename varchar2(20);
+    v_salary number(20);
+    v_job varchar2(20);
+begin
+    --익명 블록에서는 저장프로시저 호출시 exec를 붙이지 않는다.
+    sel_empno (7788,v_ename,v_salary,v_job); 
+    --저장프로시저 호출 , 변수앞에 : 붙이지않음
+    dbms_output.put_line('조회결과 : '||v_ename||' | '||v_salary||' | '||v_job);
+    
+end;
+/
+
+
+
+
+
+
+
 --10. 이름을 인풋 받아서 사원명, 급여, 부서번호, 부서명, 부서위치을 
 --OUT 파라미터에 넘겨주는 프로시저를 PL / SQL에서 호출
 create or replace procedure out1(
-    v_ename in employee.ename%type,
+    v_name in employee.ename%type,
     v_ename out varchar2,
     v_salary out number,
     v_dno out number,
@@ -405,9 +475,121 @@ create or replace procedure out1(
     v_loc out varchar2
 )
 is
+
 begin
+    select e.ename, e.salary, d.dno ,d.dname,d.loc into v_ename,v_salary,v_dno,v_dname,v_loc
+    from employee e,department d
+    where e.dno = d.dno
+    and e.ename = v_name;
 
 end;
 /
 
---11. 부서번호를 받아서 사원명, 급여, 직책을 OUT 파라미터에 넘겨주는 프로시저를 PL / SQL에서 호출
+select * from employee;
+select * from department;
+
+declare
+    v_ename varchar2(20);
+    v_salary number(20);
+    v_dno number(20);
+    v_dname varchar2(20);
+    v_loc varchar2(20);
+begin
+    out1 ('KING',v_ename,v_salary,v_dno,v_dname,v_loc);
+    dbms_output.put_line('사원이름 : '||v_ename||', 급여 : '||v_salary||', 부서번호 : '||v_dno||', 부서이름 : '||v_dname||', 부서위치 : '||v_loc);
+end;
+/
+
+--11-1. 부서번호를 받아서 사원명, 급여, 직책을 OUT 파라미터에 넘겨주는 프로시저를 PL / SQL에서 호출
+--모르겟다 이건 
+create or replace procedure out23(
+    v_dno in number,
+    c1 out sys_refcursor
+)
+is
+begin
+    open c1 for
+    select ename, salary,job
+    from employee
+    where dno = v_dno;
+
+end;
+/
+declare
+    v_ename employee.ename%type;
+    v_salary employee.salary%type;
+    v_job employee.job%type;
+    v_dno employee.dno%type;
+    c1 sys_refcursor;
+begin
+    out23(10,c1);
+    loop
+        fetch c1 into v_ename,v_salary,v_job;
+        exit when c1%notfound;
+        dbms_output.put_line(v_ename||' '||v_salary||' '||v_job);
+    end loop; -- dbms~_line 쓸때 연결 ||' '||로해야함 ,로하면 오류발생
+    close c1;
+end;
+/
+
+--11. 사원번호를 받아서 사원명, 급여, 직책,부서명,부서위치를 OUT 파라미터에 넘겨주는 프로시저를 PL / SQL에서 호출
+create or replace procedure out2(
+    v_eno in number,
+    v_ename out varchar2,
+    v_salary out number,
+    v_job out varchar2,
+    v_dname out varchar2,
+    v_loc out varchar2
+)
+is
+begin
+    select e.ename, e.salary,e.job,d.dname,d.loc into v_ename,v_salary,v_job,v_dname,v_loc
+    from employee e, department d
+    where e.dno= d.dno
+    and e.eno =v_eno;
+
+end;
+/
+
+declare
+    v_ename varchar2(20);
+    v_salary number(20);
+    v_job varchar2(20);
+    v_dname varchar2(20);
+    v_loc varchar2(20);
+begin
+    out2(7788,v_ename,v_salary,v_job,v_dname,v_loc);
+    dbms_output.put_line('출력결과 : '||v_ename||'   '||v_salary||'   '||v_job||'   '||v_dname||'   '||v_loc);
+end;
+/
+
+
+/* 함수 (Function) : 값을 넣어서 하나의 값을 반환 받아온다.
+    함수 : SQL 구문 내에서 사용가능
+    --비교, 저장프로시져는 out매개변수를 여러개 받아올수 있다.
+    <== SQL구문 내에서는 사용불가.
+    
+*/
+
+create or replace function fn_salary_ename ( -- 인풋매개변수
+    v_ename in employee.ename%type
+)
+RETURN number     --호출하는 곳으로 값을 던져줌. 리턴할 자료형
+is
+    v_salary number(7,2);
+begin
+    select salary into v_salary
+    from employee
+    where ename = v_ename;      --인풋 매개 변수
+    return v_salary;
+end;
+/
+
+/*함수의 데이터 사전*/
+select * from user_source
+where name = 'FN_SALAY_ENAME';
+
+--1. 함수사용
+variable var_salary number;
+exec :var_salary := fn_salary_ename('SCOTT');
+print var_salary;
