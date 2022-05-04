@@ -342,4 +342,48 @@ select * from dept_original;
 select * from dept_copy;
 
 insert into dept_original
-values (13, 'PROGRAM', 'PUSAN'); 
+values (13, 'PROGRAM2', 'PUSAN2'); 
+
+/* delete 트리거 : dept_original 에서 제거하면 dept_copy에서 해당내용을 제거*/
+
+create or replace trigger tri_del
+    --트리거가 작동시킬 테이블, 이벤트
+    after delete     -- 원본 테이블에 delete를 먼저 실행후 트리거 작동
+    on dept_original -- dept_original테이블에 트리거 부착
+    for each row
+begin
+    dbms_output.put_line('Delete Trigger 발생!!!');
+    delete dept_copy
+    where dept_copy.dno = :old.dno;     --dept_original에서 삭제되는 가상 임시 테이블 : old
+
+end;
+/
+
+select * from dept_original;
+select * from dept_copy;
+
+delete dept_original
+where dno = 15;
+
+commit;
+
+/* update 트리거 : dept_original테이블의 특정 값을수정하면 dept_copy 테이블의 내용을 업데이트*/
+
+create or replace trigger tri_update
+    after update
+    on dept_original
+    for each row
+begin
+    dbms_output.put_line('update trigger 발생!!!');
+    update dept_copy
+    set dept_copy.dname = :new.dname
+    where dept_copy.dno = :old.dno;
+end;
+/
+
+select * from dept_original;    -- <<주문 테이블 가정>>
+select * from dept_copy;        -- <<배송 테이블 가정>>
+
+update dept_original
+set dname = 'PROGRAM2'
+where dept_original.dno = 13;
