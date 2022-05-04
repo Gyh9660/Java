@@ -1,6 +1,6 @@
 --저장프로시저 사용 문제--
 --1. 각 부서별로 최소급여, 최대급여, 평균급여를 출력하는 저장프로시져를 생성하시오. 
---	[employee, department ] 테이블 이용
+--	[employee, department ] 테이블 이용 -- 저장프로시저를해야하는데 안햇음;
 set serveroutput on
 declare
     v_dno employee.dno%type;
