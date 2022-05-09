@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>Insert title here</title>
+<title>Insert title here</title> 
 </head>
 <body>
 	<h3>오늘은 JSP 첫번째 날입니다.</h3><br><br>
