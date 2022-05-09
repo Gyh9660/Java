@@ -1,6 +1,5 @@
-create database XE;
 
-use XE;
+use mydb;
 
 /*EMP-Exapmle.sql*/
 
@@ -80,3 +79,9 @@ COMMIT;
 select * from department;
 select * from employee;
 select * from salgrade;
+
+create table emp_copy
+as
+select * from employee;
+
+select * from emp_copy;

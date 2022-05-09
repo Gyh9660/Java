@@ -23,3 +23,13 @@ create SEQUENCE seq_mbTbl_idx
 /*더미 데이터 입력*/
 insert into mbTbl (idx,id,pass,name,email,city,phone)
 values (seq_mbTbl_idx.nextval,'admin','1234','관리자','kosmo@kosmo.com','서울','010-1111-1111');
+
+
+drop table emp_copy;
+create table emp_copy
+as
+select * from employee;
+
+select * from emp_copy;
+
+
