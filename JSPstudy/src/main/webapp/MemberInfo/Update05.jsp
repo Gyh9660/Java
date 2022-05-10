@@ -8,7 +8,7 @@
 <title>Update를 통한 데이터 수정</title>
 </head>
 <body>
-	<form method = "post" action = "update02_process.jsp">
+	<form method = "post" action = "update05_process.jsp">
 		<p> 아이디 : <input type = "text" name = "id">
 		<p> 패스워드 : <input type = "password" name = "passwd">
 		<p> 이름 : <input type = "text" name = "name">

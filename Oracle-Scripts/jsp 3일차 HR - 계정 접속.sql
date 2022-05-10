@@ -4,6 +4,7 @@ select * from mbTbl;
 
 desc mbTbl;
 
+select * from emp_copy;
 select * from mbTbl
 where id = 'kkkk';
 

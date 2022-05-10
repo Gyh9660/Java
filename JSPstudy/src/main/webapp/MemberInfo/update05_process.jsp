@@ -20,16 +20,18 @@
 	String name = request.getParameter("name");
 	String email = request.getParameter("email");
 
-	Statement stmt = null;
+	PreparedStatement pstmt = null;
 	ResultSet rs = null; //select한 결과를 담는 객체, Select한 결과 레코드셋을 담고 있다.
 	String sql = null;
 	// 폼에서 넘겨받은 id와 passwd를 db에서 가져온 id, passwd를 확인해서 만약에 같으면 update를 실행 다르면 update하지 않는다.
 	
 	try{
 		//폼에서 넘겨받은 id를  조건으로 해서 db의 값을 select해 온다.
-		sql = "select id, pass from mbTbl where id = '"+id+"'";
-		stmt = conn.createStatement(); //conn 의 createstatement()를 사용해서 stmt 객체를 활성화.
-		rs = stmt.executeQuery(sql);
+		sql = "select id, pass from mbTbl where id = ? ";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, id);
+		
+		rs = pstmt.executeQuery();
 			//stmt.executeUpdate(sql) : insert,update,delete
 			//stmt.executeQuery(sql)  : select 한 결과를 ResultSet 객체로 값을 리턴
 		
@@ -44,9 +46,13 @@
 			if (passwd.equals(rPassword)){
 				//DB에서 가져온 패스워드와 폼에서 넘긴 패스워드가 일치할 때 update
 				//sql 변수 재사용
-				sql = "UPDATE mbTbl set name ='"+ name+"', email ='"+ email+"' where id ='"+ id +"'";
-				stmt = conn.createStatement();
-				stmt.executeUpdate(sql);				
+				sql = "UPDATE mbTbl set name = ? , email = ? where id = ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, name);
+				pstmt.setString(2, email);
+				pstmt.setString(3, id);
+				
+				pstmt.executeUpdate();				
 				out.println("테이블의 내용이 잘 수정되었습니다.");
 				
 			//	out.println(sql);
@@ -71,8 +77,8 @@
 	}finally{
 		if (rs != null)	
 			rs.close();
-		if (stmt != null)
-			stmt.cancel();
+		if (pstmt != null)
+			pstmt.cancel();
 		if (conn != null)
 			conn.close();
 	}
