@@ -35,7 +35,7 @@ abstract class C extends A {   // 부모의 추상 메소드중 일부만 구현할 경우 : 추상
 
 	@Override
 	void print() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 

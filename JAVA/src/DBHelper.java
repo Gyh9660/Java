@@ -1,4 +1,4 @@
-import java.sql.DriverManager;
+/*import java.sql.DriverManager;
 
 public class DBHelper {
 
@@ -13,3 +13,4 @@ public class DBHelper {
 	}
 
 }
+*/

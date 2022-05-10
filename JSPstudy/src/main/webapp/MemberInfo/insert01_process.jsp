@@ -23,9 +23,10 @@
 	String email = request.getParameter("email");
 
 	Statement stmt = null;	//Statement 객체 : SQL쿼리 구문을 담아서 실행하는 객체
+	String sql = null; //전역 변수
 	
 	try{
-		String sql = "INSERT INTO mbTbl (idx,id,pass,name,email) VALUES (seq_mbTbl_idx.nextval,'"+id+"','"+passwd+"','"+name+"','"+email+"')";
+		sql = "INSERT INTO mbTbl (idx,id,pass,name,email) VALUES (seq_mbTbl_idx.nextval,'"+id+"','"+passwd+"','"+name+"','"+email+"')";
 		
 		stmt = conn.createStatement(); //connection 객체를 통해서 statement객체 생성
 		stmt.executeUpdate(sql); 	//statement객체를 통해서 sql을 실행함
@@ -33,12 +34,17 @@
 				//stmt.excuteQuery(sqp) : sql <== select 문이 오면서 Resultset 객체로 변환
 		
 		out.println("테이블 삽입에 성공 했습니다.");
+		out.println("<p><p>");
+		
+		//out.println(sql);
 				
 				
 				
 	}catch(Exception ex){
 		out.println("mbTbl 테이블 삽입을 실패 했습니다.");
 		out.println(ex.getMessage());
+		out.println("<br><p>");
+		//out.println(sql);
 		
 	}finally{
 		if (stmt != null)
@@ -52,5 +58,12 @@
 <p>
 <p>
 <p>
+<%= email %><p><p>
+
+
+<%= sql %> <p><p>  <!-- html 블락에서 출력할떄 -->
+<%
+out.println(sql); //jsp 블락에서 출력 할때
+%> 
 </body>
 </html>
