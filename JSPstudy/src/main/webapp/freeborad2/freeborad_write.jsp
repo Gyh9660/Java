@@ -38,7 +38,7 @@ function check(){
 	<P>
 	<form name ="msgwite" method ="post" action ="freeboard_save.jsp">
 	<div align = "center">
-	<table style= "width:60%;" border = "1" border-collapse = "collapse">
+	<table style= "width:60%" class = "table">
 		<tr>
 			<td  colspan="2" bgcolor="#1F4F8F" height ="1"></td>
 		</tr>
