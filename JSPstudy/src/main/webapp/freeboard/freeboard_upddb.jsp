@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page language="java" import="java.sql.*" %> 
-<% request.setCharacterEncoding("EUC-KR"); %>
+<% request.setCharacterEncoding("UTF-8"); %>
 <HTML>
-<HEAD><TITLE>±Û ¼öÁ¤ÇÏ±â</TITLE></HEAD>
+<HEAD><TITLE>ê¸€ ìˆ˜ì •í•˜ê¸°</TITLE></HEAD>
 <BODY>
 <%@ include file = "dbconn_oracle.jsp" %>
-[<A href="freeboard_list.jsp?go=<%=request.getParameter("page")%>">°Ô½ÃÆÇ ¸ñ·ÏÀ¸·Î </A>]
+[<A href="freeboard_list.jsp?go=<%=request.getParameter("page")%>">ê²Œì‹œíŒ ëª©ë¡ìœ¼ë¡œ </A>]
 
 <%
  String sql=null;
@@ -15,10 +15,15 @@
  ResultSet rs =null;
  int cnt=0;
  int pos=0;
- String cont=request.getParameter("content");
+ String cont=request.getParameter("content"); //ê¸€ì˜ ë‚´ìš©ì„ getParameterë¡œ ë°›ì•„ì„œ contì— ì €ì¥
 
- if (cont.length()==1) 
-  cont = cont+" " ;
+ if (cont.length()==1) //ê¸€ë‚´ìš©ì´ 1ì´ë¼ë©´
+  cont = cont+" " ;		//ê³µë°±ì„ ì¶”ê°€ ì—†ì–´ë„ë˜ëŠ”ë¶€ë¶„/
+ 
+ 
+  //textareaë‚´ì— ' ê°€ ë“¤ì–´ê°€ë©´ dbì— insert, updateì‹œ ë¬¸ì œ ë°œìƒ(ì‘ë™ì•ˆí•¨)
+  
+  
   while ((pos=cont.indexOf("\'", pos)) != -1) {
    String left=cont.substring(0, pos);
    String right=cont.substring(pos, cont.length());
@@ -35,7 +40,7 @@
    st.setInt(1, id);
    rs = st.executeQuery();
    if (!(rs.next()))  {
-    out.println("ÇØ´ç ³»¿ëÀÌ ¾ø½À´Ï´Ù");
+    out.println("í•´ë‹¹ ë‚´ìš©ì´ ì—†ìŠµë‹ˆë‹¤");
    } else {
    String pwd= rs.getString("password"); 
    if (pwd.equals(request.getParameter("password"))) {
@@ -49,11 +54,11 @@
     st.setInt(5, id);
     cnt = st.executeUpdate(); 
     if (cnt >0) 
-     out.println("Á¤»óÀûÀ¸·Î ¼öÁ¤µÇ¾ú½À´Ï´Ù.");
+     out.println("ì •ìƒì ìœ¼ë¡œ ìˆ˜ì •ë˜ì—ˆìŠµë‹ˆë‹¤.");
     else
-     out.println("¼öÁ¤µÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+     out.println("ìˆ˜ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
    } else 
-    out.println("ºñ¹Ğ¹øÈ£°¡ Æ²¸³´Ï´Ù.");
+    out.println("ë¹„ë°€ë²ˆí˜¸ê°€ í‹€ë¦½ë‹ˆë‹¤.");
   } 
   rs.close();
   st.close();

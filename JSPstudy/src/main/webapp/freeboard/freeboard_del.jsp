@@ -1,15 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 
 <script type="text/javascript">
 	function check() {
 		with(document.msgdel){
 			if (password.value.length==0){
-				alert("ºñ¹Ð¹øÈ£¸¦ ÀÔ·Â ÇØ ÁÖ¼¼¿ä!!");
+				alert("ë¹„ë°€ë²ˆí˜¸ë¥¼ ìž…ë ¥ í•´ ì£¼ì„¸ìš”!!");
 				password.focus();
 				return false;
 			}
@@ -19,15 +19,15 @@
 </script>
 <link href ="filegb.css" rel="stylesheet" type = "text/css">
 
-<title>±Û »èÁ¦ ÆäÀÌÁö</title>
+<title>ê¸€ ì‚­ì œ íŽ˜ì´ì§€</title>
 </head>
 <body>
-	»èÁ¦ ÆäÀÌÁö ÀÔ´Ï´Ù.
+	ì‚­ì œ íŽ˜ì´ì§€ ìž…ë‹ˆë‹¤.
 	
 	<div align ="center">
 	<form name = "msgdel" method = "post" action ="freeboard_deldb.jsp">
-		<!-- hidden: HTML ÆäÀÌÁö¿¡ Ãâ·ÂÀº ÇÏÁö ¾ÊÀ¸³ª º¯¼öÀÇ °ªÀ» ´Ù¸¥ ÆäÀÌÁö·Î ³Ñ±æ¶§ »ç¿ë
-			idº¯¼ö¿Í page º¯¼öÀÇ °ªÀ» Ã³¸®
+		<!-- hidden: HTML íŽ˜ì´ì§€ì— ì¶œë ¥ì€ í•˜ì§€ ì•Šìœ¼ë‚˜ ë³€ìˆ˜ì˜ ê°’ì„ ë‹¤ë¥¸ íŽ˜ì´ì§€ë¡œ ë„˜ê¸¸ë•Œ ì‚¬ìš©
+			idë³€ìˆ˜ì™€ page ë³€ìˆ˜ì˜ ê°’ì„ ì²˜ë¦¬
 		 -->
 		<input type ="hidden" name = "id" value = "<%= request.getParameter("id") %>">
 		<input type ="hidden" name = "page" value = "<%= request.getParameter("page") %>">
@@ -37,13 +37,13 @@
 			 	<td colspan = "2" bgcolor = "#1f4f8f" height="1"></td>
 			</tr>
 			<tr>
-				<td colspan = "2" bgcolor = "#DFEDFF" height="20" class ="notice"> <b> ±Û »èÁ¦ ÇÏ±â</b></td>
+				<td colspan = "2" bgcolor = "#DFEDFF" height="20" class ="notice"> <b> ê¸€ ì‚­ì œ í•˜ê¸°</b></td>
 			</tr>
 			<tr>
 				<td colspan = "2" bgcolor = "#1f4f8f" height="1"></td>
 			</tr>
 			<tr>
-				<td width ="124" height= "30" bgcolor ="#f4f4f4" align ="center" class ="input_style1">ºñ¹Ð ¹øÈ£ </td>
+				<td width ="124" height= "30" bgcolor ="#f4f4f4" align ="center" class ="input_style1">ë¹„ë°€ ë²ˆí˜¸ </td>
 				<td width ="494"><input type ="password" name = "password" class= "input_style1"></td>
 			</tr>
 			<tr>

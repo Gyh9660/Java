@@ -1,58 +1,68 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
     
     
 <%@ page import="java.sql.*" %>
-<% request.setCharacterEncoding("EUC-KR"); %>
+<% request.setCharacterEncoding("UTF-8"); %>
 <%@ include file = "dbconn_oracle.jsp" %>
 
     
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <link href = "filegb.css" rel = "stylesheet" type ="text/css">
-<title>±Û »èÁ¦ (½ÇÁ¦ DataBase¿¡ »èÁ¦¸¦ Ã³¸®ÇÏ´Â ÆäÀÌÁö)</title>
+<title>ê¸€ ì‚­ì œ (ì‹¤ì œ DataBaseì— ì‚­ì œë¥¼ ì²˜ë¦¬í•˜ëŠ” í˜ì´ì§€)</title>
 </head>
 <body>
-	<a href = "freeboard_list.jsp?go=<%= request.getParameter("page")%>">[°Ô½ÃÆÇ ¸ñ·ÏÀ¸·Î ÀÌµ¿]</a>
+	<a href = "freeboard_list.jsp?go=<%= request.getParameter("page")%>">[ê²Œì‹œíŒ ëª©ë¡ìœ¼ë¡œ ì´ë™]</a>
 	<p><p>
 	<%
 		String sql = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		int cnt = 0;		//delete°¡ ÀßµÇ¾ú´ÂÁö È®ÀÎ ÇÏ´Â º¯¼ö
+		int cnt = 0;		//deleteê°€ ì˜ë˜ì—ˆëŠ”ì§€ í™•ì¸ í•˜ëŠ” ë³€ìˆ˜
 	
 		int id = Integer.parseInt(request.getParameter("id"));
 		
 		try{
-			sql = "select * from freeboard where id = ?"; //DBÀÇ ºñ¹Ğ¹øÈ£¿Í ÆûÀ¸·Î ³Ñ°Ü¿Â ºñ¹Ğ¹øÈ£ È®ÀÎ
+			sql = "select * from freeboard where id = ?"; //DBì˜ ë¹„ë°€ë²ˆí˜¸ì™€ í¼ìœ¼ë¡œ ë„˜ê²¨ì˜¨ ë¹„ë°€ë²ˆí˜¸ í™•ì¸
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, id);
 			rs = pstmt.executeQuery();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
 			
 			if (!(rs.next())){
-				out.println ("ÇØ´ç ³»¿ëÀº Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù, ");
+				out.println ("í•´ë‹¹ ë‚´ìš©ì€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤, ");
 				
 			}else {
-				//Á¸ÀçÇÏ´Â °æ¿ì´Â Password¸¦ È®ÀÎÈÄ ¸ÂÀ¸¸é »èÁ¦
+				//ì¡´ì¬í•˜ëŠ” ê²½ìš°ëŠ” Passwordë¥¼ í™•ì¸í›„ ë§ìœ¼ë©´ ì‚­ì œ
 				
 				String pwd = rs.getString("password");
+				int re = rs.getInt("replaynum");
 				if (pwd.equals(request.getParameter("password"))){
-					sql = "delete freeboard where masterid in (select masterid from freeboard where id = ?)";
-					// replayname ¹®Á¦ÇØ°á ÇØ¾ßÇÔ
-					pstmt = conn.prepareStatement(sql);
-					pstmt.setInt(1, id);
-					cnt = pstmt.executeUpdate();
+					if(re == 0){
+						sql = "delete freeboard where masterid in (select masterid from freeboard where id = ?)";
+						// replaynum ë¬¸ì œí•´ê²° í•´ì•¼í•¨  ifë¡œ 0ì´ë©´ ë‹¤ì‚­ì œ else ìê¸°ì™€ ê°™ì€ê²ƒë§Œ ì‚­ì œ
+						pstmt = conn.prepareStatement(sql);
+						pstmt.setInt(1, id);
+						cnt = pstmt.executeUpdate();						
+					}else if (re != 0){
+						sql = "delete freeboard where masterid in (select masterid from freeboard where id = ?) and replaynum = ?";
+						// replaynum ë¬¸ì œí•´ê²° í•´ì•¼í•¨  ifë¡œ 0ì´ë©´ ë‹¤ì‚­ì œ else ìê¸°ì™€ ê°™ì€ê²ƒë§Œ ì‚­ì œ
+						pstmt = conn.prepareStatement(sql);
+						pstmt.setInt(1, id);
+						pstmt.setInt(2, re);
+						cnt = pstmt.executeUpdate();
+					}
 					
 					if(cnt>0){
-						out.println("Àß »èÁ¦ µÇ¾ú½À´Ï´Ù.");
+						out.println("ì˜ ì‚­ì œ ë˜ì—ˆìŠµë‹ˆë‹¤.");
 					}else {
-						out.println (" ÇØ´ç ³»¿ëÀº »èÁ¦µÇÁö ¾Ê¾Ñ½À´Ï´Ù.");
+						out.println (" í•´ë‹¹ ë‚´ìš©ì€ ì‚­ì œë˜ì§€ ì•Šì•—ìŠµë‹ˆë‹¤.");
 					}
 					
 				}else {
-					out.println ("ºñ¹Ğ ¹øÈ£°¡ Æ²·È½À´Ï´Ù.");
+					out.println ("ë¹„ë°€ ë²ˆí˜¸ê°€ í‹€ë ¸ìŠµë‹ˆë‹¤.");
 				}
 				
 				

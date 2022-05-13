@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page language="java" import="java.sql.*" %> 
 <HTML>
 <HEAD>
@@ -7,25 +7,26 @@
 function check() {
  with(document.msgwrite){
   if(subject.value.length == 0){
-   alert("������ �Է��� �ּ���!!");
+   alert("제목을 입력해 주세요!!");
    subject.focus();
    return false;
   }
   if(name.value.length == 0){
-   alert("�̸��� �Է��� �ּ���!!");
+   alert("이름을 입력해 주세요!!");
    name.focus();
    return false;
   }
   if(password.value.length == 0){
-   alert("��й�ȣ�� �Է��� �ּ���!!");
+   alert("비밀번호를 입력해 주세요!!");
    password.focus();
    return false;
   }
   if(content.value.length == 0){
-   alert("������ �Է����ּ���!!");
+   alert("내용을 입력해주세요!!");
    content.focus();
    return false;
   }
+  //return false로 설정안하면 바로 submit으로 넘어감
   document.msgwrite.submit();
  }
 }
@@ -53,7 +54,7 @@ function check() {
   st.setInt(1, id);
   rs = st.executeQuery();
   if (!(rs.next()))  {
-   out.println("�ش� ������ �����ϴ�");
+   out.println("해당 내용이 없습니다");
   } else {
 %>
 <FORM name="msgwrite" method=POST action="freeboard_upddb.jsp?id=<%=id%>&page=<%=p%>">
@@ -62,13 +63,13 @@ function check() {
    <td colspan="2" bgcolor="#1F4F8F" height="1"></td>
   </tr>
   <tr> 
-   <td colspan="2" bgcolor="#DFEDFF" height="20" class="notice">&nbsp;&nbsp;<font size="2">�� �����ϱ�</font></td>
+   <td colspan="2" bgcolor="#DFEDFF" height="20" class="notice">&nbsp;&nbsp;<font size="2">글 수정하기</font></td>
   </tr>
   <tr> 
    <td colspan="2" bgcolor="#1F4F8F" height="1"></td>
   </tr>
   <tr> 
-   <td width="124" height="30" align="center" bgcolor="#f4f4f4">�� ��</td>
+   <td width="124" height="30" align="center" bgcolor="#f4f4f4">이 름</td>
    <td width="494"  style="padding:0 0 0 10"> 
     <input type=text name=name value="<%=rs.getString("name")%>" class="input_style1">
    </td>
@@ -80,21 +81,21 @@ function check() {
    </td>
   </tr>
   <tr> 
-   <td width="124" align="center"  bgcolor="#f4f4f4">�� ��</td>
+   <td width="124" align="center"  bgcolor="#f4f4f4">제 목</td>
    <td width="494" style="padding:0 0 0 10" height="25"> 
     <input type=text name=subject size="60" value="<%=rs.getString("subject")%>" class="input_style2">
    </td>
   </tr>
   <tr> 
-   <td width="124" height="162" align="center" valign="top" bgcolor="#f4f4f4" style="padding-top:7;">�� ��</td>
+   <td width="124" height="162" align="center" valign="top" bgcolor="#f4f4f4" style="padding-top:7;">내 용</td>
    <td width="494" valign="top"  style="padding:5 0 5 10"> 
     <textarea name=content cols="65" rows="10" class="textarea_style1"><%=rs.getString("content")%> </textarea>
    </td>
   </tr>
   <tr> 
-   <td width="124" align="center"  bgcolor="#f4f4f4">�� ȣ</td>
+   <td width="124" align="center"  bgcolor="#f4f4f4">암 호</td>
    <td width="494" style="padding:0 0 0 10" height="25"> 
-    <input type='password' name='password'  class="input_style1"><br>(��Ȯ�� ��й�ȣ�� �Է��ؾ߸� ������ �˴ϴ�.)
+    <input type='password' name='password'  class="input_style1"><br>(정확한 비밀번호를 입력해야만 수정이 됩니다.)
    </td>
   </tr>
   <tr> 

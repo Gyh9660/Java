@@ -1,14 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page language="java" import="java.sql.*,java.util.*" %> 
 <HTML>
-<HEAD><TITLE>°Ô½ÃÆÇ</TITLE>
+<HEAD><TITLE>ê²Œì‹œíŒ</TITLE>
 <link href="freeboard.css" rel="stylesheet" type="text/css">
 <SCRIPT language="javascript">
  function check(){
   with(document.msgsearch){
    if(sval.value.length == 0){
-    alert("°Ë»ö¾î¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä!!");
+    alert("ê²€ìƒ‰ì–´ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš”!!");
     sval.focus();
     return false;
    }	
@@ -33,7 +33,7 @@
 <BODY>
 <%@ include file = "dbconn_oracle.jsp" %>
 <P>
-<P align=center><FONT color=#0000ff face=±¼¸² size=3><STRONG>ÀÚÀ¯ °Ô½ÃÆÇ</STRONG></FONT></P> 
+<P align=center><FONT color=#0000ff face=êµ´ë¦¼ size=3><STRONG>ììœ  ê²Œì‹œíŒ</STRONG></FONT></P> 
 <P>
 <CENTER>
  <TABLE border=0 width=600 cellpadding=4 cellspacing=0>
@@ -41,52 +41,52 @@
    <td colspan="5" height="1" bgcolor="#1F4F8F"></td>
   </tr>
   <tr align="center" bgcolor="#87E8FF"> 
-   <td width="42" bgcolor="#DFEDFF"><font size="2">¹øÈ£</font></td>
-   <td width="340" bgcolor="#DFEDFF"><font size="2">Á¦¸ñ</font></td>
-   <td width="84" bgcolor="#DFEDFF"><font size="2">µî·ÏÀÚ</font></td>
-   <td width="78" bgcolor="#DFEDFF"><font size="2">³¯Â¥</font></td>
-   <td width="49" bgcolor="#DFEDFF"><font size="2">Á¶È¸</font></td>
+   <td width="42" bgcolor="#DFEDFF"><font size="2">ë²ˆí˜¸</font></td>
+   <td width="340" bgcolor="#DFEDFF"><font size="2">ì œëª©</font></td>
+   <td width="84" bgcolor="#DFEDFF"><font size="2">ë“±ë¡ì</font></td>
+   <td width="78" bgcolor="#DFEDFF"><font size="2">ë‚ ì§œ</font></td>
+   <td width="49" bgcolor="#DFEDFF"><font size="2">ì¡°íšŒ</font></td>
   </tr>
   <tr align="center"> 
    <td colspan="5" bgcolor="#1F4F8F" height="1"></td>
   </tr>
- <%  //vector : ¸ÖÆ¼½º·¹µå È¯°æ¿¡¼­ »ç¿ë, ¸ğµç ¸Ş¼Òµå°¡ µ¿±âÈ­ Ã³¸®µÇ¾î ÀÖ´Ù.
+ <%  //vector : ë©€í‹°ìŠ¤ë ˆë“œ í™˜ê²½ì—ì„œ ì‚¬ìš©, ëª¨ë“  ë©”ì†Œë“œê°€ ë™ê¸°í™” ì²˜ë¦¬ë˜ì–´ ìˆë‹¤.
  
-  Vector name=new Vector(); 	//DBÀÇ Name °ª¸¸ ÀúÀåÇÏ´Â º¤ÅÍ
+  Vector name=new Vector(); 	//DBì˜ Name ê°’ë§Œ ì €ì¥í•˜ëŠ” ë²¡í„°
   Vector inputdate=new Vector();
   Vector email=new Vector();
   Vector subject=new Vector();
   Vector rcount=new Vector();	//
   
-  Vector step=new Vector();		//DBÀÇ stepÄÃ·³¸¸ ÀúÀåÇÏ´Â º¤ÅÍ
-  Vector keyid=new Vector();	//DBÀÇ IDÄÃ·³ÀÇ °ªÀ» ÀúÀåÇÏ´Â º¤ÅÍ
+  Vector step=new Vector();		//DBì˜ stepì»¬ëŸ¼ë§Œ ì €ì¥í•˜ëŠ” ë²¡í„°
+  Vector keyid=new Vector();	//DBì˜ IDì»¬ëŸ¼ì˜ ê°’ì„ ì €ì¥í•˜ëŠ” ë²¡í„°
   
-  // ÆäÀÌÂ¡ Ã³¸® ½ÃÀÛ ºÎºĞ
+  // í˜ì´ì§• ì²˜ë¦¬ ì‹œì‘ ë¶€ë¶„
   
   int where=1;
 
-  int totalgroup=0;	//Ãâ·ÂÇÒ ÆäÀÌÂ¡ÀÇ ±×·ìÇÎÀÇ ÃÖ´ë °¹¼ö, ¸¶Áö¸· ÆäÀÌÁö ¸µÅ© (ÀüÃ¼ dbÀÇ°ª °¡Á®¿Í¼­ ÇÕÇØ¼­)
-  int maxpages=5;	//ÃÖ´ë ÆäÀÌÁö °¹¼ö (È­¸é¿¡ Ãâ·ÂµÉ ÆäÀÌÁö °¹¼ö)
-  int startpage=1;	//Ã³À½, ½ÃÀÛ ÆäÀÌÁö
-  int endpage=startpage+maxpages-1; //¸¶Áö¸· ÆäÀÌÁö
-  int wheregroup=1;	//ÇöÀç À§Ä¡ÇÏ´Â ±×·ì
+  int totalgroup=0;	//ì¶œë ¥í•  í˜ì´ì§•ì˜ ê·¸ë£¹í•‘ì˜ ìµœëŒ€ ê°¯ìˆ˜, ë§ˆì§€ë§‰ í˜ì´ì§€ ë§í¬ (ì „ì²´ dbì˜ê°’ ê°€ì ¸ì™€ì„œ í•©í•´ì„œ)
+  int maxpages=5;	//ìµœëŒ€ í˜ì´ì§€ ê°¯ìˆ˜ (í™”ë©´ì— ì¶œë ¥ë  í˜ì´ì§€ ê°¯ìˆ˜)
+  int startpage=1;	//ì²˜ìŒ, ì‹œì‘ í˜ì´ì§€
+  int endpage=startpage+maxpages-1; //ë§ˆì§€ë§‰ í˜ì´ì§€
+  int wheregroup=1;	//í˜„ì¬ ìœ„ì¹˜í•˜ëŠ” ê·¸ë£¹
 
   
-  // go : ÇØ´ç ÆäÀÌÁö ¹øÈ£·Î ÀÌµ¿
+  // go : í•´ë‹¹ í˜ì´ì§€ ë²ˆí˜¸ë¡œ ì´ë™
   // freeboard_list.jsp?go=3
-  // gogroup : Ãâ·ÂÇÒ ÆäÀÌÁöÀÇ ±×·ìÇÎ
-  // freeboard_list.jsp?gogroup=2 () (maxpage°¡ 5ÀÏ¶§ 6,7,8,9,10)
+  // gogroup : ì¶œë ¥í•  í˜ì´ì§€ì˜ ê·¸ë£¹í•‘
+  // freeboard_list.jsp?gogroup=2 () (maxpageê°€ 5ì¼ë•Œ 6,7,8,9,10)
   
   
-  //goº¯¼ö°¡³Ñ¾î¿ÔÀ»¶§ (go º¯¼ö => ÆäÀÌÁö ¹øÈ£)¸¦ ³Ñ°Ü ¹Ş¾Æ¼­ wheregroup, startpage, endpage Á¤º¸ÀÇ °ªÀ» ¾Ë¾Æ³½´Ù.
-  if (request.getParameter("go") != null) { //go º¯¼öÀÇ °ªÀ» °¡Áö°í ÀÖÀ»¶§
-   where = Integer.parseInt(request.getParameter("go")); //ÇöÀç ÆäÀÌÁö ¹øÈ£¸¦ ´ãÀº º¯¼ö
-   wheregroup = (where-1)/maxpages + 1; //ÇöÀç À§Ä¡ÇÑ ÆäÀÌÁöÀÇ ±×·ì
+  //goë³€ìˆ˜ê°€ë„˜ì–´ì™”ì„ë•Œ (go ë³€ìˆ˜ => í˜ì´ì§€ ë²ˆí˜¸)ë¥¼ ë„˜ê²¨ ë°›ì•„ì„œ wheregroup, startpage, endpage ì •ë³´ì˜ ê°’ì„ ì•Œì•„ë‚¸ë‹¤.
+  if (request.getParameter("go") != null) { //go ë³€ìˆ˜ì˜ ê°’ì„ ê°€ì§€ê³  ìˆì„ë•Œ
+   where = Integer.parseInt(request.getParameter("go")); //í˜„ì¬ í˜ì´ì§€ ë²ˆí˜¸ë¥¼ ë‹´ì€ ë³€ìˆ˜
+   wheregroup = (where-1)/maxpages + 1; //í˜„ì¬ ìœ„ì¹˜í•œ í˜ì´ì§€ì˜ ê·¸ë£¹
    startpage=(wheregroup-1) * maxpages+1;  
    endpage=startpage+maxpages-1; 
    
-   //gogroupº¯¼ö°¡ ³Ñ¾î¿ÔÀ»¶§ (gogroupº¯¼ö¸¦ ³Ñ°Ü ¹Ş¾Æ¼­) startpage, endpage, where(ÆäÀÌÁö±×·ìÀÇ Ã¹¹øÂ°ÆäÀÌÁö) Á¤º¸ÀÇ °ªÀ» ¾Ë¾Æ³½´Ù.
-  } else if (request.getParameter("gogroup") != null) { //gogroupº¯¼öÀÇ °ªÀ» °¡Áö°í ¿Ã¶§
+   //gogroupë³€ìˆ˜ê°€ ë„˜ì–´ì™”ì„ë•Œ (gogroupë³€ìˆ˜ë¥¼ ë„˜ê²¨ ë°›ì•„ì„œ) startpage, endpage, where(í˜ì´ì§€ê·¸ë£¹ì˜ ì²«ë²ˆì§¸í˜ì´ì§€) ì •ë³´ì˜ ê°’ì„ ì•Œì•„ë‚¸ë‹¤.
+  } else if (request.getParameter("gogroup") != null) { //gogroupë³€ìˆ˜ì˜ ê°’ì„ ê°€ì§€ê³  ì˜¬ë•Œ
    wheregroup = Integer.parseInt(request.getParameter("gogroup"));
    startpage=(wheregroup-1) * maxpages+1;  
    where = startpage ; 
@@ -94,27 +94,27 @@
   }
   
   
-  int nextgroup=wheregroup+1;		//´ÙÀ½ ±×·ì : ÇöÀç À§Ä¡ÇÑ ±×·ì + 1
-  int priorgroup= wheregroup-1;		//ÀÌÀü ±×·ì : ÇöÀç À§Ä¡ÇÑ ±×·ì - 1
+  int nextgroup=wheregroup+1;		//ë‹¤ìŒ ê·¸ë£¹ : í˜„ì¬ ìœ„ì¹˜í•œ ê·¸ë£¹ + 1
+  int priorgroup= wheregroup-1;		//ì´ì „ ê·¸ë£¹ : í˜„ì¬ ìœ„ì¹˜í•œ ê·¸ë£¹ - 1
 
-  int nextpage=where+1;		//´ÙÀ½ ÆäÀÌÁö : ÇöÀç À§Ä¡ÇÑ ÆäÀÌÁö + 1
-  int priorpage = where-1;	//ÀÌÀü ÆäÀÌÁö : ÇöÀç À§Ä¡ÇÑ ÆäÀÌÁö - 1
-  int startrow=0;			// ÇÏ³ªÀÇ page¿¡¼­ SelectÇÑ ·¹ÄÚµå ½ÃÀÛ ¹øÈ£	
-  int endrow=0;				// ÇÏ³ªÀÇ page¿¡¼­ SelectÇÑ ·ºÄÚµå ¸¶Áö¸· ¹øÈ£
-  int maxrows=5; //Ãâ·ÂÇÒ ·¹ÄÚµå¼ö 
-  int totalrows=0;	//ÃÑ ·¹ÄÚµå °¹¼ö
-  int totalpages=0; //ÃÑ ÆäÀÌÁö °¹¼ö
+  int nextpage=where+1;		//ë‹¤ìŒ í˜ì´ì§€ : í˜„ì¬ ìœ„ì¹˜í•œ í˜ì´ì§€ + 1
+  int priorpage = where-1;	//ì´ì „ í˜ì´ì§€ : í˜„ì¬ ìœ„ì¹˜í•œ í˜ì´ì§€ - 1
+  int startrow=0;			// í•˜ë‚˜ì˜ pageì—ì„œ Selectí•œ ë ˆì½”ë“œ ì‹œì‘ ë²ˆí˜¸	
+  int endrow=0;				// í•˜ë‚˜ì˜ pageì—ì„œ Selectí•œ ë ‰ì½”ë“œ ë§ˆì§€ë§‰ ë²ˆí˜¸
+  int maxrows=5; //ì¶œë ¥í•  ë ˆì½”ë“œìˆ˜ 
+  int totalrows=0;	//ì´ ë ˆì½”ë“œ ê°¯ìˆ˜
+  int totalpages=0; //ì´ í˜ì´ì§€ ê°¯ìˆ˜
 
- // out.println("====== maxpage : 3 ÀÏ¶§ ==========" + "<p>");
- // out.println("ÇöÀç ÆäÀÌÁö : " + where + "<p>");
- // out.println("ÇöÀç ÆäÀÌÁö ±×·ì: " + wheregroup + "<p>");
- // out.println("½ÃÀÛ ÆäÀÌÁö : " + startpage + "<p>");
- // out.println("¾Øµå ÆäÀÌÁö : " + endpage + "<p>");
+ // out.println("====== maxpage : 3 ì¼ë•Œ ==========" + "<p>");
+ // out.println("í˜„ì¬ í˜ì´ì§€ : " + where + "<p>");
+ // out.println("í˜„ì¬ í˜ì´ì§€ ê·¸ë£¹: " + wheregroup + "<p>");
+ // out.println("ì‹œì‘ í˜ì´ì§€ : " + startpage + "<p>");
+ // out.println("ì•¤ë“œ í˜ì´ì§€ : " + endpage + "<p>");
   //if (true) return;
   
   
   
-  // ÆäÀÌÂ¡ Ã³¸® ¸¶Áö¸· ºÎºĞ
+  // í˜ì´ì§• ì²˜ë¦¬ ë§ˆì§€ë§‰ ë¶€ë¶„
   
   
   int id=0;
@@ -128,20 +128,20 @@
  try {
   st = conn.createStatement();
   String sql = "select * from freeboard order by" ; 
-  sql = sql + " masterid desc, replaynum, step, id" ; //Áß¿äÇÑ Äõ¸®?
+  sql = sql + " masterid desc, replaynum, step, id" ; //ì¤‘ìš”í•œ ì¿¼ë¦¬?
   rs = st.executeQuery(sql);
 	
   //out.println(sql);
- // if (true) return; //ÇÁ·Î±×·¥ Á¾·á
+ // if (true) return; //í”„ë¡œê·¸ë¨ ì¢…ë£Œ
   
   if (!(rs.next()))  {
-   out.println("°Ô½ÃÆÇ¿¡ ¿Ã¸° ±ÛÀÌ ¾ø½À´Ï´Ù");
+   out.println("ê²Œì‹œíŒì— ì˜¬ë¦° ê¸€ì´ ì—†ìŠµë‹ˆë‹¤");
   } else {
    do {
-	   //DataBaseÀÇ °ªÀ» °¡Á®¿Í¼­ °¢°¢ÀÇ vector¿¡ ÀúÀå
+	   //DataBaseì˜ ê°’ì„ ê°€ì ¸ì™€ì„œ ê°ê°ì˜ vectorì— ì €ì¥
 	   
     keyid.addElement(new Integer(rs.getInt("id"))); 
-    	//rs¿¡ ÀÖ´Â °ª (idÄÃ·³)À» °¡Á®¿Í¼­  vactor¿¡ ÀúÀå
+    	//rsì— ìˆëŠ” ê°’ (idì»¬ëŸ¼)ì„ ê°€ì ¸ì™€ì„œ  vactorì— ì €ì¥
     name.addElement(rs.getString("name"));
     email.addElement(rs.getString("email"));
     String idate = rs.getString("inputdate");
@@ -153,37 +153,37 @@
     
    }while(rs.next());
    
-   totalrows = name.size(); // name vector¿¡ ÀúÀåµÈ °ªÀÇ °¹¼ö - ÃÑ ·¹ÄÚµå ¼ö
+   totalrows = name.size(); // name vectorì— ì €ì¥ëœ ê°’ì˜ ê°¯ìˆ˜ - ì´ ë ˆì½”ë“œ ìˆ˜
    totalpages = (totalrows-1)/maxrows +1;
-   startrow = (where-1) * maxrows;		//ÇöÀç ÆäÀÌÁö¿¡¼­ ½ÃÀÛ ·¹ÄÚµå ¹øÈ£
-   endrow = startrow+maxrows-1  ;		//ÇöÀç ÆäÀÌÁöÀÇ ¸¶Áö¸· ·¹ÄÚµå ¹øÈ£
+   startrow = (where-1) * maxrows;		//í˜„ì¬ í˜ì´ì§€ì—ì„œ ì‹œì‘ ë ˆì½”ë“œ ë²ˆí˜¸
+   endrow = startrow+maxrows-1  ;		//í˜„ì¬ í˜ì´ì§€ì˜ ë§ˆì§€ë§‰ ë ˆì½”ë“œ ë²ˆí˜¸
    
-  // out.println("==========maxrows : 3ÀÏ¶§ ===========" + "<p>");
-  // out.println("ÃÑ ·¹ÄÚµå ¼ö : " + totalrows + "<p>");
-  // out.println("½ÃÀÛ ·¹ÄÚµå : " + startrow + "<p>");
-  // out.println("¸¶Áö¸· ·¹ÄÚµå : " + endrow + "<p>");
-  // out.println("ÇöÀç ÆäÀÌÁö : " + where + "<p>");
+  // out.println("==========maxrows : 3ì¼ë•Œ ===========" + "<p>");
+  // out.println("ì´ ë ˆì½”ë“œ ìˆ˜ : " + totalrows + "<p>");
+  // out.println("ì‹œì‘ ë ˆì½”ë“œ : " + startrow + "<p>");
+  // out.println("ë§ˆì§€ë§‰ ë ˆì½”ë“œ : " + endrow + "<p>");
+  // out.println("í˜„ì¬ í˜ì´ì§€ : " + where + "<p>");
    
    
   
    
-   if (endrow >= totalrows) //¸¶Áö¸· row°¡ ÃÑrowº¸´Ù Å«°æ¿ì
+   if (endrow >= totalrows) //ë§ˆì§€ë§‰ rowê°€ ì´rowë³´ë‹¤ í°ê²½ìš°
     endrow=totalrows-1;
   
-   totalgroup = (totalpages-1)/maxpages +1; //ÆäÀÌÂ¡ ±×·ìÇÎ
+   totalgroup = (totalpages-1)/maxpages +1; //í˜ì´ì§• ê·¸ë£¹í•‘
    
-  // out.println("==========maxrows : 3ÀÏ¶§ ===========" + "<p>");
-  // out.println(" totalgroup (ÅäÅ» ÆäÀÌÁö ±×·ì) : " + totalgroup + "<p>");
+  // out.println("==========maxrows : 3ì¼ë•Œ ===========" + "<p>");
+  // out.println(" totalgroup (í† íƒˆ í˜ì´ì§€ ê·¸ë£¹) : " + totalgroup + "<p>");
 
    
    if (endpage > totalpages) 
     endpage=totalpages;
 	
-  	// ÇöÀç ÆäÀÌÁö¿¡¼­ ½ÃÀÛ·¹ÄÚµå, ¸¶Áö¸· ·¹ÄÚµå±îÁö ¼øÈ¯ÇÏ¸é¼­ Ãâ·Â
+  	// í˜„ì¬ í˜ì´ì§€ì—ì„œ ì‹œì‘ë ˆì½”ë“œ, ë§ˆì§€ë§‰ ë ˆì½”ë“œê¹Œì§€ ìˆœí™˜í•˜ë©´ì„œ ì¶œë ¥
    for(int j=startrow;j<=endrow;j++) {
-    String temp=(String)email.elementAt(j); //email vector¿¡¼­ email ÁÖ¼Ò¸¦ °¡Á®¿Â´Ù.
-    if ((temp == null) || (temp.equals("")) )  //¸ŞÀÏÁÖ¼Ò°¡ ºñ¾îÀÖÀ»¶§
-     em= (String)name.elementAt(j); 		//em º¯¼ö¿¡ ÀÌ¸§¸¸ °¡Á®¿Í¼­ ´ã´Â´Ù.
+    String temp=(String)email.elementAt(j); //email vectorì—ì„œ email ì£¼ì†Œë¥¼ ê°€ì ¸ì˜¨ë‹¤.
+    if ((temp == null) || (temp.equals("")) )  //ë©”ì¼ì£¼ì†Œê°€ ë¹„ì–´ìˆì„ë•Œ
+     em= (String)name.elementAt(j); 		//em ë³€ìˆ˜ì— ì´ë¦„ë§Œ ê°€ì ¸ì™€ì„œ ë‹´ëŠ”ë‹¤.
     else
      em = "<A href=mailto:" + temp + ">" + name.elementAt(j) + "</A>";
 
@@ -191,25 +191,30 @@
     
     
     
-    if(j%2 == 0){ //Â¦¼öÀÏ¶§
+    if(j%2 == 0){ //ì§ìˆ˜ì¼ë•Œ
      out.println("<TR bgcolor='#FFFFFF' onMouseOver=\" bgColor= '#DFEDFF'\" onMouseOut=\"bgColor=''\">");	
     } else {
      out.println("<TR bgcolor='#F4F4F4' onMouseOver=\" bgColor= '#DFEDFF'\" onMouseOut=\"bgColor='#F4F4F4'\">");
-    } 						// \´Â "Æ¯¼ö¹®ÀÚ ÀÚÃ¼¸¦ Ãâ·ÂÇÒ¶§ »ç¿ë ¡è = "bgColor = '#DFEDFF'"
+    } 						// \ëŠ” "íŠ¹ìˆ˜ë¬¸ì ìì²´ë¥¼ ì¶œë ¥í• ë•Œ ì‚¬ìš© â†‘ = "bgColor = '#DFEDFF'"
     out.println("<TD align=center>");
     out.println(id+"</TD>");
     out.println("<TD>");
+    
+    //stepi ê¸€ì˜ ê¹Šì´ , 0 = ì²˜ìŒê¸€ , 1= ë‹µë³€, 2= ë‹µë³€ì˜ ë‹µë³€ .....
     int stepi= ((Integer)step.elementAt(j)).intValue();
     int imgcount = j-startrow; 
-    if (stepi > 0 ) {
+    
+    
+    if (stepi > 0 ) { //stepi > 0 => ë‹µë³€ê¸€ì¸ ê²½ìš°
      for(int count=0; count < stepi; count++)
-      out.print("&nbsp;&nbsp;");
+     out.print("&nbsp;&nbsp;"); //ë‹µë³€ê¸€ì¼ ê²½ìš° ê³µë°± 2ì¹¸ ì²˜ë¦¬
      out.println("<IMG name=icon"+imgcount+ " src=image/arrow.gif>");
      out.print("<A href=freeboard_read.jsp?id=");
      out.print(keyid.elementAt(j) + "&page=" + where );
      out.print(" onmouseover=\"rimgchg(" + imgcount + ",1)\"");
      out.print(" onmouseout=\"rimgchg(" + imgcount + ",2)\">");
-    } else {
+     
+    } else { // stepi = 0 , = > ì²˜ìŒê¸€ì¸ ê²½ìš°
      out.println("<IMG name=icon"+imgcount+ " src=image/close.gif>");
      out.print("<A href=freeboard_read.jsp?id=");
      out.print(keyid.elementAt(j) + "&page=" + where );
@@ -233,7 +238,7 @@
    // if (true) return;
    }
    // if (true) return;
-  	// for ºí·ÏÀÇ ¸¶Áö¸·
+  	// for ë¸”ë¡ì˜ ë§ˆì§€ë§‰
   	
   	
    rs.close();
@@ -245,12 +250,12 @@
   out.println(e);
  } 
 
- if (wheregroup > 1) { //ÇöÀç ³ªÀÇ ±×·ìÀÌ 1 ÃÊ°úÀÏ¶§´Â ¸µÅ© ¼³Á¤
-  out.println("[<A href=freeboard_list.jsp?gogroup=1>Ã³À½</A>]"); 
-  out.println("[<A href=freeboard_list.jsp?gogroup="+priorgroup +">ÀÌÀü</A>]");
- } else { // ÇöÀç ³ªÀÇ ±×¸¨ÀÌ 1 ÀÌÇÏÀÏ¶§´Â ¸µÅ©Á¦°Å
-  out.println("[Ã³À½]") ;
-  out.println("[ÀÌÀü]") ;
+ if (wheregroup > 1) { //í˜„ì¬ ë‚˜ì˜ ê·¸ë£¹ì´ 1 ì´ˆê³¼ì¼ë•ŒëŠ” ë§í¬ ì„¤ì •
+  out.println("[<A href=freeboard_list.jsp?gogroup=1>ì²˜ìŒ</A>]"); 
+  out.println("[<A href=freeboard_list.jsp?gogroup="+priorgroup +">ì´ì „</A>]");
+ } else { // í˜„ì¬ ë‚˜ì˜ ê·¸ë¦…ì´ 1 ì´í•˜ì¼ë•ŒëŠ” ë§í¬ì œê±°
+  out.println("[ì²˜ìŒ]") ;
+  out.println("[ì´ì „]") ;
  }
  
  
@@ -263,13 +268,13 @@
    } 
   }
   if (wheregroup < totalgroup) {
-   out.println("[<A href=freeboard_list.jsp?gogroup="+ nextgroup+ ">´ÙÀ½</A>]");
-   out.println("[<A href=freeboard_list.jsp?gogroup="+ totalgroup + ">¸¶Áö¸·</A>]");
+   out.println("[<A href=freeboard_list.jsp?gogroup="+ nextgroup+ ">ë‹¤ìŒ</A>]");
+   out.println("[<A href=freeboard_list.jsp?gogroup="+ totalgroup + ">ë§ˆì§€ë§‰</A>]");
   } else {
-   out.println("[´ÙÀ½]");
-   out.println("[¸¶Áö¸·]");
+   out.println("[ë‹¤ìŒ]");
+   out.println("[ë§ˆì§€ë§‰]");
   }
-  out.println ("ÀüÃ¼ ±Û¼ö :"+totalrows); 
+  out.println ("ì „ì²´ ê¸€ìˆ˜ :"+totalrows); 
  %>
 <!--<TABLE border=0 width=600 cellpadding=0 cellspacing=0>
  <TR>
@@ -284,20 +289,20 @@
  <TR>
   <TD align=right width="241"> 
    <SELECT name=stype >
-    <OPTION value=1 >ÀÌ¸§
-    <OPTION value=2 >Á¦¸ñ
-    <OPTION value=3 >³»¿ë
-    <OPTION value=4 >ÀÌ¸§+Á¦¸ñ
-    <OPTION value=5 >ÀÌ¸§+³»¿ë
-    <OPTION value=6 >Á¦¸ñ+³»¿ë
-    <OPTION value=7 >ÀÌ¸§+Á¦¸ñ+³»¿ë
+    <OPTION value=1 >ì´ë¦„
+    <OPTION value=2 >ì œëª©
+    <OPTION value=3 >ë‚´ìš©
+    <OPTION value=4 >ì´ë¦„+ì œëª©
+    <OPTION value=5 >ì´ë¦„+ë‚´ìš©
+    <OPTION value=6 >ì œëª©+ë‚´ìš©
+    <OPTION value=7 >ì´ë¦„+ì œëª©+ë‚´ìš©
    </SELECT>
   </TD>
   <TD width="127" align="center">
    <INPUT type=text size="17" name="sval" >
   </TD>
   <TD width="115">&nbsp;<a href="#" onClick="check();"><img src="image/serach.gif" border="0" align='absmiddle'></A></TD>
-  <TD align=right valign=bottom width="117"><A href="freeboard_write.htm"><img src="image/write.gif" border="0"></TD>
+  <TD align=right valign=bottom width="117"><A href="freeboard_write.htm"><img src="image/write.gif" border="0"></A></TD>
  </TR>
 </TABLE>
 </FORM>

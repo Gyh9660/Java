@@ -1,40 +1,50 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
     
     
 <%@ page import = "java.sql.*, java.util.*, java.text.*" %>    
-<% request.setCharacterEncoding("EUC-KR"); %> <!-- gÇÑ±Û Ã³¸® -->
+<% request.setCharacterEncoding("UTF-8"); %> <!-- gí•œê¸€ ì²˜ë¦¬ -->
 <%@ include file="dbconn_oracle.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>ÆûÀÇ °ªÀ» ¹Ş¾Æ¼­ DataBase¿¡ °ªÀ» ³Ö¾îÁÖ´Â ÆÄÀÏ</title>
+<title>í¼ì˜ ê°’ì„ ë°›ì•„ì„œ DataBaseì— ê°’ì„ ë„£ì–´ì£¼ëŠ” íŒŒì¼</title>
 </head>
 <body>
 <%
-	//Æû¿¡¼­ ³Ñ±ä º¯¼ö¸¦ ¹Ş¾Æ¼­ ÀúÀå.
+	//í¼ì—ì„œ ë„˜ê¸´ ë³€ìˆ˜ë¥¼ ë°›ì•„ì„œ ì €ì¥.
 	String na = request.getParameter("name");
 	String em = request.getParameter("email");
 	String sub = request.getParameter("subject");
 	String cont = request.getParameter("content");
 	String pw = request.getParameter("password");
 	
-	int id = 1; 	//dbÀÇ idÄÃ·³¿¡ ÀúÀåÇÒ °ª
+	int id = 1; 	//dbì˜ idì»¬ëŸ¼ì— ì €ì¥í•  ê°’
 	//
 	int pos = 0;
 	if(cont.length()==1){
 		cont = cont + " " ;
 	}
 	
-	//content (Text Area )¿¡ ¿£ÅÍ¸¦ Ã³¸®ÇØ Áà¾ß ÇÑ´Ù. Oracle DB¿¡ ÀúÀå½ÃÄÑ¼­
-	while ((pos = cont.indexOf("\'",pos)) != -1){
+	//textareaë‚´ì— ' ê°€ ë“¤ì–´ê°€ë©´ dbì— insert, updateì‹œ ë¬¸ì œ ë°œìƒ(ì‘ë™ì•ˆí•¨)
+	
+	//ì´ë¶€ë¶„ì€ Stringìœ¼ë¡œ ê°’ì´ ë“¤ì–´ê°€ëŠ” ëª¨ë“  ì»¬ëŸ¼ì— ë‹¤ ê°ê° ì²˜ë¦¬í•´ì¤˜ì•¼í•¨. 
+	//ì•„ë˜ë¶€ë¶„ì€ í˜„ì¬ contë¶€ë¶„ë§Œ ì²˜ë¦¬í–ˆìŒ
+	while ((pos = cont.indexOf("\'",pos)) != -1){ // -1 ê°’ì´ ì¡´ì¬í•˜ì§€ ì•Šì„ë•Œ
 		String left = cont.substring(0,pos);
+			//out.println ("pos : "+pos+"<p>");
+			//out.println ("left : "+left+"<p>");
+		
 		String right = cont.substring(pos, cont.length());
+			//out.println ("right : "+right+"<p>");
+	
 		cont = left + "\'" + right;
 		pos +=2;
 	}
-	//¿À´ÃÀÇ ³¯Â¥ Ã³¸®
+	//if(true) return;
+	
+	//ì˜¤ëŠ˜ì˜ ë‚ ì§œ ì²˜ë¦¬
 	java.util.Date yymmdd = new java.util.Date();
 	SimpleDateFormat myformat = new SimpleDateFormat ("yy-MM-d h:mm a");
 	String ymd = myformat.format(yymmdd);
@@ -42,22 +52,22 @@
 	String sql = null;
 	Statement st = null;
 	ResultSet rs = null;
-	int cnt = 0; // Insert°¡ Àß µÇ¾ú´ÂÁö ±×·¸Áö ¾ÊÀºÁö È®ÀÎ ÇÏ´Â º¯¼ö
+	int cnt = 0; // Insertê°€ ì˜ ë˜ì—ˆëŠ”ì§€ ê·¸ë ‡ì§€ ì•Šì€ì§€ í™•ì¸ í•˜ëŠ” ë³€ìˆ˜
 	
 	try{
-		//°ªÀ» ÀúÀåÇÏ±â Àü¿¡ ÃÖ½Å ±Û¹øÈ£(max(id))¸¦ °¡Á® ¿Í¼­ + 1¸¦ Àû¿ëÇÑ´Ù.
-		//conn (Connection) : auto commit; ÀÌ ÀÛµ¿ µÈ´Ù.
-			//commitÀ» ¸í½Ã ÇÏÁö ¾Ê¾Æµµ insert, update, delete , ÀÚµ¿ Ä¿¹ÔÀÌ µÈ´Ù.
+		//ê°’ì„ ì €ì¥í•˜ê¸° ì „ì— ìµœì‹  ê¸€ë²ˆí˜¸(max(id))ë¥¼ ê°€ì ¸ ì™€ì„œ + 1ë¥¼ ì ìš©í•œë‹¤.
+		//conn (Connection) : auto commit; ì´ ì‘ë™ ëœë‹¤.
+			//commitì„ ëª…ì‹œ í•˜ì§€ ì•Šì•„ë„ insert, update, delete , ìë™ ì»¤ë°‹ì´ ëœë‹¤.
 			
 			
 		st = conn.createStatement();
 		sql = "select max(id) from freeboard";
 		rs = st.executeQuery(sql);
 		
-		if(!rs.next()){ //rsÀÇ °ªÀÌ ºñ¾î ÀÖÀ»¶§ 
+		if(!rs.next()){ //rsì˜ ê°’ì´ ë¹„ì–´ ìˆì„ë•Œ 
 			id = 1;
-		}else {			//rsÀÇ °ªÀÌ Á¸Àç ÇÒ¶§
-			id = rs.getInt(1) + 1;	//ÃÖ´ë°ª + 1
+		}else {			//rsì˜ ê°’ì´ ì¡´ì¬ í• ë•Œ
+			id = rs.getInt(1) + 1;	//ìµœëŒ€ê°’ + 1
 		}
 		
 		
@@ -66,14 +76,15 @@
 		sql = sql + "values ("+id+",'"+ na+"','"+ pw+"','"+ em ;
 		sql = sql + "','" + sub +"','" + cont + "','"+ ymd + "'," + id + "," ;
 		sql = sql + "0,0,0)";
-		
+			
+		cnt = st.executeUpdate(sql); //cnt > 0 : Insert ì„±ê³µ
 		//out.println(sql);
-		cnt = st.executeUpdate(sql); //cnt > 0 : Insert ¼º°ø
+		//if(true) return;
 		
 		if (cnt >0){
-			out.println("µ¥ÀÌÅÍ°¡ ¼º°øÀûÀ¸·Î ÀÔ·Â µÇ¾ú½À´Ï´Ù.");
+			out.println("ë°ì´í„°ê°€ ì„±ê³µì ìœ¼ë¡œ ì…ë ¥ ë˜ì—ˆìŠµë‹ˆë‹¤.");
 		}else {
-			out.println("µ¥ÀÌÅÍ°¡ ÀÔ·ÂµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+			out.println("ë°ì´í„°ê°€ ì…ë ¥ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 		}
 		
 		
@@ -92,6 +103,22 @@
 
 <jsp:forward page ="freeboard_list.jsp" />
 
+<!-- í˜ì´ì§€ ì´ë™
+
+	jsp : forward :				ì„œë²„ë‹¨ì—ì„œ í˜ì´ì§€ë¥¼ ì´ë™í•´ì„œ í´ë¼ì´ì–¸íŠ¸ë¡œ ì „ì†¡,
+								í´ë¼ì´ì–¸íŠ¸ì˜ ê¸°ì¡´ì˜ URLì •ë³´ê°€ ë°”ë€Œì§€ ì•ŠìŒ(ê¸°ì¡´ì˜ ìœ„ì¹˜ì—ì„œ
+								í˜ì´ì§€ ì •ë³´ë§Œ ë°”ê¿”ì¤Œ)
+								ex) ì—´ë¦° í˜ì´ì§€ëŠ” listí˜ì´ì§€ ì´ì§€ë§Œ URLì€ 
+								ì´ë™í•œí˜ì´ì§€ì¸ listê°€ ì•„ë‹Œ ê¸°ì¡´URLì¸ saveë¡œë‚˜íƒ€ë‚¨
+								
+	response.sendRedirect : 	í´ë¼ì´ì–¸íŠ¸ì—ì„œ í˜ì´ì§€ë¥¼ ì¬ìš”ì²­ìœ¼ë¡œ í˜ì´ì§€ ì´ë™
+								ì´ë™í•˜ëŠ” í˜ì´ì§€ë¡œ URLì •ë³´ê°€ ë°”ë€œ
+								í˜ì´ì§€ìì²´ë¥¼ ìƒˆë¡œ ì—´ì–´ë‹¬ë¼ê³  í´ë¼ì´ì–¸íŠ¸ê°€ ì„œë²„ì— ì¬ìš”ì²­
+								í•˜ê³  ê·¸í˜ì´ì§€ë¥¼ ì „ì†¡ì‹œì¼œì¤Œ
+								ex ) ì—´ë¦° í˜ì´ì§€ë„ listí˜ì´ì§€ê°€ ì—´ë¦¬ê³  URLë„ 
+								rsaveê°€ ì•„ë‹Œ listí˜ì´ì§€ì˜ URLì´ ë‚˜íƒ€ë‚¨ 
+
+ -->
 
 
 

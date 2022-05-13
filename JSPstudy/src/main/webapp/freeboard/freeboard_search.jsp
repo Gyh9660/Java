@@ -1,73 +1,101 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page language="java" import="java.sql.*,java.util.*" %> 
-<% request.setCharacterEncoding("EUC-KR"); %>
+<% request.setCharacterEncoding("UTF-8"); %>
 <HTML>
-<HEAD><TITLE>°Ô½ÃÆÇ(°Ë»ö¸ğµå)</TITLE>
+<HEAD><TITLE>ê²Œì‹œíŒ(ê²€ìƒ‰ëª¨ë“œ)</TITLE>
 </HEAD>
 <BODY>
 <%@ include file = "dbconn_oracle.jsp" %>
 <P>
 <P align=center>
- <FONT color=#0000ff face=±¼¸² size=3>
- <STRONG>ÀÚÀ¯ °Ô½ÃÆÇ(°Ë»ö¸ğµå)</STRONG>
+ <FONT color=#0000ff face=êµ´ë¦¼ size=3>
+ <STRONG>ììœ  ê²Œì‹œíŒ(ê²€ìƒ‰ëª¨ë“œ)</STRONG>
  </FONT>
 </P> 
 <FORM method=post name=search action="freeboard_search.jsp">
  <TABLE border=0 width=95%>
   <TR>
    <TD align=left width=30% valign=bottom>
-    [<A href="freeboard_list.jsp">ÀÚÀ¯ °Ô½ÃÆÇ(ÀÏ¹İ¸ğµå)</A>]</TD>
+    [<A href="freeboard_list.jsp">ììœ  ê²Œì‹œíŒ(ì¼ë°˜ëª¨ë“œ)</A>]</TD>
    <TD align=right width=70% valign=bottom>
-    <FONT size=2 face=±¼¸²>
+    <FONT size=2 face=êµ´ë¦¼>
      <SELECT name=stype >
 <% 
- String cond = null;
- int what = 1;
- String val=null;  
+ String cond = null;	//ê²€ìƒ‰í•  ì¡°ê±´ì„ ì €ì¥í•˜ëŠ” ë³€ìˆ˜
+ int what = 1;		// what  : stypeì—ì„œ ë„˜ê¸´ ë³€ìˆ˜ë¥¼ ë‹´ê³  ìˆë‹¤.
+/*
+					    1 >ì´ë¦„
+					    2 >ì œëª©
+					    3 >ë‚´ìš©
+					    4 >ì´ë¦„+ì œëª©
+					    5 >ì´ë¦„+ë‚´ìš©
+					    6 >ì œëª©+ë‚´ìš©
+					    7 >ì´ë¦„+ì œëª©+ë‚´ìš©
+*/
+ String val=null;  //ê²€ìƒ‰ ë‹¨ì–´ë¥¼ ì €ì¥í•˜ëŠ” ë³€ìˆ˜
+ 
+ 
  if (request.getParameter("stype") != null) {
   what = Integer.parseInt(request.getParameter("stype"));
   val= request.getParameter("sval");
-  if (what==1) {
-   out.println("<OPTION value=1 selected>ÀÌ¸§");
+  
+  
+  
+  if (what==1) {		// 1 > ì´ë¦„ ê²€ìƒ‰
+   out.println("<OPTION value=1 selected>ì´ë¦„");
    cond = " where name like '%"+ val+ "%'";
+   
   } else  
-   out.println("<OPTION value=1 >ÀÌ¸§");
-  if (what==2) {
-   out.println("<OPTION value=2 selected>Á¦¸ñ");
+   out.println("<OPTION value=1 >ì´ë¦„");
+  
+  if (what==2) {		// 2 > ì œëª© ê²€ìƒ‰
+   out.println("<OPTION value=2 selected>ì œëª©");
    cond = " where subject like '%"+ val+ "%'";
+   
   } else  
-   out.println("<OPTION value=2>Á¦¸ñ");
-  if (what==3) { 
-   out.println("<OPTION value=3 selected>³»¿ë");
+   out.println("<OPTION value=2>ì œëª©");
+  
+  if (what==3) { 		// 3 > ë‚´ìš© ê²€ìƒ‰
+   out.println("<OPTION value=3 selected>ë‚´ìš©");
    cond = " where content  like '%"+ val+ "%'";
+   
   } else  
-   out.println("<OPTION value=3>³»¿ë");
-  if (what==4) {
-   out.println("<OPTION value=4 selected>ÀÌ¸§/Á¦¸ñ");
+   out.println("<OPTION value=3>ë‚´ìš©");
+  
+  if (what==4) {		// 4 > ì´ë¦„+ì œëª© ê²€ìƒ‰
+   out.println("<OPTION value=4 selected>ì´ë¦„/ì œëª©");
    cond = " where name  like '%"+ val + "%'";
    cond = cond + " or  subject  like '%"+ val+ "%'";
+   
   } else  
-   out.println("<OPTION value=4>ÀÌ¸§/Á¦¸ñ");
-  if (what==5) {
-   out.println("<OPTION value=5 selected>ÀÌ¸§/³»¿ë");
+   out.println("<OPTION value=4>ì´ë¦„/ì œëª©");
+  
+  if (what==5) {		// 5 > ì´ë¦„+ë‚´ìš© ê²€ìƒ‰
+   out.println("<OPTION value=5 selected>ì´ë¦„/ë‚´ìš©");
    cond = " where name  like '%"+ val + "%'";
    cond = cond + " or  content  like '%"+ val+ "%'";
+   
   } else  
-   out.println("<OPTION value=5>ÀÌ¸§/³»¿ë");
-  if (what==6) {
-   out.println("<OPTION value=6 selected>Á¦¸ñ/³»¿ë");
+   out.println("<OPTION value=5>ì´ë¦„/ë‚´ìš©");
+  
+  if (what==6) {		// 6 > ì œëª©+ë‚´ìš© ê²€ìƒ‰
+   out.println("<OPTION value=6 selected>ì œëª©/ë‚´ìš©");
    cond = " where subject  like '%"+ val + "%'";
    cond = cond + " or  content  like '%"+ val+ "%'";
+   
   } else  
-   out.println("<OPTION value=6>Á¦¸ñ/³»¿ë");
-  if (what==7) {
-   out.println("<OPTION value=7 selected>ÀÌ¸§/Á¦¸ñ/³»¿ë");
+   out.println("<OPTION value=6>ì œëª©/ë‚´ìš©");
+  
+  if (what==7) {		//7 > ì´ë¦„+ì œëª©+ë‚´ìš© ê²€ìƒ‰
+   out.println("<OPTION value=7 selected>ì´ë¦„/ì œëª©/ë‚´ìš©");
    cond = " where name  like '%"+ val + "%'";
    cond = cond + " or  subject  like '%"+ val+ "%'";
    cond = cond + " or  content  like '%"+ val+ "%'";
+   
   } else  
-   out.println("<OPTION value=7>ÀÌ¸§/Á¦¸ñ/³»¿ë");
+   out.println("<OPTION value=7>ì´ë¦„/ì œëª©/ë‚´ìš©");
+  
   if (val.trim().equals(""))
    cond = "";
  }
@@ -75,7 +103,7 @@
      </SELECT>
 	</FONT>
     <INPUT type=text name="sval" value="<%=request.getParameter("sval")%>">
-    <INPUT type=submit value="°Ë»ö">
+    <INPUT type=submit value="ê²€ìƒ‰">
    </TD>
   </TR>
  </TABLE>
@@ -86,11 +114,11 @@
   <td colspan="5" height="1" bgcolor="#1F4F8F"></td>
  </tr>
  <tr align="center" bgcolor="#87E8FF"> 
-  <td width="42" bgcolor="#DFEDFF"><font size="2">¹øÈ£</font></td>
-  <td width="340" bgcolor="#DFEDFF"><font size="2">Á¦¸ñ</font></td>
-  <td width="84" bgcolor="#DFEDFF"><font size="2">µî·ÏÀÚ</font></td>
-  <td width="78" bgcolor="#DFEDFF"><font size="2">³¯Â¥</font></td>
-  <td width="49" bgcolor="#DFEDFF"><font size="2">Á¶È¸</font></td>
+  <td width="42" bgcolor="#DFEDFF"><font size="2">ë²ˆí˜¸</font></td>
+  <td width="340" bgcolor="#DFEDFF"><font size="2">ì œëª©</font></td>
+  <td width="84" bgcolor="#DFEDFF"><font size="2">ë“±ë¡ì</font></td>
+  <td width="78" bgcolor="#DFEDFF"><font size="2">ë‚ ì§œ</font></td>
+  <td width="49" bgcolor="#DFEDFF"><font size="2">ì¡°íšŒ</font></td>
  </tr>
  <tr align="center"> 
   <td colspan="5" bgcolor="#1F4F8F" height="1"></td>
@@ -105,19 +133,21 @@
  Vector keyid=new Vector();
  Vector step=new Vector();
  
- int where=1;
+ int where=1; //í˜„ì¬ ìœ„ì¹˜í•œ í˜ì´ì§€
 
  int totalgroup=0;
- int maxpages=2;
+ int maxpages=2;	//í˜ì´ì§• ì²˜ë¦¬ë¶€ë¶„ì˜ 2ê°œì˜ í˜ì´ì§€ë§Œ ìµœëŒ€ë¡œ ì¶œë ¥
  int startpage=1;
  int endpage=startpage+maxpages-1;
- int wheregroup=1;
+ int wheregroup=1;			//í˜ì´ì§€ ê·¸ë£¹
  
  if (request.getParameter("go") != null) {
   where = Integer.parseInt(request.getParameter("go"));
   wheregroup = (where-1)/maxpages + 1;
   startpage=(wheregroup-1) * maxpages+1;  
   endpage=startpage+maxpages-1; 
+  
+  
  } else if (request.getParameter("gogroup") != null) {
   wheregroup = Integer.parseInt(request.getParameter("gogroup"));
   startpage=(wheregroup-1) * maxpages+1;  
@@ -147,9 +177,15 @@
   st = conn.createStatement();
   String sql = "select * from freeboard " + cond;
   sql = sql + " order by id desc" ;
+  
+  //out.println (sql+"<p>");
+  //out.println (val);
+  //if (true) return;
+  
+  
   rs = st.executeQuery(sql);
   if (!(rs.next()))  {
-   out.println("ÇØ´çÇÏ´Â ±ÛÀÌ ¾ø½À´Ï´Ù");
+   out.println("í•´ë‹¹í•˜ëŠ” ê¸€ì´ ì—†ìŠµë‹ˆë‹¤");
   } else {
    do {
     keyid.addElement(new Integer(rs.getInt("id")));
@@ -210,38 +246,41 @@
   out.println("</TABLE>");
   st.close();
   conn.close();
+
  } catch (java.sql.SQLException e) {
   out.println(e);
  } 
  if (wheregroup > 1) {
   out.print("[<A href=freeboard_search.jsp?gogroup=1"); 
-  out.print("&stype="+ what+"&sval=" + val +">Ã³À½</A>]");
+  out.print("&stype="+ what+"&sval=" + val +">ì²˜ìŒ</A>]");
   out.print("[<A href=freeboard_search.jsp?gogroup="+priorgroup);
-  out.print("&stype="+ what+"&sval=" + val +">ÀÌÀü</A>]");
+  out.print("&stype="+ what+"&sval=" + val +">ì´ì „</A>]");
  } else {
-  out.println("[Ã³À½]") ;
-  out.println("[ÀÌÀü]") ;
+  out.println("[ì²˜ìŒ]") ;
+  out.println("[ì´ì „]") ;
  }
+
  if (name.size() !=0) {
   for(int jj=startpage; jj<=endpage; jj++) {
    if (jj==where) 
     out.println("["+jj+"]") ;
    else {
    out.print("[<A href=freeboard_search.jsp?go="+jj);
-   out.print("&stype="+ what+"&sval=" + val +">" + jj + "</A>]") ;
+   out.print("&stype="+what+"&sval="+val+">"+jj+"</A>]") ;
    }
   }
  }
+
  if (wheregroup < totalgroup) {
   out.print("[<A href=freeboard_search.jsp?gogroup="+ nextgroup);
-  out.print("&stype="+ what+"&sval=" + val +">´ÙÀ½</A>]");
+  out.print("&stype="+ what+"&sval="+val+">ë‹¤ìŒ</A>]");
   out.print("[<A href=freeboard_search.jsp?gogroup="+totalgroup); 
-  out.print("&stype="+ what+"&sval=" + val +">¸¶Áö¸·</A>]");
+  out.print("&stype="+ what+"&sval="+val+">ë§ˆì§€ë§‰</A>]");
  } else {
-  out.println("[´ÙÀ½]");
-  out.println("[¸¶Áö¸·]");
+  out.println("[ë‹¤ìŒ]");
+  out.println("[ë§ˆì§€ë§‰]");
  }
- out.println ("°Ë»öµÈ ±Û ¼ö :"+totalrows);
+ out.println ("ê²€ìƒ‰ëœ ê¸€ ìˆ˜ :"+totalrows);
 %>
 </BODY>
 </HTML>

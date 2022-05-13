@@ -1,14 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page language="java" import="java.sql.*,java.util.*" %> 
 <HTML>
-<HEAD><TITLE>°Ô½ÃÆÇ</TITLE>
+<HEAD><TITLE>ê²Œì‹œíŒ</TITLE>
 <link href="freeboard.css" rel="stylesheet" type="text/css">
 <SCRIPT language="javascript">
  function check(){
   with(document.msgsearch){
    if(sval.value.length == 0){
-    alert("°Ë»ö¾î¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä!!");
+    alert("ê²€ìƒ‰ì–´ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš”!!");
     sval.focus();
     return false;
    }	
@@ -33,7 +33,7 @@
 <BODY>
 <%@ include file = "dbconn_oracle.jsp" %>
 <P>
-<P align=center><FONT color=#0000ff face=±¼¸² size=3><STRONG>ÀÚÀ¯ °Ô½ÃÆÇ</STRONG></FONT></P> 
+<P align=center><FONT color=#0000ff face=êµ´ë¦¼ size=3><STRONG>ììœ  ê²Œì‹œíŒ</STRONG></FONT></P> 
 <P>
 <CENTER>
  <TABLE border=0 width=600 cellpadding=4 cellspacing=0>
@@ -41,11 +41,11 @@
    <td colspan="5" height="1" bgcolor="#1F4F8F"></td>
   </tr>
   <tr align="center" bgcolor="#87E8FF"> 
-   <td width="42" bgcolor="#DFEDFF"><font size="2">¹øÈ£</font></td>
-   <td width="340" bgcolor="#DFEDFF"><font size="2">Á¦¸ñ</font></td>
-   <td width="84" bgcolor="#DFEDFF"><font size="2">µî·ÏÀÚ</font></td>
-   <td width="78" bgcolor="#DFEDFF"><font size="2">³¯Â¥</font></td>
-   <td width="49" bgcolor="#DFEDFF"><font size="2">Á¶È¸</font></td>
+   <td width="42" bgcolor="#DFEDFF"><font size="2">ë²ˆí˜¸</font></td>
+   <td width="340" bgcolor="#DFEDFF"><font size="2">ì œëª©</font></td>
+   <td width="84" bgcolor="#DFEDFF"><font size="2">ë“±ë¡ì</font></td>
+   <td width="78" bgcolor="#DFEDFF"><font size="2">ë‚ ì§œ</font></td>
+   <td width="49" bgcolor="#DFEDFF"><font size="2">ì¡°íšŒ</font></td>
   </tr>
   <tr align="center"> 
    <td colspan="5" bgcolor="#1F4F8F" height="1"></td>
@@ -104,7 +104,7 @@
   rs = st.executeQuery(sql);
 
   if (!(rs.next()))  {
-   out.println("°Ô½ÃÆÇ¿¡ ¿Ã¸° ±ÛÀÌ ¾ø½À´Ï´Ù");
+   out.println("ê²Œì‹œíŒì— ì˜¬ë¦° ê¸€ì´ ì—†ìŠµë‹ˆë‹¤");
   } else {
    do {
     keyid.addElement(new Integer(rs.getInt("id")));
@@ -180,11 +180,11 @@
  } 
 
  if (wheregroup > 1) {
-  out.println("[<A href=freeboard_list.jsp?gogroup=1>Ã³À½</A>]"); 
-  out.println("[<A href=freeboard_list.jsp?gogroup="+priorgroup +">ÀÌÀü</A>]");
+  out.println("[<A href=freeboard_list.jsp?gogroup=1>ì²˜ìŒ</A>]"); 
+  out.println("[<A href=freeboard_list.jsp?gogroup="+priorgroup +">ì´ì „</A>]");
  } else {
-  out.println("[Ã³À½]") ;
-  out.println("[ÀÌÀü]") ;
+  out.println("[ì²˜ìŒ]") ;
+  out.println("[ì´ì „]") ;
  }
  if (name.size() !=0) { 
   for(int jj=startpage; jj<=endpage; jj++) {
@@ -195,13 +195,13 @@
    } 
   }
   if (wheregroup < totalgroup) {
-   out.println("[<A href=freeboard_list.jsp?gogroup="+ nextgroup+ ">´ÙÀ½</A>]");
-   out.println("[<A href=freeboard_list.jsp?gogroup="+ totalgroup + ">¸¶Áö¸·</A>]");
+   out.println("[<A href=freeboard_list.jsp?gogroup="+ nextgroup+ ">ë‹¤ìŒ</A>]");
+   out.println("[<A href=freeboard_list.jsp?gogroup="+ totalgroup + ">ë§ˆì§€ë§‰</A>]");
   } else {
-   out.println("[´ÙÀ½]");
-   out.println("[¸¶Áö¸·]");
+   out.println("[ë‹¤ìŒ]");
+   out.println("[ë§ˆì§€ë§‰]");
   }
-  out.println ("ÀüÃ¼ ±Û¼ö :"+totalrows); 
+  out.println ("ì „ì²´ ê¸€ìˆ˜ :"+totalrows); 
  %>
 <!--<TABLE border=0 width=600 cellpadding=0 cellspacing=0>
  <TR>
@@ -216,13 +216,13 @@
  <TR>
   <TD align=right width="241"> 
    <SELECT name=stype >
-    <OPTION value=1 >ÀÌ¸§
-    <OPTION value=2 >Á¦¸ñ
-    <OPTION value=3 >³»¿ë
-    <OPTION value=4 >ÀÌ¸§+Á¦¸ñ
-    <OPTION value=5 >ÀÌ¸§+³»¿ë
-    <OPTION value=6 >Á¦¸ñ+³»¿ë
-    <OPTION value=7 >ÀÌ¸§+Á¦¸ñ+³»¿ë
+    <OPTION value=1 >ì´ë¦„
+    <OPTION value=2 >ì œëª©
+    <OPTION value=3 >ë‚´ìš©
+    <OPTION value=4 >ì´ë¦„+ì œëª©
+    <OPTION value=5 >ì´ë¦„+ë‚´ìš©
+    <OPTION value=6 >ì œëª©+ë‚´ìš©
+    <OPTION value=7 >ì´ë¦„+ì œëª©+ë‚´ìš©
    </SELECT>
   </TD>
   <TD width="127" align="center">
