@@ -17,7 +17,7 @@
 		String em = request.getParameter("email");
 		String sub = request.getParameter("subject");
 		String cont = request.getParameter("content");
-		String da = "to_char(sysdate, 'yyyy-mm-dd hh:mi:ss')";
+		String da = "to_char(sysdate, 'yyyy-mm-dd hh24:mi:ss')";
 		int pos = 0;
 		if (cont.length()==1){
 			cont = cont + " ";
@@ -67,6 +67,7 @@
 				conn.close();
 		}
 	%>	
+
 
 <jsp:forward page ="blog_show.jsp" />
 </body>
