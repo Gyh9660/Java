@@ -18,6 +18,7 @@
 		String sub = request.getParameter("subject");
 		String cont = request.getParameter("content");
 		String da = "to_char(sysdate, 'yyyy-mm-dd hh24:mi:ss')";
+		
 		int pos = 0;
 		if (cont.length()==1){
 			cont = cont + " ";
@@ -39,7 +40,7 @@
 		}
 		String sql = null;
 		Statement st = null;
-		ResultSet rs = null;
+		//ResultSet rs = null;
 		
 		int cnt = 0;
 		
@@ -59,8 +60,8 @@
 		}catch (Exception ex){
 			out.println (ex.getMessage());
 		}finally{
-			if (rs!=null)
-				rs.close();
+			//if (rs!=null)
+				//rs.close();
 			if (st!=null)
 				st.close();
 			if (conn!=null)
