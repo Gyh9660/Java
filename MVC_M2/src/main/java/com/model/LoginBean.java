@@ -1,8 +1,8 @@
 package com.model;
 
-public class LoginBean {	//ºñÁö´Ï½º ·ÎÁ÷À» Ã³¸®ÇÏ´Â DTO (°ªÀ» ¹Ş¾Æ¼­ Àü´ŞÇÏ´Â Àü´ŞÀÚ ¿ªÇÒÀ» ÇÑ´Ù.)
+public class LoginBean {   //ë¹„ì¦ˆë‹ˆìŠ¤ ë¡œì§ì„ ì²˜ë¦¬í•˜ëŠ” DTO (ê°’ì„ ë°›ì–´ì„œ ì „ë‹¬í•˜ëŠ” ì „ë‹¬ì ì—­í™œì„ í•œë‹¤. 
 	
-	private String id;
+	private String id ; 
 	private String password;
 	
 	public String getId() {
@@ -16,16 +16,13 @@ public class LoginBean {	//ºñÁö´Ï½º ·ÎÁ÷À» Ã³¸®ÇÏ´Â DTO (°ªÀ» ¹Ş¾Æ¼­ Àü´ŞÇÏ´Â Àü
 	}
 	public void setPassword(String password) {
 		this.password = password;
-	}
+	} 
 	
 	public boolean validate() {
-		if (password.equals("admin")) {
-			return true;			
-		}
-		else {
-			return false;
-		}
+		if (password.equals("admin"))
+			return true; 
+		else 
+			return false; 
 	}
-	
 
 }

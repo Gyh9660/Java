@@ -9,43 +9,52 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import com.model.LoginBean;
 
-public class Mycontroller extends HttpServlet{ //Controller ¼ÂÆÃ
+public class Mycontroller extends HttpServlet{    //Controller  ì…‹íŒ… 
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Client¿¡¼­ Get ¹æ½ÄÀ¸·Î ¿äÃ»ÇÒ °æ¿ì Ã³¸®ÇÏ´Â ºí¶ô
-	
+		// Clientì—ì„œ Get ë°©ì‹ìœ¼ë¡œ ìš”ì²­í•  ê²½ìš° ì²˜ë¦¬í•˜ëŠ” ë¸”ë½ 
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Client¿¡¼­ Post ¹æ½ÄÀ¸·Î ¿äÃ»ÇÒ °æ¿ì Ã³¸®ÇÏ´Â ºí¶ô
-	
-		response.setContentType("test.html; charset = UTF-8");
-			//client¿¡ ºä ÆäÀÌÁö·Î Àü¼ÛÇÒ contentTypeÀ» Á¤ÀÇ
-		String id = request.getParameter("id");
-		String password = request.getParameter("passwd");
+		// Clientì—ì„œ Post ë°©ì‹ìœ¼ë¡œ ìš”ì²­í•  ê²½ìš° ì²˜ë¦¬í•˜ëŠ” ë¸”ë½ 
 		
-		LoginBean bean = new LoginBean();
+		response.setContentType("text.html; charset = utf-8"); 
+			//client ì— ë·° í˜ì´ì§€ë¡œ ì „ì†¡í•  contentTypeì„ ì •ì˜ 
+		String id = request.getParameter("id"); 
+		String password = request.getParameter("passwd"); 
+		
+		LoginBean bean = new LoginBean(); 
 		bean.setId(id);
 		bean.setPassword(password);
 		
-		request.setAttribute("bean", bean);
+		request.setAttribute("bean", bean); 
 		
-		boolean status = bean.validate(); //password°¡ adminÀÌ¸é, status°¡ true
+		boolean status = bean.validate();     //password : "admin" ì´ë©´, status ê°€ true
 		
 		if (status) {
-			RequestDispatcher rd = request.getRequestDispatcher("mvc_success.jsp");
-			rd.forward(request,response);
-		}else {
-			RequestDispatcher rd = request.getRequestDispatcher("mvc_error.jsp");
-			rd.forward(request,response);
+			RequestDispatcher rd = request.getRequestDispatcher("mvc_success.jsp"); 
+			rd.forward(request, response); 
+			
+		}else { 
+			RequestDispatcher rd = request.getRequestDispatcher("mvc_error.jsp"); 
+			rd.forward(request, response); 
+			
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}  
 	
 	
-	} 
 
-	
-	
-	
 }

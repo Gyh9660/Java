@@ -59,15 +59,6 @@
   <!-- 서블릿 (servlet) : *.java ==> html로 추력하는 자바를 서블릿이라고 한다.
   			: 요즘은 서블릿은 controller 를뜻함
    서블릿(Controller) 매핑 설정 :  -->
-  <servlet>
-  	<servlet-name>MVCBoardList</servlet-name>
-  	<servlet-class>model2.mvcboard.ListController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>MVCBoardList</servlet-name>
-  	<url-pattern>/MVC_M2/list.do</url-pattern>
-  </servlet-mapping>
-  
   <!-- 서블릿 Controller 매핑 설정 -->
   <servlet>
   	<servlet-name>myController</servlet-name>
@@ -78,5 +69,25 @@
 	<url-pattern>/mvc_test/my.do</url-pattern>
   </servlet-mapping>
   
+  <!-- MVCBoard 글목록 보기 Controller 매핑 -->
+  <servlet>
+  	<servlet-name>MVCBoardList</servlet-name>
+  	<servlet-class>model2.mvcboard.ListController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>MVCBoardList</servlet-name>
+  	<url-pattern>/mvcboard/list.do</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 페이징 처리를 위한 설정 (변수값 할당) 출력레코드수 : 10개, 페이지수 : 5개 -->
+  <context-param>
+  	<param-name>POSTS_PER_PAGE</param-name>
+  	<param-value>10</param-value>
+  </context-param>
+  
+  <context-param>
+  	<param-name>PAGES_PER_BLOCK</param-name>
+  	<param-value>5</param-value>
+  </context-param>
   
 </web-app>
