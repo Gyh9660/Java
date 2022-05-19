@@ -1,17 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="EUC-KR">
 <title>Insert title here</title>
 </head>
 <body>
 
-<form action = "core02_process.jsp" method = "post">
-	<p> ìˆ«ì : <input type ="text" name = "number">
-	<p> <input type ="submit" value = "ì „ì†¡"> 
-
+<form action = "core02_process.jsp" method = "post"> 
+	<p> ¼ıÀÚ : <input type = "text" name = "number"> 
+	<p> <input type = "submit" value= "Àü¼Û"> 
 </form>
 
 </body>

@@ -1,15 +1,16 @@
 
-drop table member;
+
+drop table member; 
 
 create table member (
-    id varchar2(100) not null primary key,
-    pass varchar2(100),
+    id varchar2(100) not null primary key, 
+    pass varchar2(100), 
     name varchar2(100)
-    );
+    )
     
-    insert into member values ('1','1234','홍길동');
-    insert into member values ('2','1235','김똘똘');
-    
-    commit;
-    
-    select * from member;
+insert into member Values('1', '1234', 'ȫ�浿'); 
+insert into member values('2', '1235', '��ʶ�'); 
+
+commit
+
+select * from member; 

@@ -1,14 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>ì˜¤ë¥˜ íŽ˜ì´ì§€</title>
+<meta charset="EUC-KR">
+<title>¿À·ù ÆäÀÌÁö </title>
 </head>
 <body>
-	<p> ì•„ì´ë””ì™€ ë¹„ë°€ ë²ˆí˜¸ë¥¼ í™•ì¸í•´ ì£¼ì„¸ìš”. (error page)</p>
-	<%@ include file ="mvc.jsp" %>
-	
+  <p> ¾ÆÀÌµð¿Í ºñ¹Ð ¹øÈ£¸¦ È®ÀÎÇØ ÁÖ¼¼¿ä.  (error page)
+  <%@ include file = "mvc.jsp" %>
+
 </body>
 </html>

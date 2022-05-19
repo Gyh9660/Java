@@ -1,19 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ page import="com.model.LoginBean" %>
-	
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+    
+    <%@ page import = "com.model.LoginBean" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>ë¡œê·¸ì¸ ì„±ê³µ íŽ˜ì´ì§€</title>
+<meta charset="EUC-KR">
+<title>·Î±×ÀÎ ¼º°ø ÆäÀÌÁö</title>
 </head>
 <body>
-	<p> ë¡œê·¸ì¸ ì„±ê³µ í–ˆìŠµë‹ˆë‹¤.</p>
+	<p> ·Î±×ÀÎ ¼º°ø Çß½À´Ï´Ù. 
 	
-	<p><%
-		LoginBean bean = (LoginBean) request.getAttribute("bean"); 	
-		out.println("ì•„ì´ë”” : "+ bean.getId());
-		%>
+	<p> <%
+		LoginBean bean = (LoginBean) request.getAttribute("bean");
+		out.println ("¾ÆÀÌµð : " + bean.getId()); 
+		 %> 
 </body>
 </html>

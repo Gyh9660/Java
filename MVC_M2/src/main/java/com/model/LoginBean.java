@@ -1,5 +1,6 @@
 package com.model;
 
+
 public class LoginBean {   //비즈니스 로직을 처리하는 DTO (값을 받어서 전달하는 전달자 역활을 한다. 
 	
 	private String id ; 

@@ -1,23 +1,25 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+    
+    
+    
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>sql:update íƒœê·¸ë¡œ insert ì¿¼ë¦¬ ì‹¤í–‰í•˜ê¸°</title>
+<meta charset="EUC-KR">
+<title>sql:update ÅÂ±×·Î Insert Äõ¸® ½ÇÇàÇÏ±â </title>
 </head>
 <body>
-		<form method = "post" action = "insert02_process.jsp">
-			<p> ì•„ì´ë”” : <input type = "text" name = "id">
-			<p> ë¹„ë°€ë²ˆí˜¸ : <input type = "password" name ="passwd">
-			<p> ì´ë¦„ : <input type ="text" name = "name">
-			<p> <input type="submit" value ="ì „ì†¡">
-		
-		
-		
-		</form>
-		
-		
-		
+	<form method ="post" action = "insert02_process.jsp" > 
+		<p> ¾ÆÀÌµğ : <input type = "text" name = "id"> 
+		<p> ºñ¹Ğ¹øÈ£ : <input type ="password" name = "passwd"> 
+		<p> ÀÌ¸§	: <input type="text" name = "name"> 
+		<p> <input type="submit" value ="Àü¼Û"> 
+	
+	
+	
+	</form>
+
+
 </body>
 </html>

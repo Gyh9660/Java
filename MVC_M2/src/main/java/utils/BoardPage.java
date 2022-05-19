@@ -16,7 +16,7 @@ public class BoardPage {
             pagingStr += "<a href='" + reqUrl + "?pageNum=" + (pageTemp - 1)
                          + "'>[이전 블록]</a>";
         }
-
+       
         // 단계 5 : 각 페이지 번호 출력
         int blockCount = 1;
         while (blockCount <= blockPage && pageTemp <= totalPages) {
@@ -39,7 +39,7 @@ public class BoardPage {
             pagingStr += "<a href='" + reqUrl + "?pageNum=" + totalPages
                          + "'>[마지막 페이지]</a>";
         }
-
+       // System.out.println(pagingStr);
         return pagingStr;
     }
 }
