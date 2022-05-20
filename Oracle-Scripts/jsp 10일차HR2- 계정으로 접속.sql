@@ -1,3 +1,5 @@
+drop table mvcboard;
+
 create table mvcboard (
     idx number primary key,
     name varchar2(50) not null,
@@ -5,17 +7,17 @@ create table mvcboard (
     content varchar2(2000) not null,
     postdate date default sysdate not null,
     ofile varchar2(200),
-    afile varchar2(50),
+    sfile varchar2(50),
     downcount number(5) default 0 not null,
     pass varchar2(50) not null,
     visitcount number default 0 not null
     );
-    
+
 create SEQUENCE seq_board_num
     INCREMENT by 1
     start with 1
     nocache;
-    
+drop sequence seq_board_num;  
 -- 더미 데이터 입력 ( 5개 정도 값 입력    
 
 insert into mvcboard (idx,name,title,content,pass)
@@ -34,7 +36,7 @@ insert into mvcboard (idx,name,title,content,pass)
 values(SEQ_BOARD_NUM.nextval,'대조영','자료실 제목5 입니다','내용5','1234');
 
 commit;
-
+rollback;
 select * from mvcboard;
 
 desc mvcboard;

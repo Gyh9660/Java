@@ -199,6 +199,7 @@ public class MVCBoardDAO extends DBConnPool {
 			
 			result = psmt.executeUpdate();	//update 성공할때 result 변수값이 0보다 커진다.
 			
+			System.out.println("result "+result);
 		}catch(Exception e){
 			e.printStackTrace();
 			System.out.println("예외 발생");
