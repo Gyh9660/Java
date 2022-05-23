@@ -58,16 +58,16 @@ public class FileUtil {
 			//한글 깨짐 방지 처리 (파일명이 한글일떄)
 			String client = req.getHeader("User-Agent");
 			if (client.indexOf("WOW64")== -1) {
-				ofileName = new String(ofileName.getBytes("UTF-8"),"ISO-8895-1");
+				ofileName = new String(ofileName.getBytes("UTF-8"),"ISO-8859-1");
 			}else {
-				ofileName = new String(ofileName.getBytes("KSC5601"),"ISO-8895-1");
+				ofileName = new String(ofileName.getBytes("KSC5601"),"ISO-8859-1");
 				
 			}
 			
 			//파일 다운용 응답 헤더 설정
 			resp.reset();
 			resp.setContentType("application/octet-stream");
-			resp.setHeader("Content-Disposition", "attachment; filename\""+ofileName+"\"");
+			resp.setHeader("Content-Disposition", "attachment; filename=\""+ofileName+"\"");
 			resp.setHeader("Content-Length", "" +file.length());
 			
 			

@@ -78,7 +78,15 @@ public class MVCBoardDAO extends DBConnPool {
                 dto.setDowncount(rs.getInt(8));
                 dto.setPass(rs.getString(9));
                 dto.setVisitcount(rs.getInt(10));
-
+              
+                /*
+                System.out.println("DB에서가져온값" + rs.getString(1));
+                System.out.println("DB에서 가져온값" + rs.getString(2));
+                
+                System.out.println("=========================");
+                System.out.println("DTO 에서 가져온값 " +dto.getIdx());
+                System.out.println("DTO 에서 가져온값 " +dto.getName());
+                */
                 board.add(dto);
             }
         }
