@@ -5,14 +5,13 @@ create table t_member (
     email varchar2(100) null,
     joinDate date default sysdate
     );
-    --´õ¹Ì µ¥ÀÌÅÍ ÀÔ·Â
-    
+    --ë”ë¯¸ ë°ì´í„° ì…ë ¥
 insert into t_member
-values ('hong', '1234', 'È«±æµ¿','hong@gamil.com',sysdate);
+values ('hong', '1234', 'È«ï¿½æµ¿','hong@gamil.com',sysdate);
 insert into t_member
-values ('lee', '1234', 'ÀÌ¼ø½Å','lee@gamil.com',sysdate);
+values ('lee', '1234', 'ï¿½Ì¼ï¿½ï¿½ï¿½','lee@gamil.com',sysdate);
 insert into t_member
-values ('kim', '1234', '±èÀ¯½Å','kim@gamil.com',sysdate);
+values ('kim', '1234', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½','kim@gamil.com',sysdate);
 
 select * from t_member;
 
