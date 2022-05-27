@@ -3,17 +3,18 @@
 <HTML>
 <HEAD><TITLE>상품 설명(이미지) 보기</TITLE>
 <SCRIPT language="javascript">
- function view(temp) {
-  filename = "http://localhost:9494/ShoppingMall/image/" + temp;
+ function view(temp) { //temp => large 파일이름
+  filename = "/ShoppingMall/upload/" + temp;
   i = window.open(filename, "win", "height=350,width=450,toolbar=0,menubar=0,scrollbars=1,resizable=1,status=0");
  }
 </SCRIPT>
 </HEAD>
 <BODY>
 
-<!-- DB 연결 설정 --> 
-<%@ include file = "dbconn_mysql.jsp" %>
+<!-- DB 연결 설정 -->  
 
+
+<%@ include file = "dbconn_mssql.jsp" %>
 
 <%
 
@@ -28,7 +29,7 @@
    pn=request.getParameter("pname");
   
  //pn = new String(pn.getBytes("ISO-8859-1"),"euc-kr");
- out.println(pn);
+ //out.println(pn);
 
  String sql=null;
  //Connection con= null;
@@ -37,7 +38,7 @@
  
  long id = Long.parseLong(request.getParameter("id"));
  
- String url = "http://localhost:9494/ShoppingMall/image/";
+ String url = "/ShoppingMall/upload/";
  String small=null;
  
  out.print("[<A href=\"product_list.jsp?go="+ request.getParameter("go"));
@@ -53,8 +54,8 @@
   } else {
    small=url+rs.getString("small");
    
-   // out.println(small);
-   //if (true) return;
+  //  out.println(small);
+  //  if (true) return;
    
    out.println("<TABLE width=500 border=0 >");
    out.println("<TR><TH rowspan=3>");

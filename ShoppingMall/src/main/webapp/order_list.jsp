@@ -6,7 +6,7 @@
 <BODY>
 
 <!-- DB 연결 설정 --> 
-<%@ include file = "dbconn_mysql.jsp" %>
+<%@ include file = "dbconn_mssql.jsp" %>
 
 
 [<A href="shop_list.jsp">쇼핑 목록으로 </A>]
@@ -113,6 +113,7 @@
   st2.close();
   conn.close();
  } catch (SQLException e) {
+  out.println(e);
   out.println(e);
  } 
 %>

@@ -49,15 +49,15 @@ $(function(){
 
 	//쿠키의 값을 읽어와서  popupClose변수의 값이 off라면 popupMode변수의 값을  off
 	
-	Cookie[] cookie = request.getCookies();
+	Cookie[] cookie = request.getCookies(); // 쿠키값을 가져와서 쿠키배열에 담는다
 	
 	if (cookie != null){
 		for (Cookie c : cookie){
-			String cookieName = c.getName();
+			String cookieName = c.getName(); //순환하면서 네임을 쿠키네임에담고
 			String cookieValue = c.getValue();
 			
-			if( cookieName.equals("popupClose")){
-				popupMode = cookieValue;
+			if( cookieName.equals("popupClose")){ //쿠키이름이 popupClose라면 그변수의 값을
+				popupMode = cookieValue;			//popupMode에 셋팅
 			}
 		}	
 	}

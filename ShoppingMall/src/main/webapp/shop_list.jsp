@@ -4,9 +4,10 @@
 <HTML>
 <HEAD><TITLE>쇼핑하기 </TITLE>
 <SCRIPT language="javascript">
+//http://localhost:9494
  function view(temp) {
   if (temp.length >0) { 
-   url = "http://localhost:9494/ShoppingMall/image/" + temp;
+   url = "/ShoppingMall/upload/" + temp;
    window.open(url, "win", "height=350,width=450,toolbar=0,menubar=0,scrollbars=1,resizable=1,status=0");
   }
  }
@@ -15,7 +16,7 @@
 <BODY>
 
 <!-- DB 연결 설정 --> 
-<%@ include file = "dbconn_mysql.jsp" %>
+<%@ include file = "dbconn_mssql.jsp" %>
 
 
 <P align=center>
@@ -83,7 +84,7 @@
  Vector large=new Vector();
  Vector description=new Vector();
  
- String url = "http://localhost:9494/ShoppingMall/image/";
+ String url = "/ShoppingMall/upload/";
  
  NumberFormat nf= NumberFormat.getNumberInstance();
  
@@ -101,7 +102,7 @@
  int priorpage = where-1;
  int startrow=0;
  int endrow=0;
- int maxrows=3;
+ int maxrows=10;
  int totalrows=0;
  int totalpages=0;
  
