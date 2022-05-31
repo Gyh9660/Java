@@ -21,3 +21,5 @@ insert into member01 (id,passwd,name,reg_date,address,tel)
 values ('hongkd@kosmo.com','12341234','홍길동',default,'경기도','010-2222-2222');
 
 commit;
+
+desc member01;

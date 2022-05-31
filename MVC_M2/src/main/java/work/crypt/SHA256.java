@@ -2,7 +2,7 @@ package work.crypt;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
-
+	//rt.jar
 public class SHA256 {
 	
 	BASE64Encoder encoder = new BASE64Encoder();
