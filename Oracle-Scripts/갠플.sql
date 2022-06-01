@@ -1,5 +1,6 @@
+select * from usesr01;
 
-create table user(
+create table user01(
     u_id varchar2(20) not null primary key,
     pass varchar2(20) not null,
     u_name varchar2(10) not null,
@@ -9,6 +10,7 @@ create table user(
     address varchar2(100) not null,
     u_date date default sysdate not null
 );
+/*
 create table movie (
   m_id number not null primary key,
   title varchar2(20) not null, --제목
@@ -20,8 +22,8 @@ create table movie (
   content varchar2(1500) not null -- 영화소개
   -- 제작자, 출연, 상영일
 );
+*/
 
-/*
 create table pro (
   p_id number not null primary key,
   p_name varchar2(20) not null,
@@ -32,7 +34,7 @@ create table pro (
   stock number not null,
   review varchar2(1500) null,
 );
-*/
+
 create table order( -- ->예약으로 변경?
     o_id number not null primary key,
     m_id varchar2(20) not null,
