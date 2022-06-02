@@ -1,4 +1,4 @@
-select * from usesr01;
+select * from user01;
 
 create table user01(
     u_id varchar2(20) not null primary key,
