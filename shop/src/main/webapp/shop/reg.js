@@ -1,5 +1,5 @@
 let status = true;
-
+let idck = false;
 $(document).ready(function(){
 	//[ID중복확인]버튼을 클릭하면 자동실행
 	//입력한 아이디 값을 갖고 confirmId.jsp페이지 실행
@@ -9,15 +9,17 @@ $(document).ready(function(){
 		var query = {u_id:$("#u_id").val()};
 		
 	    $.ajax({
-	    	type:"post",//요청방식
+	    	type:"POST",//요청방식
 	    	url:"confirmId.jsp",//요청페이지
 	    	data:query,//파라미터
 	    	success:function(data){//요청페이지 처리에 성공시
 	    		if(data == 1){//사용할 수 없는 아이디
 	    			alert("사용할 수 없는 아이디");
 	    	    	$("#u_id").val("");
+	    	    	$("#u_id").focus();
 	    	     }else if(data == -1)//사용할 수 있는 아이디
 	    	  	    alert("사용할 수 있는 아이디");
+	    	  	    idck = true;
 	 	    }
 	    });
 	  }else{//아이디를 입력하지 않고 [ID중복확인]버튼을 클릭한 경우
@@ -25,6 +27,7 @@ $(document).ready(function(){
 		  $("#u_id").focus();
 	  }
 	});
+	
 	
 	//[가입하기]버튼을 클릭하면 자동실행
 	//사용자가 가입폼인 registerForm.jsp페이지에 입력한 내용을 갖고
@@ -35,13 +38,15 @@ $(document).ready(function(){
 	   if(status){
 		  var query = {u_id:$("#u_id").val(), 
 				  pass:$("#pass").val(),
-			      name:$("#name").val(),
-			      address:$("#address").val(),
-			      tel:$("#tel").val()};
+			      u_name:$("#u_name").val(),
+			      zip_code:$("#sample6_postcode").val(),
+			      address:$("#address").val()+" "+$("#sample6_detailAddress").val(),
+			      email:$("#mailid").val()+"@"+$("#email").val(),
+			      phone:$("#phone").val()+$("#phone2").val()+$("#phone3").val()};
 		  
 		  $.ajax({
 		      type:"post",
-		      url:"registerPro.jsp",
+		      url:"regPro.jsp",
 		      data:query,
 		      success:function(data){
 		    	  window.location.href='main.jsp';
@@ -61,9 +66,9 @@ $(document).ready(function(){
 function checkIt() {
 	status = true;
 	
-	 if(!$("#name").val()) {//이름을 입력하지 않으면 수행
+	 if(!$("#u_name").val()) {//이름을 입력하지 않으면 수행
         alert("사용자 이름을 입력하세요");
-        $("#name").focus();
+        $("#u_name").focus();
         status = false;
         return false;
     }
@@ -81,6 +86,14 @@ function checkIt() {
         status = false;
         return false;
     }
+    var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*?[#?!@$%^&*-]).{6,16}$/;
+    
+    if(!pwdCheck.test(pass.value)) {//비밀번호가 문자/숫자 6~16자가 아닐경우 수행
+        alert("6~16자 특수문자+숫자+문자 입력");
+        pass.focus();
+        status = false;
+        return false;
+    }
     //비밀번호와 재입력비밀번호가 같지않으면 수행
     if($("#pass").val() != $("#repass").val()){
         alert("비밀번호를 동일하게 입력하세요");
@@ -89,6 +102,38 @@ function checkIt() {
         return false;
     }
     
+    if($("#phone").val() == "basic") {
+        alert("번호 앞자리를 선택해주세요.")
+        status = false;
+        return false;
+    }
+    
+    if(!$("#phone2").val()) {//전화번호를 입력하지 않으면 수행
+        alert("전화번호를 입력하세요");
+        $("#phone2").focus();
+        status = false;
+        return false;
+    }  
+    
+    if(!$("#phone3").val()) {//전화번호를 입력하지 않으면 수행
+        alert("전화번호를 입력하세요");
+        $("#phone3").focus();
+        status = false;
+        return false;
+    }  
+    if(!$("#mailid").val()) {//이메일를 입력하지 않으면 수행
+        alert("이메일을 입력하세요");
+        $("#mailid").focus();
+        status = false;
+        return false;
+    }  
+    
+    if(!$("#email").val()) {//이메일를 입력하지 않으면 수행
+        alert("이메일을 입력하세요");
+        $("#email").focus();
+        status = false;
+        return false;
+    }  
     
     if(!$("#address").val()) {//주소를 입력하지 않으면 수행
         alert("주소를 입력하세요");
@@ -96,13 +141,12 @@ function checkIt() {
         status = false;
         return false;
     }
-    
-    if(!$("#tel").val()) {//전화번호를 입력하지 않으면 수행
-        alert("전화번호를 입력하세요");
-        $("#tel").focus();
-        status = false;
+    if($(idck == false)){
+		alert("아이디 중복체크를 해주세요");
+		status = false;
         return false;
-    }  
+	}
+    
 }
 
  function sample6_execDaumPostcode() {
@@ -152,3 +196,20 @@ function checkIt() {
             }
         }).open();
     }
+    
+    
+function selectEmail(ele){
+    var $ele = $(ele);
+    var $email = $('input[name=email]');
+
+    // '1'인 경우 직접입력
+    if($ele.val() == "1"){
+        $email.attr('readonly', false);
+        $email.val('');
+    } else {
+        $email.attr('readonly', true);
+        $email.val($ele.val());
+    }
+}
+
+

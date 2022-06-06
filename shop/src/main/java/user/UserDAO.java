@@ -48,6 +48,14 @@ public class UserDAO extends DBConnPool{
 		}catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("insert중 예외발생");
+			System.out.println(User.getU_id());
+			System.out.println(User.getPass());
+			System.out.println(User.getU_name());
+			System.out.println(User.getPhone());
+			System.out.println(User.getEmail());
+			System.out.println(User.getZip_code());
+			System.out.println(User.getAddress());
+			System.out.println(User.getU_date());
 		}finally {
 			
 		}

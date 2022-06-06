@@ -21,20 +21,20 @@
                     <caption><h2>회원가입</h2></caption>
                     <tr>
                         <th class="col1">이름</th>
-                        <td class="col2"><input type="text" name="name" maxlength="5" id ="name"></td>
+                        <td class="col2"><input type="text" name="u_name" maxlength="5" id ="u_name" autofocus></td>
                     </tr>
                     <tr>
                         <th class="col1">아이디</th>
                         <td class="col2">
-                            <input type="text" name="u_id" maxlength="10" id="u_id">
-                            <button id="checkId" class="but1">중복확인</button>
+                            <input type="text" name="u_id" maxlength="10" id="u_id" onkeyup="idCorrect()">
+                            <input class="but1" type="button" value="중복확인" id = "checkId">
                         </td>
                     </tr>
                     <tr>
                         <th class="col1">비밀번호</th>
                         <td class="col2">
                             <input type="password" name="pass" maxlength="16" id="pass" >
-                            <p>※비밀번호는 <span class="num">문자, 숫자, 특수문자의 조합10 ~ 16자리</span>로 입력이 가능합니다.</p>
+                            <p>※비밀번호는 <span class="num">문자, 숫자, 특수문자의 조합6 ~ 16자리</span>로 입력이 가능합니다.</p>
                         </td>
                     </tr>
                     <tr>
@@ -44,7 +44,7 @@
                     <tr>
                         <th class="col1">휴대전화</th>
                         <td class="col2">
-                            <select name="phone">
+                            <select name="phone" id ="phone">
                                 <option value="basic" selected>---</option>
                                 <option value="010">010</option>
                                 <option value="011">011</option>
@@ -52,23 +52,24 @@
                                 <option value="017">017</option>
                             </select>
                             <span class="a">-</span>
-                            <input type="text" name="phone2" >
+                            <input type="text" name="phone2" maxlength="4" id ="phone2">
                             <span class="a">-</span>
-                            <input type="text" name="phone3" >
+                            <input type="text" name="phone3" maxlength="4" id ="phone3">
                         </td>
                     </tr>
                     <tr>
                         <th class="col1">이메일</th>
                         <td class="col2">
-                            <input type="text" name="mailid" >
+                            <input type="text" name="mailid" id = "mailid">
                             <span class="a">@</span>
-                            <input type="text" name="email" >
-                            <select name="mailslc">
-                                <option value="self" selected>직접입력</option>
-                                <option value="naver">naver.com</option>
-                                <option value="gm">gmail.com</option>
-                                <option value="da">daum.com</option>
-                            </select>
+                            <input name="email" type="text" id = "email">
+                            <select name="select_email" onChange="selectEmail(this)" id ="select_email">
+       							<option value="1" selected>직접입력</option>
+						        <option value="naver.com">naver.com</option>
+						        <option value="gmail.com">gmail.com</option>
+						        <option value="hanmail.com">hanmail.com</option>
+						    </select>
+
                             
                         </td>
                     </tr>
