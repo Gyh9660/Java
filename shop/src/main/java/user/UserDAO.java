@@ -1,5 +1,7 @@
 package user;
 
+import java.util.Base64.Decoder;
+
 import org.apache.commons.codec.binary.Base64;
 
 import common.DBConnPool;
@@ -17,7 +19,7 @@ public class UserDAO extends DBConnPool{
 	}
 	
 	
-	//insert È¸¿ø°¡ÀÔ½Ã DB¿¡ Á¤º¸ÀÔ·Â
+	//insert íšŒì›ê°€ì…ì‹œ DBì— ì •ë³´ì…ë ¥
 	
 	public void insertUser (UserDTO User) {
 		
@@ -40,19 +42,19 @@ public class UserDAO extends DBConnPool{
 			
 			psmt.executeUpdate();
 			
-			System.out.println("È¸¿ø Á¤º¸ DBÀÔ·Â ¼º°ø");
+			System.out.println("íšŒì› ì •ë³´ DBì…ë ¥ ì„±ê³µ");
 			
 			
 		}catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("insertÁß ¿¹¿Ü¹ß»ı");
+			System.out.println("insertì¤‘ ì˜ˆì™¸ë°œìƒ");
 		}finally {
 			
 		}
 	}
-	// ·Î±×ÀÎÃ³¸®, ºäÆäÀÌÁö¿¡¼­ ³Ñ°Ü¹ŞÀº ¾ÆÀÌµğ¿Í ÆĞ½º¿öµå¸¦ DB¸¦È®ÀÎÇÏ°í »ç¿ëÀÚ ÀÎÁõÃ³¸®
+	// ë¡œê·¸ì¸ì²˜ë¦¬, ë·°í˜ì´ì§€ì—ì„œ ë„˜ê²¨ë°›ì€ ì•„ì´ë””ì™€ íŒ¨ìŠ¤ì›Œë“œë¥¼ DBë¥¼í™•ì¸í•˜ê³  ì‚¬ìš©ì ì¸ì¦ì²˜ë¦¬
 	public int userCheck(String u_id, String pass) {
-		int x= -1; //¾ÆÀÌµğ°¡ ¾øÀ»¶§ ½ÇÆĞ
+		int x= -1; //ì•„ì´ë””ê°€ ì—†ì„ë•Œ ì‹¤íŒ¨
 		
 		try {
 			
@@ -63,22 +65,22 @@ public class UserDAO extends DBConnPool{
 			psmt.setString(1, u_id);
 			rs = psmt.executeQuery();
 			
-			if(rs.next()) { //¾ÆÀÌµğ Á¸ÀçÇÏ¸é
-				String dbpass = rs.getString("pass"); //DB¿¡¼­ °¡Á®¿Â ºñ¹Ğ¹øÈ£
+			if(rs.next()) { //ì•„ì´ë”” ì¡´ì¬í•˜ë©´
+				String dbpass = rs.getString("pass"); //DBì—ì„œ ê°€ì ¸ì˜¨ ë¹„ë°€ë²ˆí˜¸
 
 				byte[] decoderBytes = Base64.decodeBase64(dbpass);
 				String decodedTxt = new String(decoderBytes);
 				
 				if(Pass.equals(decodedTxt)) {
-					x =1; //DB¿¡¼­ °¡Á®¿Â ºñ¹Ğ¹øÈ£¿Í ºäÆäÀÌÁö¿¡¼­ ³Ñ¾î¿Â ºñ¹Ğ¹øÈ£°¡ °°À¸¸é
+					x =1; //DBì—ì„œ ê°€ì ¸ì˜¨ ë¹„ë°€ë²ˆí˜¸ì™€ ë·°í˜ì´ì§€ì—ì„œ ë„˜ì–´ì˜¨ ë¹„ë°€ë²ˆí˜¸ê°€ ê°™ìœ¼ë©´
 				}else {
-					x= 0; //¾ÆÀÌµğ´Â °°Áö¸¸ ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾ÊÀ¸¸é
+					x= 0; //ì•„ì´ë””ëŠ” ê°™ì§€ë§Œ ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•Šìœ¼ë©´
 				}
 			}
 			
 		}catch (Exception e) {
 			e.printStackTrace();
-			System.out.println(" ¾ÆÀÌµğ¿Í ÆĞ½º¿öµå ÀÎÁõ ½Ã ¿¹¿Ü ¹ß»ı");
+			System.out.println(" ì•„ì´ë””ì™€ íŒ¨ìŠ¤ì›Œë“œ ì¸ì¦ ì‹œ ì˜ˆì™¸ ë°œìƒ");
 		}finally {
 			
 		}
@@ -87,11 +89,11 @@ public class UserDAO extends DBConnPool{
 	}
 	
 	
-	//È¸¿ø°¡ÀÔ½Ã ¾ÆÀÌµğ Áßº¹Ã¼Å©
+	//íšŒì›ê°€ì…ì‹œ ì•„ì´ë”” ì¤‘ë³µì²´í¬
 	
 	public int confimId (String u_id) {
-		int x =-1; // ¾ÆÀÌµğ¾øÀ½, Áßº¹µÈ ¾ÆÀÌµğ°¡ ¾Æ´Ï´Ù.
-				   // x = 1 > Áßº¹µÈ ¾ÆÀÌµğ°¡ ÀÖ´Ù.
+		int x =-1; // ì•„ì´ë””ì—†ìŒ, ì¤‘ë³µëœ ì•„ì´ë””ê°€ ì•„ë‹ˆë‹¤.
+				   // x = 1 > ì¤‘ë³µëœ ì•„ì´ë””ê°€ ìˆë‹¤.
 		try {
 			
 			String sql = "select u_id from user01 where u_id = ?";
@@ -111,7 +113,7 @@ public class UserDAO extends DBConnPool{
 		}catch (Exception e) {
 			
 			e.printStackTrace();
-			System.out.println("¾ÆÀÌµğ Áßº¹Ã¼Å©Áß ¿¹¿Ü¹ß»ı");
+			System.out.println("ì•„ì´ë”” ì¤‘ë³µì²´í¬ì¤‘ ì˜ˆì™¸ë°œìƒ");
 			
 		}finally {
 			
@@ -121,7 +123,7 @@ public class UserDAO extends DBConnPool{
 		return x;
 	}
 	
-	//È¸¿øÁ¤º¸ DB¿¡¼­ °¡Á®¿À´Â ¸Ş¼Òµå
+	//íšŒì›ì •ë³´ DBì—ì„œ ê°€ì ¸ì˜¤ëŠ” ë©”ì†Œë“œ
 	public UserDTO getUser (String u_id, String pass) {
 		UserDTO user = null;
 		
@@ -133,16 +135,16 @@ public class UserDAO extends DBConnPool{
 			psmt.setString(1, u_id);
 			rs=psmt.executeQuery();
 			
-			if(rs.next()) { //ÇØ´ç ¾ÆÀÌµğ°¡ DB¿¡ Á¸Àç
-				String dbpass = rs.getString("pass"); //DBÀÇ ÆĞ½º¿öµå
+			if(rs.next()) { //í•´ë‹¹ ì•„ì´ë””ê°€ DBì— ì¡´ì¬
+				String dbpass = rs.getString("pass"); //DBì˜ íŒ¨ìŠ¤ì›Œë“œ
 				
 				byte[] decoderBytes = Base64.decodeBase64(dbpass);
 				String decodedTxt = new String(decoderBytes);
 				
 				if (Pass.equals(decodedTxt)) {
-					//DBÀÇ pass¿Í Æû¿¡¼­ ³Ñ¾î¿Â pass°¡ °°À»¶§
-					//DB¿¡¼­ selectÇÑ ·¹ÄÚµå¸¦ DTO¿¡
-					//SetterÁÖÀÔÇØ¼­ °ªÀ» ¹İÈ¯
+					//DBì˜ passì™€ í¼ì—ì„œ ë„˜ì–´ì˜¨ passê°€ ê°™ì„ë•Œ
+					//DBì—ì„œ selectí•œ ë ˆì½”ë“œë¥¼ DTOì—
+					//Setterì£¼ì…í•´ì„œ ê°’ì„ ë°˜í™˜
 					
 					user = new UserDTO();
 					
@@ -156,22 +158,106 @@ public class UserDAO extends DBConnPool{
 					user.setU_date(rs.getTimestamp("u_date"));
 					
 				}else {
-					//DBÀÇ pass¿Í Æû¿¡¼­ ³Ñ¾î¿Â Pass°¡ ´Ù¸¦‹š
+					//DBì˜ passì™€ í¼ì—ì„œ ë„˜ì–´ì˜¨ Passê°€ ë‹¤ë¥¼ë–„
 				}
 				
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("È¸¿øÁ¤º¸ ÀĞ¾î ¿À´ÂÁß ¿¹¿Ü ¹ß»ı");
+			System.out.println("íšŒì›ì •ë³´ ì½ì–´ ì˜¤ëŠ”ì¤‘ ì˜ˆì™¸ ë°œìƒ");
 		}finally {
 			
 		}
 		
-		return user; //user :dto¿¡ setterÁÖÀÔÈÄ ¸®ÅÏ
+		return user; //user :dtoì— setterì£¼ì…í›„ ë¦¬í„´
 	}
 	
-	//È¸¿ø Á¤º¸ ¼öÁ¤Ã³¸® : ¼öÁ¤ÆäÀÌÁö¿¡¼­ ¼öÁ¤ÇÑ ³»¿ëÀ» DB¿¡ ÀúÀå ¸Ş¼Òµå
+	//íšŒì› ì •ë³´ ìˆ˜ì •ì²˜ë¦¬ : ìˆ˜ì •í˜ì´ì§€ì—ì„œ ìˆ˜ì •í•œ ë‚´ìš©ì„ DBì— ì €ì¥ ë©”ì†Œë“œ
+	public int updateUser(UserDTO user) {
+		int x =-1; // -1 : (idê°€ dbì— ì—†ìŒ), 0 : ì•„ì´ë”” o ë¹„ë°€ë²ˆí˜¸ x, 1 :ì•„ì´ë””,ë¹„ë²ˆ ì¼ì¹˜
+		
+		try {
+			String Pass = user.getPass();
+			
+			String sql = "select pass from user01 where id = ?";
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, user.getU_id());
+			rs =psmt.executeQuery();
+			
+			if(rs.next()) {
+				//í¼ì—ì„œ ë„˜ê¸´ íŒ¨ìŠ¤ì›Œë“œì™€ DBì—ì„œ ê°€ì ¸ì˜¨ íŒ¨ìŠ¤ì›Œë“œê°€ ì¼ì¹˜í•˜ëŠ”ì§€ í™•ì¸í›„ ì²˜ë¦¬
+				String dbpass = rs.getString("pass");
+				
+				byte[] decoderBytes = Base64.decodeBase64(dbpass);
+				String decodedTxt = new String(decoderBytes);
+				
+				if(Pass.equals(decodedTxt)) { //ë‘ íŒ¨ìŠ¤ì›Œë“œê°€ ì¼ì¹˜í• ë–„
+					
+					sql = "update user01 set u_name = ?, address = ? , phone = ? "
+							+ "where u_id = ?";
+					psmt = con.prepareCall(sql);
+					psmt.setString(1, user.getU_name());
+					psmt.setString(2, user.getAddress());
+					psmt.setString(1, user.getPhone());
+					psmt.setString(1, user.getU_id());
+					
+					psmt.executeUpdate();
+					x=1; //update ì„±ê³µì‹œ xì— 1í• ë‹¹
+					
+							
+				}else {
+					x=0; //idëŠ” ì¡´ì¬í•˜ê³  íŒ¨ìŠ¤ì›Œë“œ ì¼ì¹˜ x
+				}
+				
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("íšŒì› ì •ë³´ ìˆ˜ì •ì‹œ ì˜ˆì™¸ ë°œìƒ");
+		}finally {
+			
+		}
+		return x;
+	}
 	
-	
-	
+	//íšŒì› íƒˆí‡´ ì²˜ë¦¬
+	public int deleteUser(String u_id, String pass) {
+		int x = -1; //íƒˆí‡´ì‹¤íŒ¨ ,1 : íƒˆí‡´ì„±ê³µ
+		
+		try {
+			String Pass = pass;
+			
+			String sql = "select pass from user01 where u_id = ?";
+			psmt =con.prepareStatement(sql);
+			psmt.setString(1, u_id);
+			rs=psmt.executeQuery();
+			
+			if(rs.next()) { //idê°€ dbì— ì¡´ì¬ (idì¼ì¹˜)
+				String dbpass = rs.getString("pass");
+				byte[] decoderBytes = Base64.decodeBase64(dbpass);
+				String decodedTxt = new String(decoderBytes);
+				
+				if(Pass.equals(decodedTxt)) { //idì™€ passê°€ ì¼ì¹˜í•˜ë©´ delete
+					sql = "delete user01 where u_id = ?";
+					psmt = con.prepareStatement(sql);
+					psmt.setString(1, u_id);
+					psmt.executeUpdate();
+					
+					x=1; // deleteì„±ê³µ (ì•„ì´ë”” ë¹„ë²ˆì¼ì¹˜)
+					
+				}else{
+					x=0; //idëŠ” ì¡´ì¬í•˜ì§€ë§Œ íŒ¨ìŠ¤ì›Œë“œ ì¼ì¹˜ x
+				}
+				
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("íƒˆí‡´ì²˜ë¦¬ì¤‘ ì˜ˆì™¸ë°œìƒ");
+		}finally {
+			
+		}
+		
+		return x; //ì„±ê³µì‹œ x =1, ì‹¤íŒ¨ì‹œ -1
+	}
 }
