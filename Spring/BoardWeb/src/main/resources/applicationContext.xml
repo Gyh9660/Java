@@ -2,7 +2,31 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+<!-- 어노테이션 기반 사용 설정 : com.springbook.biz 패키지 하위의 모든 클래스의 어노테이션을 
+게더링 함 -->
+<context:component-scan base-package="com.springbook.biz"></context:component-scan>
+
+
+
+
+
+
+
+<!-- 
+<context:component-scan base-package="polymorphism_5_1_1"></context:component-scan>
+ -->
+<!-- 
+<context:component-scan base-package="polymorphism_5_2_1"></context:component-scan>
+ -->
+
+
+
+
+
 
 <!-- 스프링 프레임 워크에서 객체를 생성후 DI(의존성 주입)으로 객체를 주입 -->
 
@@ -94,6 +118,7 @@ destroy-method = "destroyMethod"></bean>
 
 </bean>
 
+
 <bean id = "sony" class ="polymorphism_4_2_1.SonySpeaker"></bean>
  -->
 
@@ -103,16 +128,16 @@ destroy-method = "destroyMethod"></bean>
 
 <!-- 별도의 스피커 객체 생성 : 인터페이스를 통한 설정 : (Speaker) -->
 <!-- 
+
 <bean id = "tv" class = "polymorphism_4_2_2.SamsungTV" >
 	<constructor-arg ref = "sony"></constructor-arg>
 
 </bean>
 
 <bean id = "sony" class ="polymorphism_4_2_2.SonySpeaker"></bean>
+
+
  -->
-
-
-
 
 
 
@@ -125,11 +150,12 @@ destroy-method = "destroyMethod"></bean>
 
 <!-- 
 <bean id = "tv" class = "polymorphism_4_3_1.SamsungTV" >
-	<property name="speaker" ref = "sony"></property>
+	<property name="speaker" ref = "apple"></property>
 	<property name="price" value = "3000000"></property>
 </bean>
 
-<bean id = "sony" class ="polymorphism_4_3_1.AppleSpeaker"></bean>
+<bean id = "apple" class ="polymorphism_4_3_1.AppleSpeaker"></bean>
+<bean id = "sony" class ="polymorphism_4_3_1.SonySpeaker"></bean>
  -->
 
 

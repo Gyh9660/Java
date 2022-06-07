@@ -1,4 +1,4 @@
-package polymorphism_3_1_2;
+package polymorphism_5_2_1;
 
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
@@ -24,9 +24,10 @@ public class TVUser {
 		
 		AbstractApplicationContext factory =
 				new GenericXmlApplicationContext("applicationContext.xml");
-		//applicationContext.xml 객체를 만드는 xml파일, 여기서 만들어서 가져옴
+		
 			//GenericXmlApplicationContext : Bean 설정 파일을 로드함
 		
+		//스프링 컨테이너에서 객체를 요청
 		TV tv = (TV)factory.getBean("tv");
 		//가져온 객체를 TV 타입으로 업캐스팅
 		
@@ -34,6 +35,11 @@ public class TVUser {
 		tv.powerOff();
 		tv.volumUp();
 		tv.volumDown();
+		
+		factory.close(); //메모리에서 객체자원 반납 , 객체 제거
+		
+		
+		
 		
 	}
 

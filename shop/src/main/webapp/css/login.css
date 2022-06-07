@@ -1,0 +1,128 @@
+@charset "UTF-8";
+
+* {
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    font-family: "맑은 고딕";
+    color: #333;
+}
+
+body {
+    width: 1200px;
+    font-size: 20px;
+    height: 100%;
+    background-color: azure;
+}
+
+a {
+    text-decoration: none;
+    display: block;
+}
+
+.login {
+    margin-top: 100px;
+    width: 1050px;
+    height: 1050px;
+    background-color: white;
+}
+.login>h1{
+    margin-top: 50px;
+    text-align: center;
+    
+}
+fieldset{
+    width: 600px;
+    text-align: center;
+}
+
+button {
+    width: 130px;
+    margin: 20px;
+}
+.login h1{
+    margin-top: 150px;
+    margin-bottom: 50px;
+    width: 400px;
+    background-color: darkblue;
+    color: white;
+}
+#u_id {
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+#pass{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.form2{
+    display: block;
+    width: 266px;
+    height: 45px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+         -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+.form2:focus {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+  }
+  .btn{
+    color: #fff;
+    background-color: darkblue;
+    border-color: darkblue;
+    width: 266px;
+    height: 66px;
+    cursor: pointer;
+    font-size: 25px;
+    font-weight: bold;
+}
+.btn:hover{
+    color: #fff;
+    background-color: blue;
+    border-color: blue;
+}
+.memberLink {
+    text-align: center;
+}
+.register {
+    margin-top: 10px;
+    border: 1px solid black;
+    width: 340px;
+    height: 53px;
+    line-height: 50px;
+    background-color: darkblue;
+    color: white;
+    cursor: pointer;
+}
+.register:hover{
+    color: white;
+    background-color: blue;
+    border-color: blue;
+}
+.find {
+    margin-top: 10px;
+    border: 1px solid black;
+    width: 340px;
+    line-height: 50px;
+    height: 53px;
+    background-color: darkblue;
+    color: white;
+}
+.find:hover{
+    color: white;
+    background-color: blue;
+    border-color: blue;
+}

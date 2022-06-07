@@ -13,7 +13,18 @@
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
-	<dependencies>
+	
+	<dependencies> <!-- 라이브러리 시작 -->
+		
+		<!-- H2 DB 라이브러리 등록 -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.4.199</version>
+		</dependency>	
+	
+	
+	
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -115,8 +126,11 @@
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
 			<scope>test</scope>
-		</dependency>        
+		</dependency>  
+		
 	</dependencies>
+		<!-- 라이브러리 끝 -->   
+		   
     <build>
         <plugins>
             <plugin>

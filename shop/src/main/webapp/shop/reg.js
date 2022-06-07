@@ -18,8 +18,10 @@ $(document).ready(function(){
 	    	    	$("#u_id").val("");
 	    	    	$("#u_id").focus();
 	    	     }else if(data == -1)//사용할 수 있는 아이디
+	    	  	    idck = true;	    	  	    
+	    	  	    //alert(idck);
 	    	  	    alert("사용할 수 있는 아이디");
-	    	  	    idck = true;
+	    	  	    
 	 	    }
 	    });
 	  }else{//아이디를 입력하지 않고 [ID중복확인]버튼을 클릭한 경우
@@ -40,7 +42,7 @@ $(document).ready(function(){
 				  pass:$("#pass").val(),
 			      u_name:$("#u_name").val(),
 			      zip_code:$("#sample6_postcode").val(),
-			      address:$("#address").val()+" "+$("#sample6_detailAddress").val(),
+			      address:$("#address").val()+" "+$("#sample6_detailAddress").val() +" "+$("#sample6_extraAddress").val(),
 			      email:$("#mailid").val()+"@"+$("#email").val(),
 			      phone:$("#phone").val()+$("#phone2").val()+$("#phone3").val()};
 		  
@@ -49,6 +51,7 @@ $(document).ready(function(){
 		      url:"regPro.jsp",
 		      data:query,
 		      success:function(data){
+				  alert("회원가입에 성공했습니다.")
 		    	  window.location.href='main.jsp';
 		 	  }
 		  });
@@ -65,7 +68,7 @@ $(document).ready(function(){
 //사용자가 입력폼에 입력한 상황을 체크
 function checkIt() {
 	status = true;
-	
+	idck = true;
 	 if(!$("#u_name").val()) {//이름을 입력하지 않으면 수행
         alert("사용자 이름을 입력하세요");
         $("#u_name").focus();
@@ -141,7 +144,8 @@ function checkIt() {
         status = false;
         return false;
     }
-    if($(idck == false)){
+    if(idck == false){
+		//alert(idck);
 		alert("아이디 중복체크를 해주세요");
 		status = false;
         return false;

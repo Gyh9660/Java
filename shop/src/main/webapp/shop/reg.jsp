@@ -95,7 +95,7 @@
         </div>
         <br>
         <div class="create">
-            <input class="but4" type="button" value="이전" onclick="">
+            <input class="but4" type="button" value="이전" onclick="history.back()">
             <input class="but5" type="button" value="회원가입" id = "process">
         </div>
         </div>

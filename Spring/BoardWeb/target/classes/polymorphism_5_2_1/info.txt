@@ -1,0 +1,39 @@
+polymorphism_5_2_1 : 
+
+Bean( 객체 설정 ) 
+	1.XML 설정 (src/main/resources)--> Spring Bean Configuration File생성
+		-- 자주 수정이 요구되는 설정
+	2.어노테이션 설정 @Component()
+		-- 수정이 자주 발생되지 않는 설정
+		-- Spring Bean Configuration File에서 어노테이션을 사용할 수 있도록 설정 필요.
+			-- context 네임 스페이스 추가
+			-- context 네임 스페이스 설정
+			<context:component-scan base-package="polymorphism_5_1_1">
+			</context:component-scan>
+		-- 클래스 선언부 윗라인에 @Component("tv")	
+		-- @Component 만 정의된 경우 클래스 이름의 첫자를 소문자로 로드
+		
+	객체 생성 어노테이션 (@Component)
+		
+		--@Service		xxxServiceImpl : 비즈니스 로직을 처리하는 Service클래스
+		--@Repository	xxxDAO : DB연동을 처리하는 DAO 클래스
+		--@Controller	xxxController : 사용자 요청을 제어하는 Controller 클래스
+	
+	의존성 주입 어노테이션 (DI)
+		1. @Autowired : 주로 변수위에 설정 해당 타입의 객체를 찾아서 주입 (Spring)
+			-- 해당 타입의 객체가 여러개인 경우 @Qualifier을 사용해서 특정 이름을 지정
+			
+		2. @Qualifier : 특정 객체의 이름을 이용해서 의존성 주입할 때 사용 (Spring)
+			-
+		
+		3. @Resource  : @Aurowired와 @Qualifier를 합친 기능 (java)	
+		4. @Inject	  : @Autowired와 동일한 기능 (java)
+
+
+
+IoC ( 제어의 역행) : 객체생성 (프로그래머, 개발자[코드내부 ]) 
+====> 객체생성 (Spring 프레임워크)
+	DI ( 의존성 주입 ) :객체를 Spring 프레임워크에서 생성 => 자바 프로그램으로 주입
+		-- 객체의 생성자를 통해서 객체 주입
+		-- Setter를 사용해서 객체 주입
+
