@@ -66,4 +66,4 @@ create SEQUENCE seq_qna_num
 drop sequence seq_qna_num; 
 drop table qnaboard;
 select * from qnaboard;
-insert into qnaboard values(seq_qna_num.nextval,'1234','1234','1234',sysdate,default,default,default,default);
+insert into qnaboard values(seq_qna_num.nextval,'1234','1234','1234',sysdate,default,default,default,1);
