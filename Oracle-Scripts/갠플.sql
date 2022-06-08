@@ -46,3 +46,24 @@ create table order( -- ->예약으로 변경?
     constraint FK_order_pid_pro_pid foreign key (p_id) references pro(p_id)
    
 );
+
+create table qnaboard(
+    q_id number constraint PK_qnaboard_id primary key, 
+    u_id varchar2(20) not null,
+    subject varchar2(100) not null,
+    content varchar2(2000) not null,
+    inputdate date default sysdate not null,
+    readcount number default 0,
+    masterid number default 0 , 
+    replaynum number default 0, 
+    step number default 0,
+    constraint FK_qna_uid_user_uid foreign key (u_id) references user01(u_id)
+);
+create SEQUENCE seq_qna_num
+    INCREMENT by 1
+    start with 1
+    nocache;
+drop sequence seq_qna_num; 
+drop table qnaboard;
+select * from qnaboard;
+insert into qnaboard values(seq_qna_num.nextval,'1234','1234','1234',sysdate,default,default,default,default);

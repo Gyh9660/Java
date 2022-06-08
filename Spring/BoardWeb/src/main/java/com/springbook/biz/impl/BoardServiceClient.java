@@ -20,9 +20,12 @@ public class BoardServiceClient {
 		
 		//3. 글 등록 기능 테스트
 		BoardVO vo = new BoardVO();
-		vo.setTitle("임시 테스트 제목1");
-		vo.setWriter("홍길동1");
-		vo.setContent("임시 글 내용1");
+		
+		//vo.setSeq(0); //강제 Exception 발생
+		
+		vo.setTitle("임시 테스트 제목13");
+		vo.setWriter("홍길동13");
+		vo.setContent("임시 글 내용13");
 		
 		boardService.insertBoard(vo);
 		
