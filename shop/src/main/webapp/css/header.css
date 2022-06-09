@@ -1,0 +1,117 @@
+@charset "UTF-8";
+
+* {
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    font-family: "맑은 고딕";
+    color: #333;
+}
+body {
+    width: 1200px;
+    background-color: azure;
+    font-size: 20px;
+    height: 100%;
+}
+
+a {
+    text-decoration: none;
+    display: block;
+}
+header {
+    height: 100px;
+    width: 1200px;
+    position: sticky;
+    top: -14%;
+    z-index: 99;
+    background-color: azure;
+}
+
+.top {
+    height: 100px;
+    width: 1200px;
+}
+.home {
+    float: right;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.home>li {
+    float: left;
+    margin-right: 50px;
+}
+.home>li>a{
+    margin-top: 10px;
+    float: center;
+    text-align: center;
+    word-spacing: 10px;
+}
+.logo {
+    float: left;
+    height: 100px;
+    width: 500px;
+}
+
+.logo img {
+    float: left;
+    height: 80px;
+    width: 300px;
+    margin-top: 10px;
+}
+
+.menu {
+    float: right;
+    width: 1200px;
+    z-index: 1;
+    
+}
+
+.nav {
+    background-color: #fff;
+    width: 100%;
+    float: right;
+}
+
+.nav>li {
+    float: left; 
+}
+
+.nav>li>a {
+    height: 40px;
+    width: 200px;
+    line-height: 40px;
+    font-size: 16px;
+    font-weight:bold;
+    text-align: center;
+    background-color: #fff;
+    color: #000;
+}
+
+
+.nav>li:hover .submenu{
+    opacity: 1;
+    visibility: visible;
+}
+.submenu {
+    border-top: solid 1px blue;
+    width: 200px;
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 1;
+}
+
+.submenu>li>a {
+    height: 35px;
+    line-height: 35px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #fff;
+    color: #000;
+}
+
+.submenu>li>a:hover {
+    background-color: skyblue;
+}

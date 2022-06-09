@@ -1,0 +1,339 @@
+@charset "UTF-8";
+* {
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    font-family: "맑은 고딕";
+    color: #333;
+}
+body {
+    width: 1200px;
+    background-color: azure;
+    font-size: 20px;
+    height: 100%;
+}
+
+a {
+    text-decoration: none;
+    display: block;
+}
+
+section {
+    height: 2000px;
+    width: 1200px;
+}
+.bodywrap {
+    height: 2000px;
+    width: 1200px;
+}
+
+.slider {
+    height: 700px;
+    width: 1200px;
+    position: relative;
+    overflow: hidden;
+    margin-left: 0px;
+    margin-right: 0px;
+    z-index: 0;
+}
+
+.slider input[type=radio]{
+    display: none;
+}
+
+ul.imgs{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+ul.imgs li{
+    position: absolute;
+    transition-delay: 1s;
+    padding: 0;
+    margin: 0;
+}
+
+.bullets{
+    position: absolute;
+    left: 52%;
+    transform: translateX(-50%);
+    bottom: 20px;
+    z-index: 2;
+}
+.bullets label{
+    display: inline-block;
+    border-radius: 50%;
+    background-color: rgba(0,0,0,0.55);
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.slider input[type=radio]:nth-child(1):checked~.bullets>label:nth-child(1){
+    background-color: #fff;
+}
+.slider input[type=radio]:nth-child(2):checked~.bullets>label:nth-child(2){
+    background-color: #fff;
+}
+.slider input[type=radio]:nth-child(3):checked~.bullets>label:nth-child(3){
+    background-color: #fff;
+}
+.slider input[type=radio]:nth-child(4):checked~.bullets>label:nth-child(4){
+    background-color: #fff;
+}
+
+.slider input[type=radio]:nth-child(1):checked~ul.imgs>li:nth-child(1){
+    left: 0;
+    transition: 0.5s;
+    z-index:1;
+}
+.slider input[type=radio]:nth-child(2):checked~ul.imgs>li:nth-child(2){
+    left: 0;
+    transition: 0.5s;
+    z-index:1;
+}
+.slider input[type=radio]:nth-child(3):checked~ul.imgs>li:nth-child(3){
+    left: 0;
+    transition: 0.5s;
+    z-index:1;
+}
+.slider input[type=radio]:nth-child(4):checked~ul.imgs>li:nth-child(4){
+    left: 0;
+    transition: 0.5s;
+    z-index:1;
+}
+.imgs>a {
+    position: absolute;
+}
+
+.contents {
+    margin-top: 250px;
+    float: left;
+    height: 800px;
+    width: 1200px;
+    position: relative;
+}
+.otherwrap {
+    clear: both;
+    height: 400px;
+    width: 1200px;
+}
+.bannername{
+    margin-bottom: 50px;
+    float: left;
+    font-size: 25px;
+    font-weight: bold;
+    height: 100px;
+    width: 1200px;
+    background-color: #30a3f3
+}
+.bannername>h3{
+    text-align: center;
+    margin-top: 30px;
+    color: white;
+}
+
+.banner {
+    float: left;
+    height: 300px;
+    width: 400px;
+    margin: auto;
+}
+
+.banner2 {
+    float: left;
+    height: 300px;
+    width: 400px;
+    margin: auto;
+}
+.banner3 {
+    float: left;
+    height: 300px;
+    width: 400px;
+    margin: auto;
+}
+.banner img {
+    margin-left: 70px;
+    float: left;
+    height: 200px;
+    width: 250px;
+}
+
+.banner img:hover {
+    opacity: 0.5;
+}
+
+.banner pre {
+    text-align: left;
+    float: left;
+    width: 400px;
+    font-size: 15px;
+}
+.banner pre h4 {
+    text-align: left;
+    width: 260px;
+    
+}
+.banner pre a:hover{
+    opacity: 0.5;
+}
+.banner2 img {
+    margin-left: 70px;
+    float: left;
+    height: 200px;
+    width: 250px;
+}
+
+.banner2 img:hover {
+    opacity: 0.5;
+}
+.banner2 pre {
+    text-align: left;
+    float: left;
+    width: 400px;
+    font-size: 15px;
+}
+.banner2 pre h4 {
+    text-align: left;
+    width: 260px;
+}
+.banner2 pre a:hover{
+    opacity: 0.5;
+}
+.banner3 img {
+    margin-left: 70px;
+    float: left;
+    height: 200px;
+    width: 250px;
+}
+
+.banner3 img:hover {
+    opacity: 0.5;
+}
+.banner3 pre {
+    text-align: left;
+    float: left;
+    width: 400px;
+    font-size: 15px;
+}
+.banner3 pre h4 {
+    text-align: left;
+    width: 260px;
+}
+.banner3 pre a:hover{
+    opacity: 0.5;
+}
+.otherwrap2{
+    margin-top: 100px;
+    float: right;
+    width: 1200px;
+    height: 400px;
+}
+.twobannername{
+    margin-bottom: 50px;
+    float: left;
+    font-size: 25px;
+    font-weight: bold;
+    height: 100px;
+    width: 1200px;
+    background-color: #30a3f3
+
+
+}
+.twobannername>h3{
+    text-align: center;
+    margin-top: 30px;
+    color: white;
+
+}
+.sbanner{
+    float: left;
+    height: 300px;
+    width: 400px;
+    margin: auto;
+}
+.sbanner2{
+    float: left;
+    height: 300px;
+    width: 400px;
+    margin: auto;
+}
+.sbanner3{
+    float: left;
+    height: 300px;
+    width: 400px;
+    margin: auto;
+}
+.sbanner img {
+    margin-left: 70px;
+    float: left;
+    height: 200px;
+    width: 250px;
+}
+
+.sbanner img:hover {
+    opacity: 0.5;
+}
+.sbanner pre {
+    text-align: left;
+    float: left;
+    width: 400px;
+    font-size: 15px;
+}
+.sbanner pre h4 {
+    text-align: left;
+    width: 260px;
+    
+}
+.sbanner pre a:hover{
+    opacity: 0.5;
+}
+
+.sbanner2 img {
+    margin-left: 70px;
+    float: left;
+    height: 200px;
+    width: 250px;
+}
+
+.sbanner2 img:hover {
+    opacity: 0.5;
+}
+.sbanner2 pre {
+    text-align: left;
+    float: left;
+    width: 400px;
+    font-size: 15px;
+}
+.sbanner2 pre h4 {
+    text-align: left;
+    width: 260px;
+    
+}
+.sbanner2 pre a:hover{
+    opacity: 0.5;
+}
+.sbanner3 img {
+    margin-left: 70px;
+    float: left;
+    height: 200px;
+    width: 250px;
+}
+
+.sbanner3 img:hover {
+    opacity: 0.5;
+}
+.sbanner3 pre {
+    text-align: left;
+    float: left;
+    width: 400px;
+    font-size: 15px;
+}
+.sbanner3 pre h4 {
+    text-align: left;
+    width: 260px;
+    
+}
+.sbanner3 pre a:hover{
+    opacity: 0.5;
+}
