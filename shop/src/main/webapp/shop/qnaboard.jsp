@@ -55,7 +55,7 @@
 		                ${ map.totalCount - (((map.pageNum-1) * map.pageSize) + loop.index)}   
 		            </td>
 		            <td align="left">  <!-- 제목(링크) -->
-		                <a href="../shop/view.do?idx=${ row.u_id }">${ row.title }</a> 
+		                <a href="../shop/view.do?idx=${ row.u_id }">${ row.subject }</a> 
 		            </td> 
 		            <td>${ row.u_id }</td>  <!-- 작성자 -->
 		            <td>${ row.readcount }</td>  <!-- 조회수 -->
@@ -70,7 +70,7 @@
 		                ${ map.totalCount - (((map.pageNum-1) * map.pageSize) + loop.index)}   
 		            </td>
 		            <td align="left">  <!-- 제목(링크) -->
-		                <a href="../shop/view.do?idx=${ row.u_id }">&nbsp;&nbsp;${ row.title }</a> 
+		                <a href="../shop/view.do?idx=${ row.u_id }">&nbsp;&nbsp;${ row.subject }</a> 
 		            </td> 
 		            <td>${ row.u_id }</td>  <!-- 작성자 -->
 		            <td>${ row.readcount }</td>  <!-- 조회수 -->

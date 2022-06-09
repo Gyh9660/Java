@@ -14,6 +14,8 @@ AOP (Aspect Oriented Programming) 관점 지향 프로그래밍
 - 포인트 컷 : 필터링된 조인 포인트 (AOP가 적용될 메소드를 필터링 설정)
 		  : 공통 기능을 적용하기 위해서는 포인트컷 셋팅이 필요하다.
 		  
+	-aspect : Advice (빈등록) + Pointcut 결합시킴.	  
+		  
 	expression="execution(* com.springbook.biz..*Impl.*(..))"
 
 	* 					: 리턴타입
@@ -33,6 +35,25 @@ advice 의 동작 시점 :
 		-- After-Throwing	: 예외가 발생 되면 작동
 		-- After			: 비즈니스 메소드(핵심관심) 실행 후 실행
 	- Around				: 비즈니스 메소드 싱핼 전후 실행됨
+		
+		
+JoinPoint 와 바인드 변수	
+	- JoinPoint (Interface,인터페이스) : 정의된 메소드를 사용하면 AOP에서 다양한 정보를 알아 올 수 있다.
+	
+	- Signature getSignature() : 클라이언트가 호출한 메소드의 시그니쳐 정보가 저장된 Signature 객체를 리턴	
+		
+	- Object getTarget() : 클라이언트가 호출한 비지니스 메소드를 포함하는 비즈니스 객체 리턴
+	- Object[] getArgs() : 클라이언트가 메소드를 호출할때 넘겨준 인자목록으로 Object 배열로 리턴	
+	
+	Before, After Returning, After Throwing, After <== JoinPoint를 사용
+	Around <== ProceedingJoinPoint를 매개변수로 사용 해야함
+	
+	getSignature() 메소드를 사용하면 다양한 정보를 알 수 있다.
+		- String getName () : 클라이언트가 호출한 메소드 이름을 리턴
+		- String toLongString() : 클라이언트가 호출한 메소드의 리턴타입, 이름, 매개변수를
+			패키지 경로까지 포함하여 리턴
+		- String toShortString() :클라이언트가 호출한 메소드 시그니처를 축약한 문자열로 리턴
+		
 		
 		
 
@@ -67,7 +88,29 @@ advice 의 동작 시점 :
 	</aop:config>
 	
 
+어노테이션 기반 AOP
 
+1. Bean 설정 파일에서 구성 ( applicationContext.xml)
 
+<!-- AOP 어노테이션을 검색할 수 있도록 설정 -->
+<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 
+2. Advice 클래스에서 어노테이션 사용.
+	@Service
+	@Aspect 	//Point-cut + Advice
 
+	@Pointcut("execution (* com.springbook.biz..*Impl.*(..))")
+	public void allPointCut() {} 
+	
+	@Before("allPointCut()")
+	public void printLog() {
+		
+		System.out.println("[공통로그] 비즈니스 로직 수행 전 동작 (어노테이션을 통한 구동)");
+	}
+
+3. Advice 시작 어노테이션들 ( Advice 메소드 위에 설정함, 포인트 컷이 등록 되어야함.)
+	- @Before ("포인트컷메소드()") 	: 비즈니스 메소드 시작전 작동
+	- @AfterReturning 			: 비지니스 메소드의 리턴이 성공적으로 되면 작동
+	- @AfterThrowing 			: 비지니스 메소드의 예외가 발생됐을때 작동
+	- @After 					: 비즈니스 메소드 작동이후 작동
+	- @Around					: 비즈니스 메소드 전, 후로 작동

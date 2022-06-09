@@ -23,9 +23,9 @@ public class BoardServiceClient {
 		
 		//vo.setSeq(0); //강제 Exception 발생
 		
-		vo.setTitle("임시 테스트 제목13");
-		vo.setWriter("홍길동13");
-		vo.setContent("임시 글 내용13");
+		vo.setTitle("임시 테스트 제목1");
+		vo.setWriter("홍길동1");
+		vo.setContent("임시 글 내용1");
 		
 		boardService.insertBoard(vo);
 		

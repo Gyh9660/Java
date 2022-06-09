@@ -93,7 +93,7 @@ public class ListController extends HttpServlet{
 		    
 		    req.setAttribute("boardLists", boardLists); //DataBase에서 Select한 결과값 ,view 페이지에 넘길 최종데이터값1
 		    req.setAttribute("map", map);				//2
-		    req.getRequestDispatcher("/shop/List.jsp").forward(req, resp);
+		    req.getRequestDispatcher("/shop/qnaboard.jsp").forward(req, resp);
 			
 			
 	}
