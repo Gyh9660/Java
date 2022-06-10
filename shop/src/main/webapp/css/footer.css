@@ -1,0 +1,70 @@
+@charset "UTF-8";
+
+footer {
+    margin-top: 100px;
+    clear: both;
+    height: 200px;
+    width: 1200px;
+    position: absolute;
+}
+.site {
+    float: left;
+    height: 150px;
+    width: 1200px;
+}
+
+.btmenu {
+    float:right;
+    height: 150px;
+    width: 400px;
+    text-align:center;   
+    font-size:18px;      
+	line-height:30px;  
+}
+
+.btmenu li{
+    margin-top:10px;
+    display:inline-block;
+    width:200px;
+    border: 1px black solid;
+}
+
+.btmenu li:hover{
+    font-weight:bold;
+}
+.bt{
+    height: 150px;
+    width: 400px;
+    font-size: 15px;
+    line-height:15px;
+}
+.logo2 {
+    float:left;
+    height: 80px;
+    width: 300px;
+}
+.logo2 img {
+    float: left;
+    height: 80px;
+    width: 300px;
+    margin-top: 10px;
+}
+.copy {
+    float: left;
+    height: 50px;
+    width: 1200px;
+    text-align:left;
+	font-size:16px;     
+}
+#tothetop { 
+    position: fixed;
+    bottom: 5rem; 
+    right: 1rem; 
+    cursor: pointer;
+}
+#tothebottom { 
+    position: fixed;
+    bottom: 1rem; 
+    right: 1rem; 
+    cursor: pointer;
+}

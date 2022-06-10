@@ -10,15 +10,39 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.css">
 </head>
 <body>
+<%
+String u_id ="";
+try{
+	//id세션 속성의 값을 얻어내서 id변수에 저장
+	//인증된 사용자의 경우  id세션 속성의 값 null또는 공백이 아님
+	u_id = (String)session.getAttribute("u_id");
+%>
  <header>
         <div class="top">
-            <div class="home">
-                <li><a href="index.html">Home</a></li>
+        <%if(u_id == null || u_id.equals("")){ //인증되지 않은 사용자 영역%>
+            <ul class="home">
+                <li><a href="main.jsp">Home</a></li>
                 <li><a href="#">장바구니</a></li>
-                <li><a href="index2.html">로그인</a></li>
+                <li><a href="../shop/login.do">로그인</a></li>
                 <li><a href="#">마이페이지</a></li>
-            </div>
-            <div class="logo"><a href="index.html"><img src="img/logo1.jpg" alt="로고"></a></div>
+            </ul>
+        <%}else if(u_id.equals("admin")){//관리자%>
+        	<ul class="home">
+                <li><a href="main.jsp">Home</a></li>
+                <li><a href="#">장바구니</a></li>
+                <li><a href="../shop/login.do">로그아웃</a></li>
+                <li><a href="#">마이페이지</a></li>
+                <li><a href="#">관리페이지</a></li>
+            </ul>
+        <%}else{//인증된 사용자 영역%>
+	    	<ul class="home">
+	            <li><a href="main.jsp">Home</a></li>
+	            <li><a href="#">장바구니</a></li>
+	            <li><a href="../shop/login.do">로그아웃</a></li>
+	            <li><a href="#">마이페이지</a></li>
+       		</ul>
+        <%}}catch(Exception e){e.printStackTrace();}%>    
+            <div class="logo"><a href="main.jsp"><img src="img/logo1.jpg" alt="로고"></a></div>
             <nav class="menu">
                 <ul class="nav">
                     <li><a href="#">BEST</a>
@@ -51,7 +75,7 @@
                             <li><a href="#">굿즈</a></li>
                         </ul>
                     </li>
-                    <li><a href="#">Community</a>
+                    <li><a href="../shop/list.do">고객센터</a>
                         <ul class="submenu">
                             <li><a href="#">공지사항</a></li>
                             <li><a href="#">1대1문의</a></li>

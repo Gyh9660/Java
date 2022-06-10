@@ -19,6 +19,7 @@ public class QnaDAO extends DBConnPool{
 		super();
 	}
 	
+	
 	//insert
 	
 	public void insertQna (QnaDTO Qna) {
@@ -134,16 +135,20 @@ public class QnaDAO extends DBConnPool{
                + " ) "
                + " WHERE rNum BETWEEN ? AND ?";
         
-        System.out.println(sql); //콘솔에 전체쿼리를 출력
+       // System.out.println(sql); //콘솔에 전체쿼리를 출력
 
         try {
-            psmt = con.prepareStatement(sql);
+        	psmt = con.prepareStatement(sql);
             psmt.setString(1, map.get("start").toString());
             psmt.setString(2, map.get("end").toString());
             rs = psmt.executeQuery();
-
+            
+           //System.out.println(map.get("start"));
+           // System.out.println( map.get("end"));
+            
             while (rs.next()) {
                 QnaDTO qdto = new QnaDTO();
+                
                 qdto.setQ_id(rs.getInt(1));
                 qdto.setU_id(rs.getString(2));
                 qdto.setSubject(rs.getString(3));
@@ -169,6 +174,7 @@ public class QnaDAO extends DBConnPool{
             System.out.println("게시물 조회 중 예외 발생");
             e.printStackTrace();
         }
+       // System.out.println(board);
         return board;
     }
 	//select(상세보기)

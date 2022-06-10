@@ -88,6 +88,7 @@ public class MVCBoardDAO extends DBConnPool {
                 System.out.println("DTO 에서 가져온값 " +dto.getName());
                 */
                 board.add(dto);
+                System.out.println(rs);
             }
         }
         catch (Exception e) {

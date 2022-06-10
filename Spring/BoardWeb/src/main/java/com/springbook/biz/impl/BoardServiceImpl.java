@@ -39,7 +39,9 @@ public class BoardServiceImpl implements BoardService {
 			throw new NumberFormatException("부적절한 숫자 입력");
 		}
 		*/
-		boardDAO.insertBoard(vo);
+		boardDAO.insertBoard(vo);	//insert 잘됨
+	//	boardDAO.insertBoard(vo);	//primary key 오류 발생
+		
 	}
 
 	@Override

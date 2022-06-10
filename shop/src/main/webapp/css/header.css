@@ -38,12 +38,11 @@ header {
 }
 
 .home>li {
-    float: left;
     margin-right: 50px;
+    float: left;
 }
 .home>li>a{
     margin-top: 10px;
-    float: center;
     text-align: center;
     word-spacing: 10px;
 }

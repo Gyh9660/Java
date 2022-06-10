@@ -36,6 +36,10 @@ public class BoardDAOSpring {
 		private final String BOARD_INSERT = "insert into board (seq,title,writer,content) "
 				+ " values ((select nvl(max(seq), 0)+1 from board) ,? ,? ,? )";
 		
+		//*트랜잭션 작동 실습시 임시로 구현
+		//private final String BOARD_INSERT = "insert into board (seq,title,writer,content) "
+		//			+ " values (? ,? ,? ,? )";
+		//////////////////////////////////////////////	
 		private final String BOARD_UPDATE = "update board set title = ? , content = ?"
 				+ " where seq = ?";
 		
@@ -49,8 +53,9 @@ public class BoardDAOSpring {
 		//1. 글 작성
 			public void insertBoard(BoardVO vo) {
 				System.out.println("===> Spring JDBC로 insertBoard() 기능처리");
-				jdbcTemplate.update(BOARD_INSERT,vo.getTitle(),vo.getWriter(),vo.getContent());
-				
+				//jdbcTemplate.update(BOARD_INSERT,vo.getTitle(),vo.getWriter(),vo.getContent());
+				Object[] args = {vo.getSeq(),vo.getTitle(),vo.getWriter(),vo.getContent()};
+				jdbcTemplate.update(BOARD_INSERT,args);
 			}
 			
 		//2. 글수정

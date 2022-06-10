@@ -2,6 +2,7 @@ package shop;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,8 @@ import qna.QnaDTO;
 
 @WebServlet("/shop/list.do")
 public class ListController extends HttpServlet{
+
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -77,7 +80,11 @@ public class ListController extends HttpServlet{
 			
 		        List<QnaDTO> boardLists = qdao.selectListPage(map);  // 게시물 목록 받기
 		        qdao.close(); // DB 연결 닫기
-			
+		       /*
+		        for (int i = 0; i < boardLists.size(); i++) {
+					System.out.println(boardLists.get(i));
+				}
+				*/
 			//뷰페이지에 전달 할 매개변수들을 추가 
 		        //utils.BoardPage : 페이징 처리하는 클래스, pagingStr 메소드 :static 메소드
 		    String pagingImg = BoardPage.pagingStr(totalCount, pageSize,

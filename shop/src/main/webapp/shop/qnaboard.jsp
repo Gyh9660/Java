@@ -11,6 +11,7 @@
 <style>a{text-decoration:none;}</style>
 </head>
 <body>
+   <%@ include file = "header.jsp" %>     
     <h2>QnA</h2>
 
     <!-- 검색 폼 -->
@@ -47,27 +48,10 @@
         </tr>
     </c:when>
     <c:otherwise>  <!-- 게시물이 있을 때 -->
-        <c:choose>
-        	<c:when test="${ step > 0}">
-		        <c:forEach items="${ boardLists }" var="row" varStatus="loop">    
+        	<c:forEach items="${ boardLists }" var="row">    
 		        <tr align="center">
 		            <td>  <!-- 번호 -->
-		                ${ map.totalCount - (((map.pageNum-1) * map.pageSize) + loop.index)}   
-		            </td>
-		            <td align="left">  <!-- 제목(링크) -->
-		                <a href="../shop/view.do?idx=${ row.u_id }">${ row.subject }</a> 
-		            </td> 
-		            <td>${ row.u_id }</td>  <!-- 작성자 -->
-		            <td>${ row.readcount }</td>  <!-- 조회수 -->
-		            <td>${ row.inputdate }</td>  <!-- 작성일 -->
-		        </tr>
-		        </c:forEach>        
-        	</c:when>
-        	<c:otherwise>
-        		<c:forEach items="${ boardLists }" var="row" varStatus="loop">    
-		        <tr align="center">
-		            <td>  <!-- 번호 -->
-		                ${ map.totalCount - (((map.pageNum-1) * map.pageSize) + loop.index)}   
+		                ${ row.q_id }
 		            </td>
 		            <td align="left">  <!-- 제목(링크) -->
 		                <a href="../shop/view.do?idx=${ row.u_id }">&nbsp;&nbsp;${ row.subject }</a> 
@@ -76,9 +60,7 @@
 		            <td>${ row.readcount }</td>  <!-- 조회수 -->
 		            <td>${ row.inputdate }</td>  <!-- 작성일 -->
 		        </tr>
-		        </c:forEach>        
-        	</c:otherwise>
-        </c:choose>
+		    </c:forEach>        
     </c:otherwise>    
 </c:choose>
     </table>
@@ -93,5 +75,6 @@
                 onclick="location.href='../shop/write.do';">글쓰기</button></td>
         </tr>
     </table>
+    <%@ include file = "footer.jsp" %> 
 </body>
 </html>

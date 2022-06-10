@@ -5,16 +5,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.css">
 <script src="../js/jquery-1.11.0.min.js"></script>
 <script src="login.js"></script>
+<%@ include file = "header.jsp" %>   
 
 <%
-String u_id ="";
 try{
-	//id세션 속성의 값을 얻어내서 id변수에 저장
-	//인증된 사용자의 경우  id세션 속성의 값 null또는 공백이 아님
-	u_id = (String)session.getAttribute("u_id");
-%>
-
-<%if(u_id == null || u_id.equals("")){ //인증되지 않은 사용자 영역%>
+	
+if(u_id == null || u_id.equals("")){ //인증되지 않은 사용자 영역%>
+    
   <section class="login">
         <h1>로그인</h1>
             <fieldset>
@@ -28,9 +25,15 @@ try{
                     <button type = "button" id="login">로그인</button>
                 </p>
             </fieldset>
+            <br>
+            <br>
+            <br>
         <div class="memberLink">
             <button id="register" class="register" type ="button" onclick="hrefLink()" style ="font-size: 20px">회원가입</button>
+         	<br>
             <a href="#" class="find">아이디/비밀번호 찾기</a>
         </div>
     </section>
 <%}}catch(Exception e){e.printStackTrace();}%>
+
+<%@ include file = "footer.jsp" %> 
