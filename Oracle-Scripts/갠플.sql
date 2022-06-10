@@ -68,4 +68,4 @@ drop table qnaboard;
 select * from qnaboard;
 insert into qnaboard values(seq_qna_num.nextval,'1234','12234','1223534',sysdate,default,default,default,0);
 commit;
- SELECT * FROM (     SELECT Tb.*, ROWNUM rNum FROM (         SELECT * FROM qnaboard         ORDER BY q_id DESC     ) Tb  )  WHERE rNum BETWEEN 1 AND 2;
+ SELECT * FROM (     SELECT Tb.*, ROWNUM rNum FROM (         SELECT * FROM qnaboard         ORDER BY q_id DESC     ) Tb  )  WHERE rNum BETWEEN 1 AND 10;
