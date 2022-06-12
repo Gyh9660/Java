@@ -6,7 +6,7 @@ public class ProDTO {
 
 	private int p_id;
 	private String p_name;
-	private String type;
+	private String p_type;
 	private Timestamp p_date;
 	private int price;
 	private String image;
@@ -25,11 +25,11 @@ public class ProDTO {
 	public void setP_name(String p_name) {
 		this.p_name = p_name;
 	}
-	public String getType() {
-		return type;
+	public String getP_type() {
+		return p_type;
 	}
-	public void setType(String type) {
-		this.type = type;
+	public void setP_type(String p_type) {
+		this.p_type = p_type;
 	}
 	public Timestamp getP_date() {
 		return p_date;

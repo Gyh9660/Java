@@ -24,16 +24,21 @@ create table movie (
 );
 */
 select * from pro;
-create table pro (
+create table pro(
   p_id number not null primary key,
   p_name varchar2(20) not null,
-  type varchar2(10) not null,
+  p_type varchar2(10) not null,
   p_date date default sysdate not null,
   price number not null,
   image varchar2(30) not null,
   stock number not null,
-  review varchar2(1500) null,
+  review varchar2(1500) null
 );
+
+create SEQUENCE seq_pro_num
+    INCREMENT by 1
+    start with 1
+    nocache;
 
 create table order( -- ->예약으로 변경?
     o_id number not null primary key,
@@ -65,7 +70,8 @@ create SEQUENCE seq_qna_num
     nocache;
 drop sequence seq_qna_num; 
 drop table qnaboard;
-select * from qnaboard;
-insert into qnaboard values(seq_qna_num.nextval,'1234','12234','1223534',sysdate,default,default,default,0);
+select * from qnaboard order by q_id desc ;
+insert into qnaboard values(seq_qna_num.nextval,'qw!@12','1번-2','1223534',sysdate,default,seq_qna_num.currval,3,3);
 commit;
+select max(q_id) from  qnaboard;
  SELECT * FROM (     SELECT Tb.*, ROWNUM rNum FROM (         SELECT * FROM qnaboard         ORDER BY q_id DESC     ) Tb  )  WHERE rNum BETWEEN 1 AND 10;

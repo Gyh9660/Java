@@ -11,39 +11,56 @@
 </head>
 <body>
 <%@ include file = "header.jsp" %>   
-  
+ <br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br> 
+	<h2 style="text-align: center;">글 작성</h2>
+	<br>
+	<br>
+	<br> 
+	<hr style="width: 80%;height: 5px; background-color: black;">
+	<br>
 <form name="writeFrm" method="post" action="../shop/write.do" onsubmit="return validateForm(this)">
-	<table  style ="width:90%">
-		<tr>
-			<td> 작성자 </td>
-			<td> <input type="text" name="name" style="width:150px;" 
+	<input type="hidden"  name="u_id" value = <%=u_id %>>
+	<table  style ="width:80%;border-collapse: collapse; background-color: white;" border="1">
+		<tr style="height: 15px"></tr>
+		<tr style="border:none">
+			<td style ="width:15%; text-align: center;border:none"> 작성자 </td>
+			<td style="border:none"> <input type="text" name="id" style="width:150px;" 
 				value = <%=u_id %> disabled></td>
 		</tr>
-		<tr>
-			<td> 분류 </td>
-			<td> <select name="qnatype">
-                <option value="1">[상품 문의]</option>
-                <option value="2">[배송 문의]</option>
-                <option value="3">[기타 문의]</option>
+		<tr style="height: 30px;border:none"></tr>
+		<tr style="border:none">
+			<td style ="width:15%; text-align: center;border:none"> 분류 </td>
+			<td style="border:none"> <select name="qnatype">
+                <option value="상품 문의 - ">[상품 문의]</option>
+                <option value="배송 문의 - ">[배송 문의]</option>
+                <option value="기타 문의 - ">[기타 문의]</option>
             	</select>
 			</td>
 		</tr>
-		<tr>
-			<td> 제목 </td>
-			<td> <input type="text" name="title" style="width:90%;" ></td>
+		<tr style="border:none"></tr>
+		<tr style="border:none">
+			<td style ="width:15%; text-align: center;border:none"> 제목 </td>
+			<td style="border:none"> <input type="text" name="subject" style="width:80%;" ></td>
 		</tr>
-		<tr>
-			<td> 내용 </td>
-			<td> <textarea name="content" style="width:90%;height:100px;"></textarea></td>
+		<tr style="height: 5px"></tr>
+		<tr style="border:none">
+			<td style ="width:15%; text-align: center;border:none"> 내용 </td>
+			<td style="border:none"> <textarea name="content" style="width:80%;height:300px;resize:none"></textarea></td>
 		</tr>
-		<tr>
-			<td colspan="2" align="center">
+		<tr style="height: 30px;border:none"></tr>
+		<tr style="border:none">
+			<td colspan="2" align="center" style="border:none">
 				<button type="submit"> 작성 완료 </button>
 				<button type="reset"> RESET </button>
 				<button type="button" onclick="location.href = '../shop/list.do';" > 목록 바로가기 </button>
 			</td>
 		</tr>
-	
+		<tr style="height: 15px"></tr>
 	</table>
 
 </form>

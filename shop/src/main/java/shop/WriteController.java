@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import qna.QnaDAO;
 import qna.QnaDTO;
@@ -28,37 +29,18 @@ public class WriteController extends HttpServlet{
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	
+		
 		QnaDTO qdto = new QnaDTO();
 		qdto.setU_id(req.getParameter("u_id"));
-		qdto.setSubject(req.getParameter("subject"));
+		qdto.setSubject(req.getParameter("qnatype")+req.getParameter("subject"));
 		qdto.setContent(req.getParameter("content"));
 		
-			
-			
-		
-		/* int로바꿔서 리턴해서 해주던가..?
-		 * 일단 넣을떼 제목에 분류 를넣어서 [무슨 문의] 제목 이런식으로 나오게
-		//DTO에 객체를 DAO의 insert 메소드를 호출해서 DB에 저장
 		QnaDAO qdao = new QnaDAO();
-		
-		int result = qdao.insertQna(qdto);
-		
-		//객체 종료 메소드 호출 (rs, stmt, psmt, con 모두 종료)
+			
+		qdao.insertQna(qdto);	
 		qdao.close();
-	
-		//글쓰기 성공일때 이동할 페이지
-		if (result == 1) { //글쓰기 성공일때 리스트페이지로 이동
-			response.sendRedirect("../mvcboard/list.do");
-		}
-		
-		
-		//글쓰기 실패일때 이동할 페이지
-		if (result == 0 ) { //글쓰기 실패 일때 다시 글쓰기 페이지로 이동
-			response.sendRedirect("../mvcboard/write.do");
-		}
-		 */
-	
+		resp.sendRedirect("../shop/list.do");
+
 	}
 
 	

@@ -13,7 +13,13 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
- <%@ include file = "header.jsp" %>     
+ <%@ include file = "header.jsp" %>    
+ <br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br> 
  <section>
         <form method="post" action="" name = "frm" id ="frm">
             <div class="container">

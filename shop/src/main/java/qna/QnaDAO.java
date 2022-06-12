@@ -1,6 +1,7 @@
 package qna;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -19,23 +20,25 @@ public class QnaDAO extends DBConnPool{
 		super();
 	}
 	
-	
+	/*
+	psmt.setTimestamp(4, Qna.getInputdate());
+	psmt.setInt(5, Qna.getReadcount());
+	psmt.setInt(6, Qna.getMasterid());
+	psmt.setInt(7, Qna.getReplaynum());
+	psmt.setInt(8, Qna.getStep());
+	*/
 	//insert
 	
 	public void insertQna (QnaDTO Qna) {
 		try {
-			String sql = "insert into qnaboard values(seq_qna_num.nextval,?,?,?,?,?,?,?,?";
+			String sql = "insert into qnaboard (q_id,u_id,subject,content,masterid,replaynum,step) values(seq_qna_num.nextval,?,?,?,seq_qna_num.currval,?,?)";
 			
 			psmt = con.prepareStatement(sql);
 			psmt.setString(1, Qna.getU_id());
 			psmt.setString(2, Qna.getSubject());
 			psmt.setString(3, Qna.getContent());
-			psmt.setTimestamp(4, Qna.getInputdate());
-			psmt.setInt(5, Qna.getReadcount());
-			psmt.setInt(6, Qna.getMasterid());
-			psmt.setInt(7, Qna.getReplaynum());
-			psmt.setInt(8, Qna.getStep());
-			
+			psmt.setInt(4, Qna.getReplaynum());
+			psmt.setInt(5, Qna.getStep());
 			psmt.executeUpdate();
 			
 			System.out.println("qna 등록 성공");
@@ -49,13 +52,13 @@ public class QnaDAO extends DBConnPool{
 	}
 	
 	//delete
-	public int deleteQna(QnaDTO Qna) { //idx안하고 DTO로받아도 되는지?
+	public int deleteQna(int q_id) { //idx안하고 DTO로받아도 되는지?
 		int result = 0;
 		try {
 			
 			String sql = "DELETE qnaboard WHERE q_id =?";
 			psmt=con.prepareStatement(sql);
-			psmt.setInt(1, Qna.getQ_id());
+			psmt.setInt(1, q_id);
 			
 			result = psmt.executeUpdate();
 			
@@ -72,7 +75,7 @@ public class QnaDAO extends DBConnPool{
 		int result =0;
 		try {
 			String sql ="update qnaboard"
-					+ "set subject = ? , content = ? "
+					+ " set subject = ? , content = ? "
 					+ " where q_id = ? and u_id = ?";
 			psmt = con.prepareStatement(sql);
 			psmt.setString(1, Qna.getSubject());
@@ -130,12 +133,12 @@ public class QnaDAO extends DBConnPool{
                    + " LIKE '%" + map.get("searchWord") + "%' ";
         }
 
-        sql += "        ORDER BY q_id DESC "
+        sql += "        ORDER BY masterid DESC, replaynum, step, q_id"
                + "    ) Tb "
                + " ) "
                + " WHERE rNum BETWEEN ? AND ?";
         
-       // System.out.println(sql); //콘솔에 전체쿼리를 출력
+        System.out.println(sql); //콘솔에 전체쿼리를 출력
 
         try {
         	psmt = con.prepareStatement(sql);
@@ -210,4 +213,72 @@ public class QnaDAO extends DBConnPool{
 		}
 		return qdto;
 	}
+	
+	//주어진 일련 번호에 해당하는 게시물의 조회수를 1증가시킴.
+    public void updateVisitCount(int q_id) {
+    	String sql = "UPDATE qnaboard SET "
+    			+ " readcount = readcount+1 "
+    			+ " WHERE q_id = ? ";
+    	
+    	try {
+    		psmt = con.prepareStatement(sql);
+    		psmt.setInt(1, q_id);
+    		psmt.executeUpdate();
+    		
+    	}catch (Exception e) {
+    		e.printStackTrace();
+    		System.out.println("게시물 조회수 증가시 예외 발생");
+    	}
+    	
+    	
+    }
+    
+    public void insertRwrite(QnaDTO qna) {
+    	int mid = qna.getMasterid();
+		int rnum= qna.getReplaynum();
+		int step = qna.getStep() + 1;
+		int q_id =qna.getQ_id();
+		System.out.println(mid);
+		System.out.println(rnum);
+		System.out.println(step);
+		System.out.println(q_id);
+		if (step == 1) {
+	    try {
+	    	String sql = "select max(q_id) from  qnaboard";
+	    	psmt =con.prepareStatement(sql);   
+	    	rs = psmt.executeQuery();
+	    	   if (!(rs.next())) 
+	    	    q_id=1;
+	    	   else {
+	    	    q_id= rs.getInt(1) + 1 ;
+	    	    rs.close();
+	    	   }       
+	    	 sql = "select max(replaynum) from qnaboard where masterid="+mid;
+	    	
+			psmt = con.prepareStatement(sql);
+			rs= psmt.executeQuery();
+			
+			if (!(rs.next())) 
+				rnum=1;
+			else 
+				rnum=rs.getInt(1)+1;
+			sql = "insert into qnaboard (q_id,u_id,subject,content,masterid,replaynum,step) values(?,?,?,?,?,?,?)";
+			
+			psmt = con.prepareStatement(sql);
+			psmt.setInt(1, q_id);
+			psmt.setString(2, qna.getU_id());
+			psmt.setString(3, qna.getSubject());
+			psmt.setString(4, qna.getContent());
+			psmt.setInt(5, mid);
+			psmt.setInt(6, rnum);
+			psmt.setInt(7, step);
+			psmt.executeUpdate();
+			
+			System.out.println("qna 등록 성공");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	   } 
+    }
+    
 }

@@ -17,6 +17,7 @@ $(document).ready(function(){
 	    			alert("사용할 수 없는 아이디");
 	    	    	$("#u_id").val("");
 	    	    	$("#u_id").focus();
+	    	    	return false;
 	    	     }else if(data == -1)//사용할 수 있는 아이디
 	    	  	    idck = true;	    	  	    
 	    	  	    //alert(idck);
@@ -68,7 +69,6 @@ $(document).ready(function(){
 //사용자가 입력폼에 입력한 상황을 체크
 function checkIt() {
 	status = true;
-	idck = true;
 	 if(!$("#u_name").val()) {//이름을 입력하지 않으면 수행
         alert("사용자 이름을 입력하세요");
         $("#u_name").focus();
@@ -144,10 +144,11 @@ function checkIt() {
         status = false;
         return false;
     }
+    
     if(idck == false){
-		//alert(idck);
 		alert("아이디 중복체크를 해주세요");
-		status = false;
+        status = false;
+        idck = false;
         return false;
 	}
     

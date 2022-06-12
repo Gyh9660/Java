@@ -20,7 +20,7 @@
                     <li><a href="#">개인정보 취급방침</a></li>
                 </ul>
             </div>
-            <div class="logo2"><a href="#"><img src="img/logo1.jpg" alt="로고"></a></div>
+            <div class="logo2"><a href="#"><img src="../img/logo1.jpg" alt="로고"></a></div>
             <div class="bt" id="bottom">
                 <ul>
                     <li>회사명 : KG SHOP</li>
@@ -37,7 +37,7 @@
             <div class="copy">COPYRIGHT © KG SHOP. ALL RIGHTS RESERVED</div>
         </div>
     </footer>
-    <span id="tothetop"><a href="#" id="tothetop"><img src="img/angle_top_arrow_icon_123992.png" alt="top"></a></span>
-    <span id="tothebottom"><a href="#bottom" id="tothebottom"><img src="img/angle_top_arrow_icon_123992 - 복사본.png" alt="bottom"></a></span>
+    <span id="tothetop"><a href="#" id="tothetop"><img src="../img/angle_top_arrow_icon_123992.png" alt="top"></a></span>
+    <span id="tothebottom"><a href="#bottom" id="tothebottom"><img src="../img/angle_top_arrow_icon_123992 - 복사본.png" alt="bottom"></a></span>
 </body>
 </html>
