@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Set;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -47,7 +48,6 @@ public class ProWriteController extends HttpServlet{
 		pdto.setP_type(mr.getParameter("type"));
 		pdto.setPrice(Integer.parseInt(mr.getParameter("price"))); 
 		pdto.setStock(Integer.parseInt(mr.getParameter("stock")));
-		
 		
 		String fileName = mr.getFilesystemName("image");
 		System.out.println(fileName);
@@ -94,8 +94,8 @@ public class ProWriteController extends HttpServlet{
 					resp.sendRedirect("../shop/pwrite.do");
 					
 				}
-		
-		
+				
+			    
 	}
 
 }

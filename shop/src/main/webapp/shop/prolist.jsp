@@ -14,11 +14,6 @@ a {
 }
 </style>
 <script>
-function check(){                 
-	   alert("로그인 후 이용이 가능합니다.");                       
-	   return false;
-}
-//http://localhost:9494
 function view(temp) {
 	if (temp.length >0) { 
  		url = "/shop/Uploads/" + temp;
@@ -41,15 +36,14 @@ function view(temp) {
 	<br>
 	<br>
 	<!-- 검색 폼 -->
-	<hr style="width: 80%;height: 5px; background-color: black;">
+	<hr style="width: 100%;height: 5px; background-color: black;">
 	<br>
 	<form method="get">
-		<table  style="width:80%;background-color: skyblue;">
+		<table  style="width:100%;background-color: skyblue;">
 			<tr>
 				<td align="center"><select name="searchField">
-						<option value="subject">제목</option>
-						<option value="content">내용</option>
-						<option value="u_id">작성자</option>
+						<option value="p_name">제목</option>
+						<option value="p_type">분류</option>
 				</select> <input type="text" name="searchWord" /> <input type="submit"
 					value="검색하기" /></td>
 			</tr>
@@ -71,15 +65,13 @@ function view(temp) {
 			            <div class="otherwrap">
 			                <ul>
 			                	<li>
-					                <div class="sale">
-					                    <a href="JavaScript:view(&quot;${row.image}&quot;)">
-					                        <img border=0 width=70 height=70 src="C:\Users\K\eclipse-workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp1\wtpwebapps\shop\Uploads\"${row.image}/>
+					                <div class="sale" style="background-color: yellow;width: 28%; float: left; margin-left: 5%;margin-top: 5%;margin-bottom: 5%;">
+					                    <a href="JavaScript:view(&quot;${row.image}&quot;)" >
+					                        <img border=0 width=100% height=300 src="${pageContext.request.contextPath }/Uploads/${row.image}"/>
 					                    </a>
-					                    <pre>             [Nintendo Switch]
-					                        <a href="#"><h4>말랑말랑 두뇌학원</h4></a>
-					                                          2022.03.20 "C:\Users\K\eclipse-workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp1\wtpwebapps\shop\Uploads\"${row.image}
-					                                             20000원
-					                    </pre>
+					                    
+					                    <pre style="text-align: center">${row.p_type }<a href="#"><h4>${row.p_name }</h4></a>${row.p_date }
+가격: ${row.price }원</pre>
 					                </div>
 			                	</li>
 			                </ul>
@@ -99,10 +91,9 @@ function view(temp) {
 		</c:choose>
 
 	<!-- 하단 메뉴(바로가기, 글쓰기) -->
-			<table  style="width:80%;background-color: skyblue;">
+			<table  style="width:100%;background-color: skyblue;">
 				<tr align="center">
 					<td style="font-size: 20px;">${ map.pagingImg }</td>
-					<td width="100"><button type="button" onclick="location.href='../shop/write.do';">글쓰기</button></td>
 				</tr>
 			</table>
 	<%@ include file="footer.jsp"%>

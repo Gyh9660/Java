@@ -83,7 +83,7 @@ public class ProListController extends HttpServlet {
 		//뷰페이지에 전달 할 매개변수들을 추가 
 	        //utils.BoardPage : 페이징 처리하는 클래스, pagingStr 메소드 :static 메소드
 	    String pagingImg = BoardPage.pagingStr(totalCount, pageSize,
-	            blockPage, pageNum, "../shop/list.do");  // 바로가기 영역 HTML 문자열
+	            blockPage, pageNum, "../shop/plist.do");  // 바로가기 영역 HTML 문자열
 	  //View페이지로 변수의 값을 전달하기위해서
 	    //변수들을 map에다가 저장
 	    map.put("pagingImg", pagingImg);
