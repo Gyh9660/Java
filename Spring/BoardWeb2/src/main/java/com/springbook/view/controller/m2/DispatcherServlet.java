@@ -49,12 +49,20 @@ public class DispatcherServlet extends HttpServlet {
 			System.out.println("로그인 처리");
 			// 1. 사용자 입력 정보 추출
 			String id = request.getParameter("id");
+<<<<<<< HEAD
 			String pass = request.getParameter("pass");
+=======
+			String password = request.getParameter("password");
+>>>>>>> 9e0d4adb58faea260cdc14d29e5db0017df7b0c2
 
 			// 2. DB 연동 처리
 			UserVO vo = new UserVO();
 			vo.setId(id);
+<<<<<<< HEAD
 			vo.setPass(pass);
+=======
+			vo.setPassword(password);
+>>>>>>> 9e0d4adb58faea260cdc14d29e5db0017df7b0c2
 
 			UserDAO userDAO = new UserDAO();
 			UserVO user = userDAO.getUser(vo);

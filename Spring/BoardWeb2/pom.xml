@@ -26,7 +26,11 @@
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
+<<<<<<< HEAD
 			<version>1.4.196</version>    <!--1.4.199 -->
+=======
+			<version>1.4.196</version>
+>>>>>>> 9e0d4adb58faea260cdc14d29e5db0017df7b0c2
 		</dependency>
 
 		<!-- DBCP -->

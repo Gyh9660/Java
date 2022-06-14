@@ -92,7 +92,11 @@ public class BoardDAO {
 				board.setTitle(rs.getString("TITLE"));
 				board.setWriter(rs.getString("WRITER"));
 				board.setContent(rs.getString("CONTENT"));
+<<<<<<< HEAD
 				board.setRegdate(rs.getDate("REGDATE"));
+=======
+				board.setReg_date(rs.getDate("REGDATE"));
+>>>>>>> 9e0d4adb58faea260cdc14d29e5db0017df7b0c2
 				board.setCnt(rs.getInt("CNT"));
 			}
 		} catch (Exception e) {
@@ -106,6 +110,7 @@ public class BoardDAO {
 	// 글 목록 조회
 	public List<BoardVO> getBoardList(BoardVO vo) {
 		System.out.println("===> JDBC로 getBoardList() 기능 처리");
+<<<<<<< HEAD
 		System.out.println(vo.getSearchCondition());
 		System.out.println(vo.getSearchKeyword());
 		List<BoardVO> boardList = new ArrayList<BoardVO>();
@@ -129,13 +134,32 @@ public class BoardDAO {
 			//stmt.setString(1, vo.getSearchKeyword());
 			//rs = stmt.executeQuery();
 			
+=======
+		List<BoardVO> boardList = new ArrayList<BoardVO>();
+		try {
+			conn = JDBCUtil.getConnection();
+			if(vo.getSearchCondition().equals("")){
+				stmt = conn.prepareStatement(BOARD_LIST);
+			}
+			else if (vo.getSearchCondition().equals("TITLE")) {
+				stmt = conn.prepareStatement(BOARD_LIST_T);		
+			} else if (vo.getSearchCondition().equals("CONTENT")) {
+				stmt = conn.prepareStatement(BOARD_LIST_C);
+			}
+			stmt.setString(1, vo.getSearchKeyword());
+			rs = stmt.executeQuery();
+>>>>>>> 9e0d4adb58faea260cdc14d29e5db0017df7b0c2
 			while (rs.next()) {
 				BoardVO board = new BoardVO();
 				board.setSeq(rs.getInt("SEQ"));
 				board.setTitle(rs.getString("TITLE"));
 				board.setWriter(rs.getString("WRITER"));
 				board.setContent(rs.getString("CONTENT"));
+<<<<<<< HEAD
 				board.setRegdate(rs.getDate("REGDATE"));
+=======
+				board.setReg_date(rs.getDate("REGDATE"));
+>>>>>>> 9e0d4adb58faea260cdc14d29e5db0017df7b0c2
 				board.setCnt(rs.getInt("CNT"));
 				boardList.add(board);
 			}

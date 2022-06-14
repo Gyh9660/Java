@@ -9,8 +9,12 @@ public class JDBCUtil {
 	public static Connection getConnection() {
 		try {
 			Class.forName("org.h2.Driver");
+<<<<<<< HEAD
 				return DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test","sa","1234");
 				
+=======
+			return DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "1234");
+>>>>>>> 9e0d4adb58faea260cdc14d29e5db0017df7b0c2
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

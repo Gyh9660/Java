@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beansProjectDescription>
 	<version>1</version>
+<<<<<<< HEAD
 	<pluginVersion><![CDATA[3.9.22.202204280911-RELEASE]]></pluginVersion>
+=======
+	<pluginVersion><![CDATA[3.9.15.202012132325-RELEASE]]></pluginVersion>
+>>>>>>> 9e0d4adb58faea260cdc14d29e5db0017df7b0c2
 	<configSuffixes>
 		<configSuffix><![CDATA[xml]]></configSuffix>
 	</configSuffixes>
 	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
 		<config>src/main/resources/applicationContext--.xml</config>
+<<<<<<< HEAD
 		<config>src/main/resources/applicationContext.xml</config>
+=======
+		<config>src/main/resources/aplicationContext.xml</config>
+>>>>>>> 9e0d4adb58faea260cdc14d29e5db0017df7b0c2
 	</configs>
 	<autoconfigs>
 		<config>src/main/webapp/WEB-INF/config/presentation-layer.xml</config>

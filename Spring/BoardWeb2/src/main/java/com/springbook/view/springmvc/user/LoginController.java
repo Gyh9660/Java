@@ -17,7 +17,11 @@ public class LoginController implements Controller {
 		
 		// 1. 사용자 입력 정보 추출
 		String id = request.getParameter("id");
+<<<<<<< HEAD
 		String pass = request.getParameter("pass");
+=======
+		String password = request.getParameter("password");
+>>>>>>> 9e0d4adb58faea260cdc14d29e5db0017df7b0c2
 
 		//System.out.println("아이디 : " + id );
 		//System.out.println("패스워드 : " + password );
@@ -25,7 +29,11 @@ public class LoginController implements Controller {
 		// 2. DB 연동 처리
 		UserVO vo = new UserVO();
 		vo.setId(id);
+<<<<<<< HEAD
 		vo.setPass(pass);
+=======
+		vo.setPassword(password);
+>>>>>>> 9e0d4adb58faea260cdc14d29e5db0017df7b0c2
 
 		UserDAO userDAO = new UserDAO();
 		UserVO user = userDAO.getUser(vo);

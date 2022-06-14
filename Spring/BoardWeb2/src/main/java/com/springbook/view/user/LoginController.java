@@ -17,7 +17,11 @@ public class LoginController {
 	public String loginView(@ModelAttribute("user") UserVO vo) {
 		System.out.println("로그인 화면으로 이동...");
 		vo.setId("test");
+<<<<<<< HEAD
 		vo.setPass("test123");
+=======
+		vo.setPassword("test123");
+>>>>>>> 9e0d4adb58faea260cdc14d29e5db0017df7b0c2
 		return "login.jsp";
 	}
 

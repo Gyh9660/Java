@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app>
 
+<<<<<<< HEAD
   <!--  MVC M1 : Web.xml 에서 별도의 셋팅이 필요 없다.  -->
 
 
 
 
+=======
+	<!-- MVC_M1 Web.xml에서 별도의 셋팅이 필요 없다. -->
+	
+>>>>>>> 9e0d4adb58faea260cdc14d29e5db0017df7b0c2
 
 </web-app>
