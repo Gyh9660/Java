@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import utils.BoardPage;
 import qna.QnaDAO;
@@ -100,6 +101,7 @@ public class ListController extends HttpServlet{
 		    
 		    req.setAttribute("boardLists", boardLists); //DataBase에서 Select한 결과값 ,view 페이지에 넘길 최종데이터값1
 		    req.setAttribute("map", map);				//2
+		    
 		    req.getRequestDispatcher("/shop/qnaboard.jsp").forward(req, resp);
 			
 			

@@ -33,15 +33,15 @@
 		<tr style="border:none">
 			<td style ="width:15%; text-align: center;border:none"> 분류 </td>
 			<td style="border:none" > <select name="type" style="width:20%;">
-                <option value="11">Switch 하드웨어</option>
-                <option value="12">Switch 소프트웨어</option>
-                <option value="13">Switch 주변기기</option>
-                <option value="21">3DS 주변기기</option>
-                <option value="22">3DS 주변기기</option>
-                <option value="23">3DS 주변기기</option>
-                <option value="31">Switch 액세서리</option>
-                <option value="32">3DS 액세서리</option>
-                <option value="33">굿즈</option>
+                <option value="Switch 하드웨어">Switch 하드웨어</option>
+                <option value="Switch 소프트웨어">Switch 소프트웨어</option>
+                <option value="Switch 주변기기">Switch 주변기기</option>
+                <option value="3DS 하드웨어">3DS 하드웨어</option>
+                <option value="3DS 소프트웨어">3DS 소프트웨어</option>
+                <option value="3DS 주변기기">3DS 주변기기</option>
+                <option value="액세서리 (Switch)">액세서리 (Switch)</option>
+                <option value="액세서리 (3DS)">액세서리 (3DS)</option>
+                <option value="액세서리 (굿즈)">액세서리 (굿즈)</option>
             	</select>
 			</td>
 		</tr>

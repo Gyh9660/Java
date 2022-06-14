@@ -75,13 +75,12 @@ public class QnaDAO extends DBConnPool{
 		int result =0;
 		try {
 			String sql ="update qnaboard"
-					+ " set subject = ? , content = ? "
+					+ " set content = ? "
 					+ " where q_id = ? and u_id = ?";
 			psmt = con.prepareStatement(sql);
-			psmt.setString(1, Qna.getSubject());
-			psmt.setString(2, Qna.getContent());
-			psmt.setInt(3, Qna.getQ_id());
-			psmt.setString(4, Qna.getU_id());
+			psmt.setString(1, Qna.getContent());
+			psmt.setInt(2, Qna.getQ_id());
+			psmt.setString(3, Qna.getU_id());
 			
 			result = psmt.executeUpdate();
 			
@@ -138,7 +137,7 @@ public class QnaDAO extends DBConnPool{
                + " ) "
                + " WHERE rNum BETWEEN ? AND ?";
         
-        System.out.println(sql); //콘솔에 전체쿼리를 출력
+        //System.out.println(sql); //콘솔에 전체쿼리를 출력
 
         try {
         	psmt = con.prepareStatement(sql);
@@ -279,6 +278,7 @@ public class QnaDAO extends DBConnPool{
 			e.printStackTrace();
 		}
 	   } 
+		
     }
     
 }

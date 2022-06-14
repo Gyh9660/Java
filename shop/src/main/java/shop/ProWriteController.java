@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Set;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -48,7 +49,6 @@ public class ProWriteController extends HttpServlet{
 		pdto.setPrice(Integer.parseInt(mr.getParameter("price"))); 
 		pdto.setStock(Integer.parseInt(mr.getParameter("stock")));
 		
-		
 		String fileName = mr.getFilesystemName("image");
 		System.out.println(fileName);
 		if (fileName != null) { //첨부 파일이 비어 있지 않다면
@@ -63,16 +63,20 @@ public class ProWriteController extends HttpServlet{
 			//서버에 저장할 파일이름 생성
 			String newFileName = now + ext;
 				
-				// 파일명 변경	
+			
+				
+			
+			// 파일명 변경	
+				
 				File oldFile = new File(saveDirectory + File.separator + fileName);
 				File newFile = new File(saveDirectory + File.separator + newFileName);
 				
 				oldFile.renameTo(newFile);
 				
 				//DTO에 Settor 주입 (조건 : 파일을 업로드 한 경우에만)
+				
+				
 				pdto.setImage(newFileName); // 서버에 저장될  파윌이름
-				
-				
 			}	
 		
 			//DTO에 객체를 DAO의 insert 메소드를 호출해서 DB에 저장
@@ -85,7 +89,7 @@ public class ProWriteController extends HttpServlet{
 			
 				//글쓰기 성공일때 이동할 페이지
 				if (result == 1) { //글쓰기 성공일때 이동
-					resp.sendRedirect("../shop/plist.do");
+					resp.sendRedirect("../shop/admin.do");
 				}
 				
 				
@@ -94,8 +98,8 @@ public class ProWriteController extends HttpServlet{
 					resp.sendRedirect("../shop/pwrite.do");
 					
 				}
-		
-		
+				
+			    
 	}
 
 }
