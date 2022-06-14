@@ -68,12 +68,12 @@ function check(){
 						<c:choose>
 						<c:when test="${row.step >0 }">
 						<td align="left">
-							<a href="../shop/view.do?q_id=${ row.q_id }">&nbsp;&nbsp;==>&nbsp;&nbsp;${ row.subject }</a>
+							<a href="../shop/view.do?q_id=${ row.q_id }" onsubmit="">&nbsp;&nbsp;==>&nbsp;&nbsp;${ row.subject }</a>
 						</td>
 						</c:when>
 						<c:when test="${row.step ==0 }">
 						<td align="left">
-							<a href="../shop/view.do?q_id=${ row.q_id }">&nbsp;&nbsp;${ row.subject }</a>
+							<a href="../shop/view.do?q_id=${ row.q_id }"onsubmit="">&nbsp;&nbsp;${ row.subject }</a>
 						</td>
 						</c:when>
 						</c:choose>

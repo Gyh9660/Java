@@ -40,7 +40,7 @@ public class QnaDAO extends DBConnPool{
 			psmt.setInt(4, Qna.getReplaynum());
 			psmt.setInt(5, Qna.getStep());
 			psmt.executeUpdate();
-			
+			System.out.println(sql);
 			System.out.println("qna 등록 성공");
 			
 		}catch (Exception e) {
@@ -75,13 +75,12 @@ public class QnaDAO extends DBConnPool{
 		int result =0;
 		try {
 			String sql ="update qnaboard"
-					+ " set subject = ? , content = ? "
+					+ " set content = ? "
 					+ " where q_id = ? and u_id = ?";
 			psmt = con.prepareStatement(sql);
-			psmt.setString(1, Qna.getSubject());
-			psmt.setString(2, Qna.getContent());
-			psmt.setInt(3, Qna.getQ_id());
-			psmt.setString(4, Qna.getU_id());
+			psmt.setString(1, Qna.getContent());
+			psmt.setInt(2, Qna.getQ_id());
+			psmt.setString(3, Qna.getU_id());
 			
 			result = psmt.executeUpdate();
 			
@@ -138,7 +137,7 @@ public class QnaDAO extends DBConnPool{
                + " ) "
                + " WHERE rNum BETWEEN ? AND ?";
         
-        System.out.println(sql); //콘솔에 전체쿼리를 출력
+        //System.out.println(sql); //콘솔에 전체쿼리를 출력
 
         try {
         	psmt = con.prepareStatement(sql);
@@ -262,23 +261,23 @@ public class QnaDAO extends DBConnPool{
 				rnum=1;
 			else 
 				rnum=rs.getInt(1)+1;
-			sql = "insert into qnaboard (q_id,u_id,subject,content,masterid,replaynum,step) values(?,?,?,?,?,?,?)";
+			sql = "insert into qnaboard (q_id,u_id,subject,content,masterid,replaynum,step) values(seq_qna_num.nextval,?,?,?,?,?,?)";
 			
 			psmt = con.prepareStatement(sql);
-			psmt.setInt(1, q_id);
-			psmt.setString(2, qna.getU_id());
-			psmt.setString(3, qna.getSubject());
-			psmt.setString(4, qna.getContent());
-			psmt.setInt(5, mid);
-			psmt.setInt(6, rnum);
-			psmt.setInt(7, step);
+			psmt.setString(1, qna.getU_id());
+			psmt.setString(2, qna.getSubject());
+			psmt.setString(3, qna.getContent());
+			psmt.setInt(4, mid);
+			psmt.setInt(5, rnum);
+			psmt.setInt(6, step);
 			psmt.executeUpdate();
-			
+			System.out.println(sql);
 			System.out.println("qna 등록 성공");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	   } 
+		
     }
     
 }

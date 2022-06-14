@@ -27,14 +27,15 @@ select * from pro;
 create table pro(
   p_id number not null primary key,
   p_name varchar2(20) not null,
-  p_type varchar2(10) not null,
+  p_type varchar2(100) not null,
   p_date date default sysdate not null,
   price number not null,
   image varchar2(30) not null,
   stock number not null,
   review varchar2(1500) null
 );
-
+drop table pro;
+drop sequence seq_pro_num;
 create SEQUENCE seq_pro_num
     INCREMENT by 1
     start with 1
