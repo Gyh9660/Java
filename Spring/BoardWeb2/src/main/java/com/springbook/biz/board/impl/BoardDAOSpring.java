@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.springbook.biz.board.BoardVO;
+import com.springbook.biz.board.BoardVO_;
 
 //DAO(Data Access Object)
 @Repository
@@ -26,32 +26,32 @@ public class BoardDAOSpring {
 
 	// CRUD 기능의 메소드 구현
 	// 글 등록
-	public void insertBoard(BoardVO vo) {
+	public void insertBoard(BoardVO_ vo) {
 		System.out.println("===> Spring JDBC로 insertBoard() 기능 처리");
 		jdbcTemplate.update(BOARD_INSERT, vo.getSeq(), vo.getTitle(), vo.getWriter(), vo.getContent());
 	}
 
 	// 글 수정
-	public void updateBoard(BoardVO vo) {
+	public void updateBoard(BoardVO_ vo) {
 		System.out.println("===> Spring JDBC로 updateBoard() 기능 처리");
 		jdbcTemplate.update(BOARD_UPDATE, vo.getTitle(), vo.getContent(), vo.getSeq());
 	}
 
 	// 글 삭제
-	public void deleteBoard(BoardVO vo) {
+	public void deleteBoard(BoardVO_ vo) {
 		System.out.println("===> Spring JDBC로 deleteBoard() 기능 처리");
 		jdbcTemplate.update(BOARD_DELETE, vo.getSeq());
 	}
 
 	// 글 상세 조회
-	public BoardVO getBoard(BoardVO vo) {
+	public BoardVO_ getBoard(BoardVO_ vo) {
 		System.out.println("===> Spring JDBC로 getBoard() 기능 처리");
 		Object[] args = { vo.getSeq() };
 		return jdbcTemplate.queryForObject(BOARD_GET, args, new BoardRowMapper());
 	}
 
 	// 글 목록 조회
-	public List<BoardVO> getBoardList(BoardVO vo) {
+	public List<BoardVO_> getBoardList(BoardVO_ vo) {
 		System.out.println("===> Spring JDBC로 getBoardList() 기능 처리");
 		Object[] args = { vo.getSearchKeyword() };
 		if (vo.getSearchCondition().equals("TITLE")) {			
