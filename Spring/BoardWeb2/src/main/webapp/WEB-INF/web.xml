@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app>
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 7a6b14bb83f22218a13c7a0564af8bc7b4fb36c6
   <!--  MVC M1 : Web.xml 에서 별도의 셋팅이 필요 없다.  -->
 
 
 
 
+<<<<<<< HEAD
+=======
+=======
+	<!-- MVC_M1 Web.xml에서 별도의 셋팅이 필요 없다. -->
+	
+>>>>>>> 9e0d4adb58faea260cdc14d29e5db0017df7b0c2
+>>>>>>> 7a6b14bb83f22218a13c7a0564af8bc7b4fb36c6
 
 </web-app>

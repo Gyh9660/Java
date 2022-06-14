@@ -72,6 +72,7 @@ create SEQUENCE seq_qna_num
 drop sequence seq_qna_num; 
 drop table qnaboard;
 select * from qnaboard order by q_id desc ;
+select * from qnaboard;
 insert into qnaboard values(seq_qna_num.nextval,'qw!@12','1¹ø-2','1223534',sysdate,default,seq_qna_num.currval,3,3);
 commit;
 select max(q_id) from  qnaboard;
