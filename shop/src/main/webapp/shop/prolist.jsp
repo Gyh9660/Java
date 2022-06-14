@@ -14,27 +14,12 @@ a {
 }
 </style>
 <script>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 7a6b14bb83f22218a13c7a0564af8bc7b4fb36c6
-	function view(temp) {
-		if (temp.length > 0) {
-			url = "/shop/Uploads/" + temp;
-			window
-					.open(url, "win",
-							"height=350,width=450,toolbar=0,menubar=0,scrollbars=1,resizable=1,status=0");
-		}
-<<<<<<< HEAD
-=======
-=======
 function view(temp) {
 	if (temp.length >0) { 
  		url = "/shop/Uploads/" + temp;
 		window.open(url, "win", "height=350,width=450,toolbar=0,menubar=0,scrollbars=1,resizable=1,status=0");
->>>>>>> 9e0d4adb58faea260cdc14d29e5db0017df7b0c2
->>>>>>> 7a6b14bb83f22218a13c7a0564af8bc7b4fb36c6
 	}
+}
 </script>
 </head>
 <body>
