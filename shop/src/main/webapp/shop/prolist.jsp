@@ -31,9 +31,11 @@ function view(temp) {
 	<br>
 	<br>
 	<br>
+
 	<h2 style="text-align: center;">
-		<a href="../shop/plist.do">Switch</a>
+		<a href="../shop/plist.do?searchField=p_type&searchWord=${map.get('searchWord')}">${map.get("searchWord") }</a>
 	</h2>
+	
 	<br>
 	<br>
 	<br>
@@ -46,7 +48,6 @@ function view(temp) {
 			<tr>
 				<td align="center"><select name="searchField">
 						<option value="p_name">제목</option>
-						<option value="p_type">분류</option>
 				</select> <input type="text" name="searchWord" /> <input type="submit"
 					value="검색하기" /></td>
 			</tr>
@@ -54,9 +55,9 @@ function view(temp) {
 	</form>
 	<div style="width: 100%;">
 		<ul style="float: cneter;">
-			<li style="float: left; margin: 10px"><a href="#">하드웨어</a></li>
-			<li style="float: left; margin: 10px"><a href="#">소프트웨어</a></li>
-			<li style="float: left; margin: 10px"><a href="#">주변기기</a></li>
+			<li style="float: left; margin: 10px"><a href="../shop/plist.do?searchField=p_type&searchWord=Switch 하드웨어">하드웨어</a></li>
+			<li style="float: left; margin: 10px"><a href="../shop/plist.do?searchField=p_type&searchWord=Switch 소프트웨어">소프트웨어</a></li>
+			<li style="float: left; margin: 10px"><a href="../shop/plist.do?searchField=p_type&searchWord=Switch 주변기기">주변기기</a></li>
 		</ul>
 	</div>
 	<br>

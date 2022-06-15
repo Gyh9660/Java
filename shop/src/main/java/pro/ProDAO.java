@@ -134,7 +134,7 @@ public class ProDAO extends DBConnPool{
 	               + " ) "
 	               + " WHERE rNum BETWEEN ? AND ?";
 	        
-	        System.out.println(query); //콘솔에 전체쿼리를 출력
+	        //System.out.println(query); //콘솔에 전체쿼리를 출력
 
 	        try {
 	            psmt = con.prepareStatement(query);
@@ -190,4 +190,7 @@ public class ProDAO extends DBConnPool{
 	    	
 	    	return pdto;
 	    }
+		
+		
+		
 }

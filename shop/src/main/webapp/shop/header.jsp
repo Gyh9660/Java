@@ -16,6 +16,7 @@ try{
 	//id세션 속성의 값을 얻어내서 id변수에 저장
 	//인증된 사용자의 경우  id세션 속성의 값 null또는 공백이 아님
 	u_id = (String)session.getAttribute("u_id");
+	
 %>
  <header>
         <div class="top">
@@ -54,25 +55,25 @@ try{
                             <li><a class ="headera" href="#">예약구매</a></li>
                         </ul>
                     </li>
-                    <li><a class ="headera" href="../shop/plist.do">Switch</a>
+                    <li><a class ="headera" href="../shop/plist.do?searchField=p_type&searchWord=Switch">Switch</a>
                         <ul class="submenu">
-                            <li><a class ="headera" href="../shop/plist.do">하드웨어</a></li>
-                            <li><a class ="headera" href="../shop/plist.do">소프트웨어</a></li>
-                            <li><a class ="headera" href="../shop/plist.do">주변기기</a></li>
+                            <li><a class ="headera" href="../shop/plist.do?searchField=p_type&searchWord=Switch 하드웨어">하드웨어</a></li>
+                            <li><a class ="headera" href="../shop/plist.do?searchField=p_type&searchWord=Switch 소프트웨어">소프트웨어</a></li>
+                            <li><a class ="headera" href="../shop/plist.do?searchField=p_type&searchWord=Switch 주변기기">주변기기</a></li>
                         </ul>
                     </li>
-                    <li><a class ="headera" href="#">3DS</a>
+                    <li><a class ="headera" href="../shop/plist.do?searchField=p_type&searchWord=3DS">3DS</a>
                         <ul class="submenu">
-                            <li><a class ="headera" href="#">하드웨어</a></li>
-                            <li><a class ="headera" href="#">소프트웨어</a></li>
-                            <li><a class ="headera" href="#">주변기기</a></li>
+                            <li><a class ="headera" href="../shop/plist.do?searchField=p_type&searchWord=3DS 하드웨어">하드웨어</a></li>
+                            <li><a class ="headera" href="../shop/plist.do?searchField=p_type&searchWord=3DS 소프트웨어">소프트웨어</a></li>
+                            <li><a class ="headera" href="../shop/plist.do?searchField=p_type&searchWord=3DS 주변기기">주변기기</a></li>
                         </ul>
                     </li>
-                    <li><a class ="headera" href="#">액세서리</a>
+                    <li><a class ="headera" href="../shop/plist.do?searchField=p_type&searchWord=액세서리">액세서리</a>
                         <ul class="submenu">
-                            <li><a class ="headera" href="#">Switch</a></li>
-                            <li><a class ="headera" href="#">3DS</a></li>
-                            <li><a class ="headera" href="#">굿즈</a></li>
+                            <li><a class ="headera" href="../shop/plist.do?searchField=p_type&searchWord=액세서리 (switch)">Switch</a></li>
+                            <li><a class ="headera" href="../shop/plist.do?searchField=p_type&searchWord=액세서리 (3ds)">3DS</a></li>
+                            <li><a class ="headera" href="../shop/plist.do?searchField=p_type&searchWord=굿즈">굿즈</a></li>
                         </ul>
                     </li>
                     <li><a class ="headera" href="../shop/list.do">고객센터</a>

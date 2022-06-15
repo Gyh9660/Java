@@ -39,8 +39,8 @@
                 <option value="3DS 하드웨어">3DS 하드웨어</option>
                 <option value="3DS 소프트웨어">3DS 소프트웨어</option>
                 <option value="3DS 주변기기">3DS 주변기기</option>
-                <option value="액세서리 (Switch)">액세서리 (Switch)</option>
-                <option value="액세서리 (3DS)">액세서리 (3DS)</option>
+                <option value="액세서리 (switch)">액세서리 (Switch)</option>
+                <option value="액세서리 (3ds)">액세서리 (3DS)</option>
                 <option value="액세서리 (굿즈)">액세서리 (굿즈)</option>
             	</select>
 			</td>

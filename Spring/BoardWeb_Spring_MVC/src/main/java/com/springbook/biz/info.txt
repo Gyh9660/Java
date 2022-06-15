@@ -1,0 +1,8 @@
+
+1. web.xml : Spring의 (org.springframework.web.servlet.DispatcherServlet)
+		를 Controller로 작동
+
+2. Webapp\WEB-INF 에 action-servlet.xml의 빈 설정 xml파일이 존재해야함.
+
+3. web.xml 설정에서 action-servlet.xml의 이름이나 위치를 변경 할 수 있다.
+	WEB-IN\config\presentation-layer.xml
