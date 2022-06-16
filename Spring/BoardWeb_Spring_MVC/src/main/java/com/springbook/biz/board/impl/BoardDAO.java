@@ -92,7 +92,7 @@ public class BoardDAO {
 				board.setTitle(rs.getString("TITLE"));
 				board.setWriter(rs.getString("WRITER"));
 				board.setContent(rs.getString("CONTENT"));
-				board.setReg_date(rs.getDate("REG_DATE"));
+				board.setReg_date(rs.getDate("REGDATE"));
 				board.setCnt(rs.getInt("CNT"));
 			}
 		} catch (Exception e) {
@@ -138,7 +138,7 @@ public class BoardDAO {
 				board.setTitle(rs.getString("TITLE"));
 				board.setWriter(rs.getString("WRITER"));
 				board.setContent(rs.getString("CONTENT"));
-				board.setReg_date(rs.getDate("REG_DATE"));
+				board.setReg_date(rs.getDate("REGDATE"));
 				board.setCnt(rs.getInt("CNT"));
 				boardList.add(board);
 			}

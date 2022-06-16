@@ -1,34 +1,26 @@
 package com.springbook.biz.view.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.springbook.biz.board.BoardVO;
 import com.springbook.biz.board.impl.BoardDAO;
 
-public class DeleteBoardController implements Controller {
+@Controller
+public class DeleteBoardController {
 
-	@Override
-	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		System.out.println("글 삭제 처리");
+	@RequestMapping(value="/deleteBoard.do")
+	public String deleteBoard(BoardVO vo, BoardDAO boardDAO){
+		System.out.println("글 삭제 처리 Spring MVC 어노테이션");
 		
-		// 1. 사용자 입력 정보 추출
-		String seq = request.getParameter("seq");
-		
-		// 2. DB 연동 처리
-		BoardVO vo = new BoardVO();
-		vo.setSeq(Integer.parseInt(seq));
-		
-		BoardDAO boardDAO = new BoardDAO();
 		boardDAO.deleteBoard(vo);
 		
-		// 3. 화면 네비게이션
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:getBoardList.do");
-		return mav;
+		return "redirect:getBoardList.do"; 
+		//redirect로 이동, 없으면 기본값은 Forward http://localhost:8383/biz/getBoardList.do로이동
+		//return "getBoardList.do"; 
+		//Forward로 이동http://localhost:8383/biz/deleteBoard.do?seq=4로 이동
+		//String 일때는 그냥 return 으로 String으로 이동할 주소 직접입력
 	}
 
 }

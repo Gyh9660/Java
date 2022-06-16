@@ -5,7 +5,9 @@
 
 <!-- HanlerMapping 등록 <<시작>>  : 클라이언트 요청에 대한 Controller를 알려줌(매핑)-->
 <!-- <prop key= "요청">컨트롤러 빈(객체)이름</prop>-->
+
 <bean class = "org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+	<!-- login.do라는 요청이오면 login 실행 login은 아래에서 loginController의 객체 -->
 	<property name ="mappings">
 		<props>
 			<prop key="/login.do">login</prop>
@@ -20,6 +22,7 @@
 	</property>
 </bean>
 <!-- Controller Bean 생성 -->
+<!-- 위에서 login.do 로 login을 호출하면 아래에서 id가 login인 login객체의 class 컨트롤러를 맵핑(연결)해서 작동 -->
 <bean id = "login" class ="com.springbook.biz.view.controller.LoginController"> </bean>
 <bean id = "logout" class ="com.springbook.biz.view.controller.LogoutController"></bean>
 <bean id = "getBoard" class ="com.springbook.biz.view.controller.GetBoardController"></bean>
@@ -29,6 +32,9 @@
 <bean id = "updateBoard" class ="com.springbook.biz.view.controller.UpdateBoardController"></bean>
 
 <!--  ViewResolver 셋팅 : View 페이지를 완성 prefix : ./, suffix : .jsp -->
+	<!-- Controller에서 Forward로 뷰페이지를 던질때 적용.
+		 redirect로 뷰페이지를 던질떄는 적용이 되지 않는다.
+	 -->
 <bean id = "viewResolver" class = "org.springframework.web.servlet.view.InternalResourceViewResolver">
 	<property name = "prefix" value = "/WEB-INF/Board/"></property>
 	<property name = "suffix" value = ".jsp"></property>

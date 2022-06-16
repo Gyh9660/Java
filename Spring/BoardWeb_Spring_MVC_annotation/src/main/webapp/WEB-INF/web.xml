@@ -9,10 +9,11 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/config/presentation-layer.xml</param-value>
 	</init-param>
-
+<!-- init-param으로 경로설정,  설정안하면 WEB-INF안의 action- 파일로 설정 -->
+<!-- 설정된 경로파일에서 bean설정을 하게됨 -->
 
 </servlet>
-	
+	<!-- 클라이언트의 모든 요청 (*.do 요청에대해서 위의 DispatcherServlet으로 연결) -->
 <servlet-mapping>
 	<servlet-name>action</servlet-name>
 	<url-pattern>*.do</url-pattern>
