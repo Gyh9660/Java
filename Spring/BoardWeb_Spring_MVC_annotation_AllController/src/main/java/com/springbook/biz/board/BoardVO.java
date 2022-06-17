@@ -12,7 +12,7 @@ public class BoardVO {
 	private String content; 
 	private Date reg_date; 
 	private int cnt;
-	/*
+	
 	private String searchCondition;
 	private String searchKeyword;
 	private MultipartFile uploadFile;
@@ -37,7 +37,7 @@ public class BoardVO {
 	public void setUploadFile(MultipartFile uploadFile) {
 		this.uploadFile = uploadFile;
 	}
-	*/
+	
 	public int getSeq() {
 		return seq;
 	}
