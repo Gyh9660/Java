@@ -21,6 +21,8 @@ public class InsertBoardController{
 		
 
 		*/
+			//클라이언트 폼에서 주입하는 값을 setter주입으로 
+			//스프링에서 자동으로 vo에 주입
 	public String insertBoard(BoardVO vo,BoardDAO boardDAO){
 		System.out.println("글 등록 처리- Spring MVC 어노테이션 작동");
 		

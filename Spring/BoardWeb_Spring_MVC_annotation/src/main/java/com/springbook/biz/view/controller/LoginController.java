@@ -1,39 +1,25 @@
 package com.springbook.biz.view.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.springbook.biz.user.UserVO;
 import com.springbook.biz.user.impl.UserDAO;
 
-public class LoginController implements Controller{
-
-	@Override
-	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		System.out.println("로그인 처리 - Spring_MVC 호출");
+@Controller
+public class LoginController {
+	
+	@RequestMapping(value="/login.do")
+	public String login( UserVO vo, UserDAO userDAO) {
+		System.out.println("로그인 처리 - Spring_MVC 어노테이션 호출");
 		
-		// 1. 사용자 입력 정보 추출
-		String id = request.getParameter("id");
-		String pass = request.getParameter("pass");
-
-		// 2. DB 연동 처리
-		UserVO vo = new UserVO();
-		vo.setId(id);
-		vo.setPass(pass);
-
-		UserDAO userDAO = new UserDAO();
-		UserVO user = userDAO.getUser(vo);
-
-		// 3. 화면 네비게이션
-		//view 페이지 리턴함.
-		ModelAndView mav = new ModelAndView();
+		System.out.println("id "+vo.getId());
+		System.out.println("pass "+vo.getPass());
 		
 		
-		if (user != null) {
-			mav.setViewName("redirect:getBoardList.do");;
+		if (userDAO.getUser(vo) != null) {
+			return "redirect:getBoardList.do";
 			//redirect : viewResolver 설정을 무시하고 리다이렉트한다
 			//redirect : viewResolver의 preix suffix가 적용되지 않도록 한다,
 		
@@ -43,12 +29,9 @@ public class LoginController implements Controller{
 			//redirect : 서버에서 전송한 페이지를 client가 재요청
 				//클라이언트의 URL이 바뀐다.
 				//ViewResolver가 작동이 앋된다.
-			
-		
 		} else {
-			mav.setViewName("redirect:login.jsp"); //ViewResolver 페이지에서 뷰페이지를 완성함.
+			return "redirect:login.jsp"; 
 		}
-		return mav;
 		
 	}
 
