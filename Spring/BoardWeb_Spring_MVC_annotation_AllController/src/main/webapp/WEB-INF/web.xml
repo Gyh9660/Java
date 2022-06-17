@@ -20,6 +20,10 @@
 </servlet-mapping>	
 <!-- DispatcherServlet 설정 완료 -->
 
+
+
+
+
 <!-- 인코딩 설정 : UTF-8 <<시작>> 모든페이지에서 인코딩 설정 -->
 
 <filter>
@@ -31,7 +35,30 @@
 	</init-param>
 </filter>
 
+<filter-mapping>
+	<filter-name>characterEncoding</filter-name>
+	<url-pattern>*.do</url-pattern>
+</filter-mapping>
 
+	
+	
+	
+	
+	
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+	
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>
+	</context-param>
+	
+	
+	
 
 	
 	
