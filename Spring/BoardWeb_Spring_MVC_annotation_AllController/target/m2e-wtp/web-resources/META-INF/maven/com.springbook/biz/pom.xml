@@ -7,6 +7,16 @@
 	<name>BoardWeb_MVC_Framework</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
+	
+	<!-- 오라클 JDBC 드라이버 properties 시작 전에 넣어 주세요 -->
+	<repositories>
+	  <repository>
+	   <id>oracle</id>
+	   <url>http://maven.jahia.org/maven2</url>
+	  </repository>
+	</repositories>
+	
+	
 	<properties>
 		<java-version>11</java-version>
 		<org.springframework-version>4.2.4.RELEASE</org.springframework-version>
@@ -15,6 +25,14 @@
 	</properties>
 	<dependencies>
 	
+	
+	<!-- 오라클 JDBC 드라이버 -->
+		<dependency>
+		    <groupId>com.oracle</groupId>
+		    <artifactId>ojdbc7</artifactId>
+		    <version>12.1.0.2</version>
+		</dependency>
+		
 	<!-- H2 DB 라이브러리 등록 -->
 		<dependency>
 			<groupId>com.h2database</groupId>

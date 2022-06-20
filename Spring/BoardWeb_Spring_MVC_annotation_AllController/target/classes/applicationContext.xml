@@ -23,7 +23,7 @@
 
 <!-- DataSource 설정 2.(프로퍼티 파일을 사용한 설정):
  DB연동 할때 사용, JDBCTemplate, mybatis ,JPA연동시 사용-->
-<context:property-placeholder location ="classpath:config/database.properties"/>
+<context:property-placeholder location ="classpath:config/oracle_db.properties"/>
 <bean id ="dataSource" class = "org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 	<property name="driverClassName" value= "${jdbc.driver}"></property>
 	<property name="url" value = "${jdbc.url}"></property>
