@@ -17,7 +17,7 @@ public class LoginController {
 	public String loginView(@ModelAttribute("user") UserVO vo) {
 		System.out.println("로그인 화면으로 이동...");
 		vo.setId("test");
-		vo.setPassword("test123");
+		vo.setPass("test123");
 		return "login.jsp";
 	}
 

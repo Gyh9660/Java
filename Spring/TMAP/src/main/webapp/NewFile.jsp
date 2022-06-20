@@ -49,10 +49,28 @@ map.setZoom(10); // 레벨 설정
 }
 //지도를 클릭했을때 발생하는 이벤트 함수입니다.
 function onClick(e) {
+	removeMarkers();
+	lonlat=e.latLng;
+	//Marker 객체 생성
+	marker = new Tmapv2.Marker({
+		position: new Tmapv2.LatLng(lonlat.lat(),lonlat.lng()), //마커의 중심좌표 성정
+		map: map //marker가 표시될 map설정
+	});
+	
+	markers.push(marker);	
+}
+// 모든 마커를 제거하는 함수입니다.
+function removeMarkers() {
+	for (var i = 0; i < markers.length; i++) {
+		markers[i].setMap(null);
+	}
+	markers = [];
+}
 	var result = '클릭한 위치의 좌표는' + e.latLng + '입니다.';
 	var resultDiv = document.getElementById("result");
 	resultDiv.innerHTML = result;
-}
+	
+	
 function onChanged(e) {
 	var result = '현재 zoom : ' + e.zoom+ '입니다.';
 	var resultDiv = document.getElementById("result");

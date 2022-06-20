@@ -3,7 +3,7 @@ package com.springbook.biz.user;
 //VO(Value Object)
 public class UserVO {
 	private String id;
-	private String password;
+	private String pass;
 	private String name;
 	private String role;
 
@@ -15,12 +15,12 @@ public class UserVO {
 		this.id = id;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getPass() {
+		return pass;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPass(String pass) {
+		this.pass = pass;
 	}
 
 	public String getName() {
@@ -41,6 +41,6 @@ public class UserVO {
 
 	@Override
 	public String toString() {
-		return "UserVO [id=" + id + ", password=" + password + ", name=" + name + ", role=" + role + "]";
+		return "UserVO [id=" + id + ", pass=" + pass + ", name=" + name + ", role=" + role + "]";
 	}
 }
