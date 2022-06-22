@@ -7,13 +7,18 @@
         <title>simpleMap</title>
         <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xxe8583592f510477c8480044d12760288"></script>
         <script>
+        var map,marker;
+    	var lonlat;
+    	var markers = [];
 // 페이지가 로딩이 된 후 호출하는 함수입니다.
+
 function initTmap(){
 	// map 생성
 	// Tmapv2.Map을 이용하여, 지도가 들어갈 div, 넓이, 높이를 설정합니다.
 	map = new Tmapv2.Map("map_div", { // 지도가 생성될 div
+		center: new Tmapv2.LatLng(37.566481622437934,126.98502302169841), // 지도 초기 좌표
 		width : "100%", // 지도의 넓이
-		height : "400px",  // 지도의 높이
+		height : "400px"  // 지도의 높이
 		
 	});
 	map.addListener("click", onClick); // 이벤트의 종류와 해당 이벤트 발생 시 실행할 함수를 리스너를 통해 등록합니다
@@ -47,18 +52,31 @@ function zoom(){
 	
 map.setZoom(10); // 레벨 설정
 }
+
+//클릭한 곳 위치값을 받아서 시작버튼 누르면 그자리에 시작버튼 추가
+//경유지 누르면 추가, 도착지점 누르면 도착 마커추가?
+// 빵집 표시는 마커 안움직이게 박아놓고 지도사진 고정?
+		//지도에서 이름으로검색(?마커등록이 먼저필요한가)
 //지도를 클릭했을때 발생하는 이벤트 함수입니다.
 function onClick(e) {
-	removeMarkers();
 	lonlat=e.latLng;
-	//Marker 객체 생성
-	marker = new Tmapv2.Marker({
-		position: new Tmapv2.LatLng(lonlat.lat(),lonlat.lng()), //마커의 중심좌표 성정
-		map: map //marker가 표시될 map설정
-	});
 	
-	markers.push(marker);	
+	var result = '클릭한 위치의 좌표는' + e.latLng + '입니다.';
+	var resultDiv = document.getElementById("result");
+	resultDiv.innerHTML = result;
+	
+	removeMarkers();
+
+	
+	marker = new Tmapv2.Marker({
+		position: new Tmapv2.LatLng(lonlat.lat(),lonlat.lng()), //Marker의 중심좌표 설정.
+		map: map //Marker가 표시될 Map 설정.
+	});
+	  
+	markers.push(marker);
 }
+
+
 // 모든 마커를 제거하는 함수입니다.
 function removeMarkers() {
 	for (var i = 0; i < markers.length; i++) {
@@ -66,9 +84,8 @@ function removeMarkers() {
 	}
 	markers = [];
 }
-	var result = '클릭한 위치의 좌표는' + e.latLng + '입니다.';
-	var resultDiv = document.getElementById("result");
-	resultDiv.innerHTML = result;
+
+	
 	
 	
 function onChanged(e) {
