@@ -98,7 +98,7 @@ function check(){
 			<table  style="width:80%;background-color: skyblue;">
 			<tr align="center">
 				<td style="font-size: 20px">${ map.pagingImg }</td>
-				<td width="100"><button type="button" onclick="check()">글쓰기</button></td>
+				<td width="100"><button type="button" onclick="check()">글쓰기 ${u_id }</button></td>
 			</tr>
 			</table>
 		</c:when>
@@ -106,7 +106,7 @@ function check(){
 			<table  style="width:80%;background-color: skyblue;">
 				<tr align="center">
 					<td style="font-size: 20px;">${ map.pagingImg }</td>
-					<td width="100"><button type="button" onclick="location.href='../shop/write.do';">글쓰기</button></td>
+					<td width="100"><button type="button" onclick="location.href='../shop/write.do';">글쓰기 ${u_id }</button></td>
 				</tr>
 			</table>
 		</c:otherwise>

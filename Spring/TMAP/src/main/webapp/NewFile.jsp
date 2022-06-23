@@ -6,7 +6,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>simpleMap</title>
         <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xxe8583592f510477c8480044d12760288"></script>
-        <script>
+		<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+	
+<script>
         var map,marker;
     	var lonlat;
     	var markers = [];
@@ -145,6 +147,18 @@ lonlat.toBesselTm();
 lonlat.toEPSG3857();
 }
 
+	function googleTranslateElementInit(){
+		new google.translate.TranslateElement({
+			pageLanguage: 'ko',
+			layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+			includeLanguages: 'ko,zh-CN,zh-TW,ja,vi,th,tl,km,my,mn,ru,en,fr,ar',
+			autoDisplay: false
+		}
+		,'google_translate_element');
+	}
+
+
+
 </script>
     </head>
     <body onload="initTmap()">
@@ -168,5 +182,16 @@ lonlat.toEPSG3857();
 	<div>
 		<button onClick="lonlat()">경로</button>
 	</div>
+	
+	<div id="google_translate_element" class="hd_lang"></div>
+	
+	한글
+	
+	
+	
+	
+	
+	
+	
     </body>
 </html>	
