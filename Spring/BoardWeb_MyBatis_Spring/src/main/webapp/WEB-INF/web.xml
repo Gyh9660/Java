@@ -32,6 +32,7 @@
 	<init-param>
 		<param-name>encoding</param-name>
 		<param-value>EUC-KR</param-value>
+		<!-- utf-8로 설정 -->
 	</init-param>
 </filter>
 

@@ -16,6 +16,11 @@
 		<br> <a href="getBoardList.do">글 목록 바로가기</a><br><br><br>
 		<a href="dataTransform.do">글 목록 변환 처리</a><br>
 		<hr>
+		<p>
+		<a href ="insertUser.do">회원가입</a><p>
+		<a href ="updateUser.do?id=admin">회원수정</a><p>
+		<a href ="deleteUser.do">회원삭제</a><p>
+		<a href ="getUserList.do">회원목록</a><p>
 	</center>
 </body>
 </html>

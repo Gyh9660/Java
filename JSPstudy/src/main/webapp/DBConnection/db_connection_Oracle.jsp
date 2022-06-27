@@ -35,7 +35,7 @@
 <%
 
 	if(connect == true){
-		out.println ("orcle DB에 잘 연결 되었습니다.");
+		System.out.println ("orcle DB에 잘 연결 되었습니다.");
 	}else {
 		out.println ("orcle DB연결에 실패 하였습니다.");
 	}

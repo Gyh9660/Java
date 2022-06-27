@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="UserDAO">
+
+
+	<resultMap type="user" id="userResult">
+		<id property="u_id" column = "U_ID"></id> <!-- primary key 생성 -->
+		<result property="u_pass" column="U_PASS"/>
+		<result property="email" column="EMAIL"/>
+		<result property="grade" column="GRADE"/>
+		<result property="phone" column="PHONE"/>
+		<result property="nick" column="NICK"/>
+		<result property="u_name" column="U_NAME"/>
+		<result property="u_profile" column="U_PROFILE"/>
+		<result property="point" column="POINT"/>
+		<result property="apoint" column="APOINT"/>
+		<result property="u_date" column="U_DATE"/>
+	
+	</resultMap>
+
+	<insert id = "insertUser">
+		<![CDATA[
+		INSERT INTO B_USER (ID,U_PASS,EMAIL,PHONE,NICK,U_NAME,U_PROFILE)
+		VALUES (#{id},#{u_pass},#{email},#{phone},#{nick},#{u_name},#{u_profile})
+		]]>
+	</insert>
+
+
+
+
+
+
+</mapper>
