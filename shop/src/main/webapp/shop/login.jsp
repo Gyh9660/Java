@@ -33,6 +33,8 @@ if(u_id == null || u_id.equals("")){ //인증되지 않은 사용자 영역%>
          	<br>
             <a href="#" class="find">아이디/비밀번호 찾기</a>
         </div>
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+   
     </section>
 <%}}catch(Exception e){e.printStackTrace();}%>
 
