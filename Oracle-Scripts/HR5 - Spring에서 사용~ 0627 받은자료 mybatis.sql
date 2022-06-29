@@ -46,3 +46,23 @@ CREATE TABLE TBL_BOARD(
     	CONSTRAINT BGNO_PK PRIMARY KEY (BGNO)
     );
     CREATE SEQUENCE BGNO_SEQ;
+
+select * from tbl_board;
+
+
+
+
+
+  SELECT BRDNO, BRDTITLE, BRDWRITER, TO_CHAR(BRDDATE,'yyyy-mm-dd') BRDDATE, BRDHIT
+        	FROM (
+          	SELECT BRDNO, BRDTITLE, BRDWRITER, BRDDATE, BRDHIT
+          	, BRDDELETEFLAG, ROW_NUMBER() OVER(ORDER BY BRDNO DESC) BRDNO_SEQ
+         FROM TBL_BOARD WHERE BRDDELETEFLAG='N')
+         WHERE BRDNO_SEQ BETWEEN ${rowStart} AND ${rowEnd}
+         ORDER BY BRDNO DESC;
+         
+         select * from tbl_board order by brdno desc;
+select * from tbl_board b1 , tbl_boardfile b2
+ where  b1.brdno = b2.brdno;
+select * from tbl_boardfile;
+select * from tbl_board;
