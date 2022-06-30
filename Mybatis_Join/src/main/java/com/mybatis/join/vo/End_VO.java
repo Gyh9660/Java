@@ -12,7 +12,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @Component
-public class EmployeeVO {
+public class End_VO {
 
 	private int eno;
 	private String ename;
@@ -22,6 +22,7 @@ public class EmployeeVO {
 	private int salary;
 	private int commission;
 	private int dno;
-
+	private String dname;
+	private String loc;
 	
 }

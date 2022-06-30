@@ -9,10 +9,12 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class JoinVO {
+public class JoinVO2 {
 
-	private EmployeeVO empJ;
-	private DepartmentVO deptJ;
+	private EmpsVO jEmps;
+	private DeptsVO jDepts;
+	private JobVO jJob;
+	private LocationVO jLoca;
 	
 	
 }
