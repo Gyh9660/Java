@@ -12,16 +12,11 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @Component
-public class EmployeeVO {
+public class JobVO {
 
-	private int eno;
-	private String ename;
-	private String job;
-	private int manager;
-	private String hiredate;
-	private int salary;
-	private int commission;
-	private int dno;
-
-	
+	 private int employee_id;
+	 private String start_date;
+	 private String end_date;
+	 private String job_id;
+	 private int department_id;
 }

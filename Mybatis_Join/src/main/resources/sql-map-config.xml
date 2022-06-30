@@ -13,6 +13,13 @@
 		<typeAlias type="com.mybatis.join.vo.SpringDepartmentVO" alias="sdept"/>
 		<typeAlias type="com.mybatis.join.vo.SpringEmploymentVO" alias="semp"/>
 		<typeAlias type="com.mybatis.join.vo.SpringJoinVO" alias="sjoinvo"/>
+		<typeAlias type="com.mybatis.join.vo.End_VO" alias="end_vo"/>
+		<typeAlias type="com.mybatis.join.vo.AllJoinVO" alias="alljoinvo"/>
+		<typeAlias type="com.mybatis.join.vo.JoinVO2" alias="joinvo2"/>
+		<typeAlias type="com.mybatis.join.vo.EmpsVO" alias="emps"/>
+		<typeAlias type="com.mybatis.join.vo.DeptsVO" alias="depts"/>
+		<typeAlias type="com.mybatis.join.vo.LocationVO" alias="location"/>
+		<typeAlias type="com.mybatis.join.vo.JobVO" alias="job"/>
 	</typeAliases>
 	
 	 
