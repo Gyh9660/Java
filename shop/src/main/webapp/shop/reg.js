@@ -18,7 +18,7 @@ $(document).ready(function(){
 	    	    	$("#u_id").val("");
 	    	    	$("#u_id").focus();
 	    	    	return false;
-	    	     }else if(data == -1)//사용할 수 있는 아이디
+	    	     }else if(data == 0)//사용할 수 있는 아이디
 	    	  	    idck = true;	    	  	    
 	    	  	    //alert(idck);
 	    	  	    alert("사용할 수 있는 아이디");
